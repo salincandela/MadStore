@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project>
+    <bannerLeft>
+        <src>images/madstore-logo.png</src>
+    </bannerLeft>
+    <version position="left"/>
+    <poweredBy>
+        <logo name="Sourceforge" href="http://sourceforge.net/projects/madstore" img="http://sflogo.sourceforge.net/sflogo.php?group_id=253763&amp;type=12"/>
+    </poweredBy>
+    <body>
+        <menu name="MadStore">
+            <item name="MadStore" href="/index.html">
+                <item name="Applying Microformats" href="/docs/microformats.html"/>
+                <item name="Configuring MadStore" href="/docs/configuration.html"/>
+                <item name="Using MadStore" href="/docs/usage.html"/>
+            </item>
+        </menu>
+        <menu name="Reports" ref="reports"/>
+    </body>
+</project>

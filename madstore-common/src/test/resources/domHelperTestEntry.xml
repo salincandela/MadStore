@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entry key="entryKeyTest1" xml:lang="en">
+    <title>test entry title 1</title>
+    <id />
+    <published>2008-12-13T18:30:02Z</published>
+    <updated>2008-12-13T18:30:02Z</updated>
+    <summary type="xhtml">test summary 1</summary>
+    <content type="xhtml">test content 1</content>
+    <author>
+        <name>test author 1</name>
+        <uri>http://testauthorlink1.com</uri>
+    </author>
+</entry>

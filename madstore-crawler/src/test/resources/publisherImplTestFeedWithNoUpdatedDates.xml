@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" key="feedKeyTest" xml:lang="en" xml:base="">
+    <updated>2008-12-13T18:30:02Z</updated>
+    <id/>
+    <link type="&#10;text/html&#10;" href="" rel="alternate"/>
+    <title>test feed title</title>
+    <entry key="entrykeytest1" xml:lang="en">
+        <title>test entry title 1</title>
+        <id/>
+        <summary type="xhtml">
+            <div xmlns="http://www.w3.org/1999/xhtml">test summary 1
+            </div>
+        </summary>
+        <content type="xhtml">
+            <div xmlns="http://www.w3.org/1999/xhtml">test content 1 example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text example text
+            </div>
+        </content>
+        <author>
+            <name>test author 1</name>
+            <uri>http://testauthorlink1.com</uri>
+        </author>
+    </entry>
+</feed>

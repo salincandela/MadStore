@@ -1,0 +1,52 @@
+Applying Microformats
+
+    MadStore provides a lightweight infrastructure for crawling web sites and extracting information to store and publish
+    as Atom feeds based on {{{http://microformats.org/wiki/hatom}hAtom microformats}}, so you will need to make your web pages XHTML compliant,
+    and then apply the proper microformats.
+
+    MadStore fully adheres to the latest {{{http://microformats.org/wiki/hatom}hAtom specification draft}} and
+    extends it by adding two more microformat elements:
+
+        * The <feed-key> element, to be placed under the standard <hfeed> container element, used as a unique identifier
+        for Atom feeds: it must be in lower-case (if not, it will be converted), and unique among all other feed keys.
+
+        * The <entry-key> element, to be placed under the standard <hentry> container element, used as a unique identifier
+        for Atom entries inside a given Atom feeds: it must be in lower-case (if not, it will be converted), and unique among all other entry keys
+        inside its feed.
+
+    The <feed-key> and <entry-key> extensions are used by MadStore to avoid duplicates, guarantee correct updating of Atom entries and
+    construct the URL clients will use to access the web feeds, so you are strongly encouraged to put them on your web pages.\
+    However, MadStore is able to discover and work with your microformats even if you haven't applied those extensions: in such a case,
+    MadStore will automatically generate surrogated keys based on some page-specific heuristics.
+
+   Here is an example with an XHTML page containing hAtom microformats (and related extensions):
+
+---
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:hatom="http://microformats.org/wiki/hatom" xmlns:fn="http://www.w3.org/2005/02/xpath-functions" xml:lang="en" lang="en">
+    <head>
+        <title>Acme Corporation</title>
+    </head>
+    <body class="hfeed" lang="en">
+        <span class="feed-key" title="acme-news"/>
+        <div class="hentry">
+            <span class="entry-key" title="2"/>
+            <h2 class="entry-title">Acme acquires Foo Corporation</h3>
+            <div class="entry-summary">Acme acquires Foo Corporation ...</div>
+            <div class="entry-content">Acme acquires Foo Corporation ...</div>
+            <a href="http://www.acme.org/2" rel="bookmark">click here</a>
+            <span class="updated" title="2008-09-01T18:30:02Z">September 01, 2008</span>
+        </div>
+        <div class="hentry">
+            <span class="entry-key" title="1"/>
+            <h2 class="entry-title">Acme acquires Bar Corporation</h3>
+            <div class="entry-summary">Acme acquires Bar Corporation ...</div>
+            <div class="entry-content">Acme acquires Bar Corporation ...</div>
+            <a href="http://www.acme.org/1" rel="bookmark">click here</a>
+            <span class="updated" title="2008-08-01T18:30:02Z">August 01, 2008</span>
+        </div>
+    </body>
+</html>
+---
+
+    As you may see, the <feed-key> element, with value <acme-news>, identifies the feed, while the <entry-key> elements identify
+    the two entries.\

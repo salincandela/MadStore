@@ -1,0 +1,63 @@
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mds="http://www.pronetics.com/schema/madstore" xsi:schemaLocation="
+http://www.springframework.org/schema/beans 
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
+http://www.pronetics.com/schema/madstore 
+http://www.pronetics.com/schema/madstore/madstore.xsd">
+    <mds:config>
+        <mds:crawler>
+            <!-- <mds:grid-enabled/> -->
+            <mds:targetSite>
+                <mds:hostName></mds:hostName>
+                <mds:startLink></mds:startLink>
+                <mds:maxConcurrentDownloads></mds:maxConcurrentDownloads>
+                <mds:maxVisitedLinks></mds:maxVisitedLinks>
+            </mds:targetSite>
+        </mds:crawler>
+        <mds:repository>
+            <mds:maxHistory></mds:maxHistory>
+            <mds:index>
+                <mds:indexedPropertiesNamespaces>
+                    <mds:namespace prefix="atom" url="http://www.w3.org/2005/Atom" />
+                </mds:indexedPropertiesNamespaces>
+                <mds:indexedProperties>
+                    <mds:property name="title">
+                        <mds:xpath>//atom:entry/atom:title</mds:xpath>
+                        <mds:boost>1</mds:boost>
+                    </mds:property>
+                    <mds:property name="summary">
+                        <mds:xpath>//atom:entry/atom:summary</mds:xpath>
+                        <mds:boost>1</mds:boost>
+                    </mds:property>
+                    <mds:property name="author">
+                        <mds:xpath>//atom:entry/atom:author/atom:name</mds:xpath>
+                        <mds:boost>1</mds:boost>
+                    </mds:property>
+                </mds:indexedProperties>
+            </mds:index>
+        </mds:repository>
+        <mds:server>
+            <mds:openSearch>
+                <mds:shortName></mds:shortName>
+                <mds:description></mds:description>
+            </mds:openSearch>
+            <mds:atomPub>
+                <mds:workspace></mds:workspace>
+            </mds:atomPub>
+        </mds:server>
+        <mds:tasks>
+            <mds:task name="crawlerTask">
+                <mds:simpleTrigger>
+                    <mds:startDelay></mds:startDelay>
+                    <mds:repeatInterval></mds:repeatInterval>
+                </mds:simpleTrigger>
+            </mds:task>
+            <mds:task name="cleanRepositoryHistoryTask">
+                <mds:simpleTrigger>
+                    <mds:startDelay></mds:startDelay>
+                    <mds:repeatInterval></mds:repeatInterval>
+                </mds:simpleTrigger>
+            </mds:task>
+        </mds:tasks>
+    </mds:config>
+</beans>

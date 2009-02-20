@@ -1,0 +1,13 @@
+<project default="delete-test-data">
+    <target name="delete-test-data">
+        <delete dir="madstore-crawler-integration-tests/src/test/resources/index"/>
+        <delete dir="madstore-crawler-integration-tests/src/test/resources/jcr"/>
+        <delete dir="madstore-repository-integration-tests/src/test/resources/index"/>
+        <delete dir="madstore-repository-integration-tests/src/test/resources/jcr"/>
+        <delete dir="madstore-server-integration-tests/src/test/resources/index"/>
+        <delete dir="madstore-server-integration-tests/src/test/resources/jcr"/>
+        <delete>
+            <fileset dir="." includes="**/derby.log"/>
+        </delete>
+    </target>
+</project>

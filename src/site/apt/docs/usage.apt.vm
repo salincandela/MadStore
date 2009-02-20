@@ -1,0 +1,108 @@
+Using MadStore
+
+* Building MadStore
+
+    MadStore doesn't currently come with a ready-to-use binary distribution.\
+    However, building it from sources is as easy as:
+
+        * Checking out the latest and greatest MadStore sources from {{{https://madstore.svn.sourceforge.net/svnroot/madstore/trunk}here}}
+        (you will need an {{{http://www.google.com/search?q=svn+client}SVN client}}):
+
+---
+$> svn co https://madstore.svn.sourceforge.net/svnroot/madstore/trunk madstore
+---
+
+        * Running <mvn package> from the main source directory, waiting for the glorious <BUILD SUCCESSFUL> message
+        (you will need {{{http://maven.apache.org}Apache Maven 2}}):
+
+---
+$> cd madstore
+$> mvn package
+---
+
+    This will build the following MadStore binaries:
+
+        * <target/madstore-VERSION-standalone-dist.zip>, containing the standalone distributions for the MadStore main application, and the MadStore grid node application.
+
+        * <target/madstore-VERSION-war-dist.zip>, containing the deployable WAR distributions for the MadStore main application, and the MadStore grid node application.
+
+* Installing MadStore
+
+    Once you've got the MadStore binaries, you're ready to install your distribution of choice.
+
+    Unarchive the <<standalone>> distribution if you want to run MadStore within its embedded container; here is its directory structure:
+
+        * <conf> : contains the <madstoreConfguration.xml> file to edit for configuring MadStore.
+
+        * <standalone> : contains the MadStore standalone jar files for the main and grid node applications.
+
+        * <gridgain> : contains the {{{http://www.gridgain.com}GridGain}} distribution, needed for running MadStore crawler in grid mode.
+
+    Unarchive the <<war>> distribution if you want to run MadStore within your Servlet 2.4 container of choice; here is its directory structure:
+
+        * <conf> : contains the <madstoreConfguration.xml> file to edit for configuring MadStore.
+
+        * <standalone> : contains the MadStore standalone war files for the main and grid node applications.
+
+        * <gridgain> : contains the {{{http://www.gridgain.com}GridGain}} distribution, needed for running MadStore crawler in grid mode.
+
+    Then set the <MADSTORE_HOME> environment variable to point to the MadStore distribution directory: <<don't miss this step>>.
+
+    Now you're ready to {{{/docs/configuration.html}configure}} MadStore and deploy it!
+
+* Deploying MadStore as a standalone application.
+
+    MadStore can be deployed as a standalone web application by simply unarchiving the standalone distribution and running the following command:
+
+---
+java -jar $MADSTORE_HOME/standalone/madstore-app-VERSION-standalone.jar
+---
+
+    Then, you can access it by pointing your browser at: <http://your-host:8080/>.
+
+    It works by using {{{http://winstone.sourceforge.net/}Winstone}} as an embedded servlet container, so you may pass
+    all Winstone {{{http://winstone.sourceforge.net/#commandLine}command-line}} options.
+
+    If you configured MadStore to run with the crawler in grid mode, you can run as much MadStore grid nodes as you want by
+    executing the following command:
+
+---
+java -jar $MADSTORE_HOME/standalone/madstore-gridnode-VERSION-standalone.jar
+---
+
+    Again, it works by using {{{http://winstone.sourceforge.net/}Winstone}} as an embedded servlet container, so you may pass
+    all Winstone {{{http://winstone.sourceforge.net/#commandLine}command-line}} options.
+
+* Deploying MadStore into a Servlet container.
+
+    MadStore war file provided with the war distribution, can be deployed into any Servlet 2.4 container, such as {{{http://tomcat.apache.org}Apache Tomcat}}:
+    just deploy the <madstore-app-VERSION.war> file.
+
+    The same applies for the MadStore grid node: just deploy the <madstore-gridnode-VERSION.war> file.
+
+* Accessing MadStore
+
+    Atom contents published by MadStore can be accessed as specified by the following URL templates:
+
+        * <<http://host:port/service>>\
+        The Atom Publishing Protocol service document, describing published collections.
+
+        * <<http://host:port/\{collection\}>>\
+        An Atom Publishing Protocol collection, identified by the <collection> key.
+
+            * <<http://host:port/\{collection\}?max=\{max\}&page=\{page\}>>\
+            An Atom Publishing Protocol collection, identified by the <collection> key, with a
+            <max> number of entries starting at the given <page>. The returned collection feed supports
+            {{{http://tools.ietf.org/html/rfc5005} feed paging}} in order to navigate through collection entries.
+
+        * <<http://host:port/\{collection\}/\{entry\}>>\
+        An Atom entry, identified by the <entry> key and belonging to the given <collection>.
+
+        * <<http://host:port/search>>\
+        The Open Search description document, describing exposed open search URLs.
+
+        * <<http://host:port/search/\{collection\}?title=\{title\}&terms=\{terms\}&max=\{max\}&page=\{page\}>>\
+        Search the given <collection>, returning an Atom feed with the given <title>, containing
+        a <max> number of entries starting at the given <page> and containing the given <terms>
+        in the configured indexed properties. The returned feed supports
+        {{{http://tools.ietf.org/html/rfc5005} feed paging}} in order to navigate through collection entries.

@@ -1,0 +1,12 @@
+<atom:entry xmlns:atom="http://www.w3.org/2005/Atom" key="entry5">
+    <atom:id>urn:uuid:1225c695-cfb8-4ebb-aaaa-80da344efb7d</atom:id>
+    <atom:title type="text">entry5</atom:title>
+    <atom:updated>2008-10-04T14:11:59.407Z</atom:updated>
+    <atom:published>2008-10-04T14:11:59.407Z</atom:published>
+    <atom:author>
+        <atom:name>Max</atom:name>
+    </atom:author>
+    <atom:summary type="text">Bla bla.</atom:summary>
+    <atom:category term="Foo fighters" />
+    <atom:link href="http://example.org/foo" rel="http://example.com/custom/link/rel" type="text/html" title="Muppet Show"/>
+</atom:entry>

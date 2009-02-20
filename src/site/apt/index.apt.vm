@@ -1,0 +1,52 @@
+About MadStore
+
+    MadStore is an open source web platform for content extraction and publishing.
+
+[../images/madstore-main.png] MadStore main
+
+    Based on user-friendly web standards such as {{{http://microformats.org}microformats}},
+    the {{{http://atomenabled.org/}Atom Publishing Protocol}} and the {{{http://www.opensearch.org}Open Search Specification}},
+    MadStore aims at enhancing user experience regarding both content publishing and consumption through Atom web feeds.
+
+MadStore for content publishers
+
+    MadStore will help content publisher by automatically generating Atom web feeds out of standard (X)HTML pages.\
+    No matter how many web sites you, as a content publisher, have to publish, or how many feeds you have to generate: you will only have
+    one information source, your web pages, with no duplication and extra-code for generating atom feeds.\
+    MadStore will crawl your web sites, discovering {{{http://microformats.org/wiki/hatom}hAtom}} annotated pages,
+    and automatically generate, store and publish related Atom feeds.
+
+MadStore for content consumers
+
+    MadStore will help content consumers by providing always up-to-date, searchable and customizable Atom feeds of their preferred web sites.\
+    Missed some older Atom feed entry?\
+    Or do you rather want only the latest and newest feed entries?\
+    MadStore will let you configure the requested feed in order to provide the desired number of entries.\
+    Do you want only those feed entries containing some terms?\
+    MadStore will let you configure the requested feed in order to provide only entries containing the desired terms.
+
+MadStore in a nutshell
+
+    MadStore comes with the following goals:
+
+        * Automatic generation of Atom feeds out of standard web pages containing hAtom microformats, discovered and processed
+        by a lightweight crawling infrastructure.
+
+        * Storing and indexing of generated Atom feeds.
+
+        * Publishing of stored Atom feeds, with advanced features for searching Atom entries content and creating on-the-fly aggregations.
+
+        * Easy configuration and deploy.
+
+    And one golden rule: <<simplicity>>.
+
+MadStore getting started
+
+    Getting started with MadStore is as easy as following the simple steps below:
+
+        * {{{/docs/microformats.html}Apply}} the hAtom microformats to the web site pages for which you want to generate and publish Atom feeds:
+        those microformats will be used by MadStore to automatically extract and publish your Atom feeds.
+
+        * {{{/docs/configuration.html}Configure}} the MadStore platform through its XML file.
+
+        * {{{/docs/usage.html}Deploy and enjoy}} it!

@@ -1,0 +1,9 @@
+<atom:entry xmlns:atom="http://www.w3.org/2005/Atom" key="entry1">
+    <atom:id>urn:madstore:entry1</atom:id>
+    <atom:title type="text">Server Entry One</atom:title>
+    <atom:author>
+        <atom:name>Sergio B.</atom:name>
+    </atom:author>
+    <atom:summary type="text">A summary</atom:summary>
+    <atom:updated>2008-10-04T14:11:59.407Z</atom:updated>
+</atom:entry>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.pronetics.com/schema/madstore" targetNamespace="http://www.pronetics.com/schema/madstore" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:element name="targetSite">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="hostName" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                <xsd:element name="startLink" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                <xsd:element name="maxConcurrentDownloads" type="xsd:int" minOccurs="1" maxOccurs="1" />
+                <xsd:element name="maxVisitedLinks" type="xsd:int" minOccurs="1" maxOccurs="1" />
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="crawler">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="grid-enabled" minOccurs="0" maxOccurs="1" />
+                <xsd:element ref="targetSite" minOccurs="1" maxOccurs="unbounded" />
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="namespace">
+        <xsd:complexType>
+            <xsd:attribute name="prefix" type="xsd:string" use="required" />
+            <xsd:attribute name="url" type="xsd:string" use="required" />
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="indexedPropertiesNamespaces">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="namespace" minOccurs="1" maxOccurs="unbounded" />
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="property">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="xpath" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                <xsd:element name="boost" type="xsd:int" minOccurs="1" maxOccurs="1" />
+            </xsd:sequence>
+            <xsd:attribute name="name" type="xsd:string" use="required" />
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="indexedProperties">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="property" minOccurs="1" maxOccurs="unbounded" />
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="index">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="indexedPropertiesNamespaces" minOccurs="1" maxOccurs="1" />
+                <xsd:element ref="indexedProperties" minOccurs="1" maxOccurs="1" />
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="repository">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="maxHistory" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                <xsd:element ref="index" minOccurs="1" maxOccurs="1" />
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="openSearch">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="shortName" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                <xsd:element name="description" type="xsd:string" minOccurs="1" maxOccurs="1" />
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="atomPub">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="workspace" type="xsd:string" minOccurs="1" maxOccurs="1" />
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="server">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="openSearch" minOccurs="1" maxOccurs="1" />
+                <xsd:element ref="atomPub" minOccurs="1" maxOccurs="1" />
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="simpleTrigger">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="startDelay" type="xsd:int" minOccurs="1" maxOccurs="1" />
+                <xsd:element name="repeatInterval" type="xsd:int" minOccurs="1" maxOccurs="1" />
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="task">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="simpleTrigger" minOccurs="1" maxOccurs="1" />
+            </xsd:sequence>
+            <xsd:attribute name="name" type="xsd:string" use="required" />
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="tasks">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="task" minOccurs="0" maxOccurs="unbounded" />
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="config">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="crawler" minOccurs="0" maxOccurs="1" />
+                <xsd:element ref="repository" minOccurs="1" maxOccurs="1" />
+                <xsd:element ref="server" minOccurs="0" maxOccurs="1" />
+                <xsd:element ref="tasks" minOccurs="0" maxOccurs="1" />
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>
