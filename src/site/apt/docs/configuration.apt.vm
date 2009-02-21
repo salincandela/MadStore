@@ -4,120 +4,178 @@ Configuring MadStore
     Here is a detailed description of its structure, defined with an x-path like notation:
 
         * <<beans>>\
-        The root element of the configuration file: it is based on the Spring Framework, so
-        you may want to add your own Spring beans for advanced customizations, even if there are
-        currently no extension points working this way.
+            The root element of the configuration file: it is based on the Spring Framework, so
+            you may want to add your own Spring beans for advanced customizations, even if there are
+            currently no extension points working this way.
+
+        []
 
         * <<beans>>/<<config>>\
-        The root element of the MadStore configuration.
+            The root element of the MadStore configuration.
+
+        []
 
         * <<beans>>/<<config>>/<<crawler>>\
-        The container element for the MadStore crawler configuration.\
-        Please note that in order to automatically run the crawling process, the
-        <crawlerTask> needs to be active (see below).
+            The container element for the MadStore crawler configuration.\
+            Please note that in order to automatically run the crawling process, the
+            <crawlerTask> needs to be active (see below).
+
+        []
 
         * <<beans>>/<<config>>/<<crawler>>/<<grid-enabled>>\
-        Configure the crawler to run in grid mode.
+            Configure the crawler to run in grid mode.
+
+        []
 
         * <<beans>>/<<config>>/<<crawler>>/<<targetSite>>\
-        The configuration of the site to crawl.\
-        There can be one or more <targetSite> elements, each one for a different site to crawl.
+            The configuration of the site to crawl.\
+            There can be one or more <targetSite> elements, each one for a different site to crawl.
+
+        []
 
         * <<beans>>/<<config>>/<<crawler>>/<<targetSite>>/<<hostName>>\
-        The host name of the site to crawl.
+            The host name of the site to crawl.
+
+        []
 
         * <<beans>>/<<config>>/<<crawler>>/<<targetSite>>/<<startLink>>\
-        The link of the first page to crawl, relative to the host name defined above.
+            The link of the first page to crawl, relative to the host name defined above.
+
+        []
 
         * <<beans>>/<<config>>/<<crawler>>/<<targetSite>>/<<maxConcurrentDownloads>>\
-        The max number of concurrent page downloads executed by the crawler on this configured site.
+            The max number of concurrent page downloads executed by the crawler on this configured site.
+
+        []
 
         * <<beans>>/<<config>>/<<crawler>>/<<targetSite>>/<<maxVisitedLinks>>\
-        The max number of links to visit and crawl, used to limit the crawling depth.
+            The max number of links to visit and crawl, used to limit the crawling depth.
+
+        []
 
         * <<beans>>/<<config>>/<<repository>>\
-        The container element for the MadStore repository configuration.
+            The container element for the MadStore repository configuration.
+
+        []
 
         * <<beans>>/<<config>>/<<repository>>/<<maxHistory>>\
-        The maximum number of entries to keep in the repository.\
-        This value has effect only if the <cleanHistoryTask> is active (see below).
+            The maximum number of entries to keep in the repository.\
+            This value has effect only if the <cleanHistoryTask> is active (see below).
+
+        []
 
         * <<beans>>/<<config>>/<<repository>>/<<index>>\
-        The MadStore built-in index configuration.
+            The MadStore built-in index configuration.
+
+        []
 
         * <<beans>>/<<config>>/<<repository>>/<<index>>/<<indexedPropertiesNamespaces>>\
-        Container element defining all namespaces used in the xpath expressions below.
+            Container element defining all namespaces used in the xpath expressions below.
+
+        []
 
         * <<beans>>/<<config>>/<<repository>>/<<index>>/<<indexedPropertiesNamespaces>>/<<namespace>>\
-        Single namespace definition.\
-        It provides the following attributes:
+            Single namespace definition.\
+            It provides the following attributes:
 
-            * <prefix>: one of the prefixes used in the xpath expressions below.
+                * <prefix>: one of the prefixes used in the xpath expressions below.
 
-            * <url>: the namespace URL.
+                * <url>: the namespace URL.
 
-        There can be more than one <namespace> element definitions.
+            There can be more than one <namespace> element definitions.
+
+        []
 
         * <<beans>>/<<config>>/<<repository>>/<<index>>/<<indexedProperties>>\
-        Container element defining properties indexed on Atom entries.
+            Container element defining properties indexed on Atom entries.
+
+        []
 
         * <<beans>>/<<config>>/<<repository>>/<<index>>/<<indexedProperties>>/<<property>>\
-        Single indexed property definition.\
-        It provides the following attributes:
+            Single indexed property definition.\
+            It provides the following attributes:
 
-            * <name>: the property name unique among indexed properties.
+                * <name>: the property name unique among indexed properties.
+
+        []
 
         * <<beans>>/<<config>>/<<repository>>/<<index>>/<<indexedProperties>>/<<property>>/<<xpath>>\
-        The xpath expression of the Atom entry property to index. The xpath is used
-        to actually go through the Atom entry XML document and access the value to index.
+            The xpath expression of the Atom entry property to index. The xpath is used
+            to actually go through the Atom entry XML document and access the value to index.
+
+        []
 
         * <<beans>>/<<config>>/<<repository>>/<<index>>/<<indexedProperties>>/<<property>>/<<boost>>\
-        An integer value defining the relevance of the indexed property: the higher it is, the more
-        relevant is the related indexed property.
+            An integer value defining the relevance of the indexed property: the higher it is, the more
+            relevant is the related indexed property.
+
+        []
 
         * <<beans>>/<<config>>/<<server>>\
-        The container element for the MadStore Atom Publishing Protocol server configuration.
+            The container element for the MadStore Atom Publishing Protocol server configuration.
+
+        []
 
         * <<beans>>/<<config>>/<<server>>/<<atomPub>>\
-        The configuration of the Atom Publishing Protocol service.
+            The configuration of the Atom Publishing Protocol service.
+
+        []
 
         * <<beans>>/<<config>>/<<server>>/<<atomPub>>/<<workspace>>\
-        The name of the Atom Publishing Protocol workspace document.
+            The name of the Atom Publishing Protocol workspace document.
+
+        []
 
         * <<beans>>/<<config>>/<<server>>/<<openSearch>>\
-        The configuration of the Open Search service.
+            The configuration of the Open Search service.
+
+        []
 
         * <<beans>>/<<config>>/<<server>>/<<openSearch>>/<<shortName>>\
-        The short name of the Open Search short name.
+            The short name of the Open Search short name.
+
+        []
 
         * <<beans>>/<<config>>/<<server>>/<<openSearch>>/<<description>>\
-        The short name of the Open Search description document.
+            The short name of the Open Search description document.
+
+        []
 
         * <<beans>>/<<config>>/<<tasks>>\
-        The container element for configuring MadStore tasks.
+            The container element for configuring MadStore tasks.
+
+        []
 
         * <<beans>>/<<config>>/<<tasks>>/<<task>>\
-        The configuration of the task to execute.\
-        It provides the following attributes:
+            The configuration of the task to execute.\
+            It provides the following attributes:
 
-            * <name>: the name of the task itself.
+                * <name>: the name of the task itself.
 
-        There can be one or more <task> elements, each one for a different task to execute.\
-        Right now, MadStore provides the following two tasks:
+            There can be one or more <task> elements, each one for a different task to execute.\
+            Right now, MadStore provides the following two tasks:
 
-            * <crawlerTask>: the task triggering the crawler process.
+                * <crawlerTask>: the task triggering the crawler process.
 
-            * <cleanHistoryTask>: the task triggering the clean up of older stored Atom entries.
+                * <cleanHistoryTask>: the task triggering the clean up of older stored Atom entries.
+
+        []
 
         * <<beans>>/<<config>>/<<tasks>>/<<task>>/<<simpleTrigger>>\
-        The configuration for triggering the task execution.
+            The configuration for triggering the task execution.
+
+        []
 
         * <<beans>>/<<config>>/<<tasks>>/<<task>>/<<simpleTrigger>>/<<startDelay>>\
-        The number of minutes the crawler process is started for the first time
-        after application startup (0 for immediate).
+            The number of minutes the crawler process is started for the first time
+            after application startup (0 for immediate).
+
+        []
 
         * <<beans>>/<<config>>/<<tasks>>/<<task>>/<<simpleTrigger>>/<<repeatInterval>>\
-        The interval in minutes between crawler executions.
+            The interval in minutes between crawler executions.
+
+        []
 
     Here is a simple example:
 
