@@ -87,6 +87,8 @@ java -jar $MADSTORE_HOME/standalone/madstore-gridnode-VERSION-standalone.jar
         * <<http://host:port/service>>\
         The Atom Publishing Protocol service document, describing published collections.
 
+        []
+
         * <<http://host:port/\{collection\}>>\
         An Atom Publishing Protocol collection, identified by the <collection> key.
 
@@ -95,11 +97,17 @@ java -jar $MADSTORE_HOME/standalone/madstore-gridnode-VERSION-standalone.jar
             <max> number of entries starting at the given <page>. The returned collection feed supports
             {{{http://tools.ietf.org/html/rfc5005} feed paging}} in order to navigate through collection entries.
 
+        []
+
         * <<http://host:port/\{collection\}/\{entry\}>>\
         An Atom entry, identified by the <entry> key and belonging to the given <collection>.
 
+        []
+
         * <<http://host:port/search>>\
         The Open Search description document, describing exposed open search URLs.
+
+        []
 
         * <<http://host:port/search/\{collection\}?title=\{title\}&terms=\{terms\}&max=\{max\}&page=\{page\}>>\
         Search the given <collection>, returning an Atom feed with the given <title>, containing
