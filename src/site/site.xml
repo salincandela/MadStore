@@ -10,6 +10,7 @@
     <body>
         <menu name="MadStore">
             <item name="MadStore" href="/index.html">
+                <item name="Understanding MadStore" href="/docs/understanding.html"/>
                 <item name="Applying Microformats" href="/docs/microformats.html"/>
                 <item name="Configuring MadStore" href="/docs/configuration.html"/>
                 <item name="Using MadStore" href="/docs/usage.html"/>

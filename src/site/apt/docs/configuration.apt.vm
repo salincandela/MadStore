@@ -59,7 +59,7 @@ Configuring MadStore
         []
 
         * <<beans>>/<<config>>/<<repository>>/<<maxHistory>>\
-            The maximum number of entries to keep in the repository.\
+            The maximum number of entries to keep in each collection.\
             This value has effect only if the <cleanHistoryTask> is active (see below).
 
         []

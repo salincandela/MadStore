@@ -1,0 +1,78 @@
+Understanding MadStore
+
+    MadStore is made up of three main components: the <crawler>, the <repository> and the <server>.\
+    Let's take a look at each one.
+
+* The MadStore crawler
+
+    The crawler component has the responsibility of crawling one or more <target sites>, applying a <breadth-first> algorithm to each crawled site.\
+    For each visited page, the crawler will execute the following operations:
+
+        * Link extraction, in order to discover next pages to visit.
+
+        * Pipeline processing, implementing an extensible stage-based processing mechanism; by default the crawler executes the following
+        processing stages:
+
+            * XHTML cleaning, for eventually fixing XML syntax errors and adjust character encoding.
+
+            * XHTML transformation, in order to extract Atom contents from the hAtom microformats.
+
+        * Content publishing, storing extracted Atom contents to the MadStore repository.
+
+    Crawling of different target sites is executed in parallel, as well as crawler operations explained above (where possible).
+    However, it is possible to control several aspects of the crawler behaviour by setting the following parameters in the MadStore configuration file:
+
+        * The maximum number of concurrent page downloads per target site, in order to control the crawler invasiveness.
+
+        * The maximum number of visited links, in order to control how many pages will be visited and downloaded, and avoid eventual crawler traps.
+
+    Other than that, it is possible to run the crawler in two distinct modes: <local> and <grid>.
+
+    In <local> mode, the crawler will work in the same process as the MadStore web application.
+
+    In <grid> mode, the crawler will work as a distributed application, with the master node running in the same process of the MadStore web application,
+    and one or more grid nodes running as separate web applications on the same host, as well as on different ones.\
+    The MadStore main application, containing the master crawler node, and the MadStore crawler grid nodes, will communicate through IP Multicast,
+    dispatching one another tasks representing parts of the whole crawling process.
+
+    The <local> crawler is a lightweight multi-thread implementation to use for crawling a few small-to-medium web sites.\
+    The <grid> crawler has been implemented as a distributed application providing horizontal scalability and optimal performances
+    for crawling several, large, web sites.\
+    However, thanks to the MadStore ease of use, switching between the two is just a matter of a single configuration parameter, and
+    the eventual deploy/undeploy of the external grid nodes.
+
+* The MadStore repository
+
+    The repository component is where all extracted Atom contents are stored. It has the responsibility of:
+
+        * Organizing stored Atom contents following the Atom Publishing Protocol structure made up of collections of entries,
+        maintaining referential integrity between the two.
+
+        * Indexing stored entries, in order to allow users to execute queries and create custom web feeds.
+
+    It is possible to control several aspects of the repository behaviour by setting the following parameters:
+
+        * The maximum number of stored entries per collection.
+
+        * The Atom entry elements and attributes to index, with the possibility of assigning a different <boost>
+        in order to control the relevance of the indexed element/attribute on search results (an higher boost
+        will make the related entry more relevant).
+
+    All configurations are applied, as always, by editing the MadStore configuration file.
+
+* The MadStore server
+
+    The server component has the responsibility of implementing the Atom Publishing Protocol and Open Search specifications
+    in order to serve the Atom web feeds to end users.\
+    It provides the following capabilities:
+
+        * Discovery of Atom collections through the service document.
+
+        * Access to Atom collections as Atom web feeds, with implicit or explicit feed pagination support.
+
+        * Access to Atom entries.
+
+        * Discovery of Open Search queries through the related description document.
+
+        * Full text queries over collection of entries, providing web feeds containing only
+        those entries which satisfied the query, with implicit or explicit feed pagination support.

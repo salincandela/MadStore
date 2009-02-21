@@ -44,6 +44,8 @@ MadStore getting started
 
     Getting started with MadStore is as easy as following the simple steps below:
 
+        * {{{/docs/understanding.html}Understand}} how MadStore works.
+
         * {{{/docs/microformats.html}Apply}} the hAtom microformats to the web site pages for which you want to generate and publish Atom feeds:
         those microformats will be used by MadStore to automatically extract and publish your Atom feeds.
 
