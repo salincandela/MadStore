@@ -49,4 +49,4 @@ Applying Microformats
 ---
 
     As you may see, the <feed-key> element, with value <acme-news>, identifies the feed, while the <entry-key> elements identify
-    the two entries.\
+    the two entries.

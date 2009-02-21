@@ -51,7 +51,7 @@ Configuring MadStore
         * <<beans>>/<<config>>/<<repository>>/<<index>>/<<indexedPropertiesNamespaces>>/<<namespace>>\
         Single namespace definition.\
         It provides the following attributes:
-            
+
             * <prefix>: one of the prefixes used in the xpath expressions below.
 
             * <url>: the namespace URL.
@@ -64,7 +64,7 @@ Configuring MadStore
         * <<beans>>/<<config>>/<<repository>>/<<index>>/<<indexedProperties>>/<<property>>\
         Single indexed property definition.\
         It provides the following attributes:
- 
+
             * <name>: the property name unique among indexed properties.
 
         * <<beans>>/<<config>>/<<repository>>/<<index>>/<<indexedProperties>>/<<property>>/<<xpath>>\
@@ -203,7 +203,7 @@ http://www.pronetics.com/schema/madstore/madstore.xsd">
 ---
 
     Here, we are telling the MadStore crawler to crawl the <http://127.0.0.1:8080> host, starting from the <index.html> page,
-    with a maximum number of 3 requests per second, and a maximum number of 100 visited links (pages)
+    with a maximum number of 3 requests per second, and a maximum number of 100 visited links (pages).
 
 ---
 <mds:repository>

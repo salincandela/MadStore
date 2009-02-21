@@ -17,7 +17,7 @@ $> svn co https://madstore.svn.sourceforge.net/svnroot/madstore/trunk madstore
 
 ---
 $> cd madstore
-$> mvn package
+$> mvn assembly:assembly
 ---
 
     This will build the following MadStore binaries:
