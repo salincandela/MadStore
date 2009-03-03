@@ -41,6 +41,10 @@
         <connection>scm:svn:https://madstore.svn.sourceforge.net/svnroot/madstore/trunk</connection>
         <developerConnection>scm:svn:https://madstore.svn.sourceforge.net/svnroot/madstore/trunk</developerConnection>
     </scm>
+    <issueManagement>
+        <system>Trac</system>
+        <url>https://apps.sourceforge.net/trac</url>
+    </issueManagement>
     <dependencyManagement>
         <dependencies>
             <dependency>
