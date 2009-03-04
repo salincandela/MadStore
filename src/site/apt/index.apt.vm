@@ -2,7 +2,7 @@ About MadStore
 
     MadStore is an open source web platform for content extraction and publishing.
 
-[../images/madstore-main.png] MadStore main
+[/images/madstore-main.png] MadStore main
 
     Based on user-friendly web standards such as {{{http://microformats.org}microformats}},
     the {{{http://atomenabled.org/}Atom Publishing Protocol}} and the {{{http://www.opensearch.org}Open Search Specification}},

@@ -1,0 +1,4 @@
+Downloading MadStore
+
+    MadStore doesn't currently come with a ready-to-use binary distribution.\
+    You are encouraged to build it from sources: see {{{/docs/build.html}here}} how easy it is!

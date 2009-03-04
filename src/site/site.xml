@@ -11,12 +11,17 @@
     </poweredBy>
     <body>
         <menu name="MadStore">
+            <item name="Overview" href="/index.html">
+                <item name="About" href="/index.html"/>
+                <item name="License" href="/license.html"/>
+                <item name="Download" href="/download.html"/>
+            </item>
             <item name="Documentation" href="/index.html">
                 <item name="Understanding MadStore" href="/docs/understanding.html"/>
                 <item name="Applying Microformats" href="/docs/microformats.html"/>
                 <item name="Configuring MadStore" href="/docs/configuration.html"/>
                 <item name="Using MadStore" href="/docs/usage.html"/>
-                <item name="License" href="/docs/license.html"/>
+                <item name="Building MadStore" href="/docs/build.html"/>
             </item>
             <item name="Development" href="/index.html">
                 <item name="Javadocs" href="/apidocs/index.html"/>
