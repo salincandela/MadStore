@@ -386,6 +386,11 @@
             <name>GridGain Maven Repository</name>
             <url>http://www.gridgainsystems.com/maven2/</url>
         </repository>
+        <repository>
+            <id>madstore-m2-repo</id>
+            <name>MadStore Maven2 repository</name>
+            <url>http://madstore.sf.net/m2-repo</url>
+        </repository>
     </repositories>
     <modules>
         <module>madstore-common</module>
