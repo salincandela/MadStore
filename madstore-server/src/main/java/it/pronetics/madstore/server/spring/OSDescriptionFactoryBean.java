@@ -19,7 +19,10 @@ import it.pronetics.madstore.common.configuration.spring.AbstractMadStoreConfigu
 import it.pronetics.madstore.common.configuration.spring.MadStoreConfigurationBean;
 
 /**
- * @author Sergio Bossa
+ * Spring-based <code>FactoryBean</code> for obtaining the Open Search description out of the
+ * {@link it.pronetics.madstore.common.configuration.spring.MadStoreConfigurationBean} configuration.
+ *
+ * @author Salvatore Incandela
  */
 public class OSDescriptionFactoryBean extends AbstractMadStoreConfigurationFactoryBean {
 

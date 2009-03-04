@@ -21,7 +21,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Plain JavaBean used as a Spring bean for setting configuration values.
+ * Plain old java bean used as a Spring bean for setting and getting configuration values.
+ * 
  * @author Salvatore Incandela
  * @author Sergio Bossa
  */

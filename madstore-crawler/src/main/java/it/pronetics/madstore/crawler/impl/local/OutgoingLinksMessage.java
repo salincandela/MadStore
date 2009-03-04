@@ -21,6 +21,8 @@ import java.util.Collections;
 import java.util.Map;
 
 /**
+ * {@link ActorMessage} implementation carrying on links outgoing from a given source link.
+ *
  * @author Sergio Bossa
  */
 public class OutgoingLinksMessage extends AbstractActorMessage {

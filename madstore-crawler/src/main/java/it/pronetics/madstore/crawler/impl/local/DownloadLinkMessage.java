@@ -19,6 +19,8 @@ import it.pronetics.madstore.crawler.model.Link;
 import java.util.Map;
 
 /**
+ * {@link ActorMessage} implementation asking to download a link.
+ *
  * @author Sergio Bossa
  */
 public class DownloadLinkMessage extends AbstractActorMessage {

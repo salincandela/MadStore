@@ -22,6 +22,10 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
 /**
+ * Abstract class to be extended by all <code>FactoryBean</code> implementations, providing
+ * helper methods for accessing the current {@link MadStoreConfigurationBean} and beans declared
+ * in the current Spring context.
+ *
  * @author Sergio Bossa
  */
 public abstract class AbstractMadStoreConfigurationFactoryBean implements ApplicationContextAware, FactoryBean {

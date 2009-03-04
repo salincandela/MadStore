@@ -16,7 +16,8 @@
 package it.pronetics.madstore.crawler;
 
 /**
- * Crawler configuration interface.
+ * Crawler configuration interface, defining how to crawl a specific target site..
+ *
  * @author Salvatore Incandela
  * @author Sergio Bossa
  */

@@ -30,6 +30,9 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathFactory;
 
 /**
+ * Spring-based <code>FactoryBean</code> for creating a list of {@link it.pronetics.madstore.repository.index.PropertyPath}s out of the
+ * {@link it.pronetics.madstore.common.configuration.spring.MadStoreConfigurationBean} configuration.
+ *
  * @author Salvatore Incandela
  */
 public class IndexedPropertiesFactoryBean extends AbstractMadStoreConfigurationFactoryBean {

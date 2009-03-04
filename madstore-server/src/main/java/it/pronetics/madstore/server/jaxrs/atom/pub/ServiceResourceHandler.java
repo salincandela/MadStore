@@ -26,7 +26,16 @@ import it.pronetics.madstore.server.jaxrs.atom.ResourceHandler;
  */
 public interface ServiceResourceHandler<R> extends ResourceHandler {
 
+    /**
+     * Get the resource object representing the Atom service document.
+     *
+     * @return The Atom service document object.
+     */
     public R getServiceResource();
 
+    /**
+     * Set the AtomPub workspace title.
+     * @param workspaceTitle
+     */
     public void setWorkspaceTitle(String workspaceTitle);
 }

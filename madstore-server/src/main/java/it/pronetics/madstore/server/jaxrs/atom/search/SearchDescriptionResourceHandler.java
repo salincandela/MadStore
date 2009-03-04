@@ -26,9 +26,22 @@ import it.pronetics.madstore.server.jaxrs.atom.ResourceHandler;
  */
 public interface SearchDescriptionResourceHandler<R> extends ResourceHandler {
 
+    /**
+     * Get the resource object representing the Open Search description document.
+     *
+     * @return The Open Search description document.
+     */
     public R getSearchDescription();
 
+    /**
+     * Set the Open Search description document short name.
+     * @param shortName
+     */
     public void setShortName(String shortName);
 
+    /**
+     * Set the Open Search description document description.
+     * @param description
+     */
     public void setDescription(String description);
 }

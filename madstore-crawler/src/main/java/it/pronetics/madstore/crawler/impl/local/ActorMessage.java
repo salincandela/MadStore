@@ -18,6 +18,10 @@ package it.pronetics.madstore.crawler.impl.local;
 import java.util.Map;
 
 /**
+ * Interface for representing messages actors exchange to implement the crawling process.<br>
+ * Each specific message implementation can be executed on one or more specific actor
+ * implementations.
+ *
  * @author Sergio Bossa
  */
 public interface ActorMessage {

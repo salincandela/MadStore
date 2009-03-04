@@ -18,7 +18,7 @@ package it.pronetics.madstore.crawler.publisher;
 import it.pronetics.madstore.crawler.model.Page;
 
 /**
- * AtomPublisher manages publishing of Atom documents to the repository.
+ * Interface for managing the publishing of Atom documents to the repository.
  *
  * @author Salvatore Incandela
  */

@@ -19,6 +19,8 @@ import it.pronetics.madstore.crawler.model.Page;
 import java.util.Map;
 
 /**
+ * {@link ActorMessage} implementation notifying the download of a page.
+ *
  * @author Sergio Bossa
  */
 public class DownloadedPageMessage extends AbstractActorMessage {

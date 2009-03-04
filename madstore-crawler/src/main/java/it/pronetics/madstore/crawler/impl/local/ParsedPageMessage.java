@@ -22,6 +22,8 @@ import java.util.Collections;
 import java.util.Map;
 
 /**
+ * {@link ActorMessage} implementation notifying the parsing of a page, and carrying on its outgoing links.
+ *
  * @author Sergio Bossa
  */
 public class ParsedPageMessage extends AbstractActorMessage {

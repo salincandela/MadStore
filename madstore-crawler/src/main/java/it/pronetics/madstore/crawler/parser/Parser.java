@@ -29,6 +29,12 @@ import java.util.Collection;
  * @author Sergio Bossa
  */
 public interface Parser {
-    
+
+    /**
+     * Parse the given {@link it.pronetics.madstore.crawler.model.Page} and extract the {@link it.pronetics.madstore.crawler.model.Link}s.
+     * @param data The page data to parse.
+     * @param linkFilter The {@link it.pronetics.madstore.crawler.parser.filter.LinkFilter} to use for filtering extracted links.
+     * @return A collection of extracted links.
+     */
     public Collection<Link> parse(Page data, LinkFilter linkFilter);
 }

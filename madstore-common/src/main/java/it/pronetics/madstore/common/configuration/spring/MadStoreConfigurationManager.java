@@ -26,6 +26,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 /**
+ * Singleton class for accessing the current {@link MadStoreConfigurationBean} and the MadStore home location.
+ *
  * @author Sergio Bossa
  */
 public class MadStoreConfigurationManager {

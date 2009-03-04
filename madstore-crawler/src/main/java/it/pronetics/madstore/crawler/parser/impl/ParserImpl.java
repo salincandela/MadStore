@@ -31,8 +31,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * {@link it.pronetics.madstore.crawler.parser.Parser} implementation providing link extraction
- * and URI normalization.
+ * {@link it.pronetics.madstore.crawler.parser.Parser} implementation extracting links and providing
+ * URI normalization by:
+ * <ul>
+ * <li>Removing unneeded sub-paths.</li>
+ * <li>Removing the URI fragment.</li>
+ * <li>Removing the URI query string.</li>
+ * <li>Making the URI absolute.</li>
+ * </ul>
  *
  * @author Salvatore Incandela
  * @author Sergio Bossa

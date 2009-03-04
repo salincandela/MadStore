@@ -27,11 +27,31 @@ import javax.ws.rs.core.UriInfo;
  */
 public interface ResourceHandler {
 
+    /**
+     * Get the {@link it.pronetics.madstore.repository.CollectionRepository}.
+     *
+     * @return The {@link it.pronetics.madstore.repository.CollectionRepository}.
+     */
     public CollectionRepository getCollectionRepository();
 
+    /**
+     * Get the {@link it.pronetics.madstore.repository.EntryRepository}.
+     *
+     * @return The {@link it.pronetics.madstore.repository.EntryRepository}.
+     */
     public EntryRepository getEntryRepository();
 
+    /**
+     * Get the {@link it.pronetics.madstore.server.jaxrs.atom.resolver.ResourceResolver}.
+     *
+     * @return The {@link it.pronetics.madstore.server.jaxrs.atom.resolver.ResourceResolver}.
+     */
     public ResourceResolver getResourceResolver();
 
+    /**
+     * Get the JAX-RS specific {@link javax.ws.rs.core.UriInfo} object.
+     * 
+     * @return The {@link javax.ws.rs.core.UriInfo} object.
+     */
     public UriInfo getUriInfo();
 }

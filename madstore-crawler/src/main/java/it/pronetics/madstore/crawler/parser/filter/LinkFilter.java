@@ -24,6 +24,11 @@ import it.pronetics.madstore.crawler.model.Link;
  * @author Sergio Bossa
  */
 public interface LinkFilter {
-    
+
+    /**
+     * Accept a {@link it.pronetics.madstore.crawler.model.Link}.
+     * @param link The link to accept.
+     * @return True if accepted, false otherwise.
+     */
     public boolean accept(Link link);
 }

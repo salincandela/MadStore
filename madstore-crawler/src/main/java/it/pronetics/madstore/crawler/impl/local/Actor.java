@@ -16,7 +16,7 @@
 package it.pronetics.madstore.crawler.impl.local;
 
 /**
- * Interface for actors participating in the crawling process.
+ * Interface for concurrent actors participating in the crawling process.
  *
  * @author Sergio Bossa
  */

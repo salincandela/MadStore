@@ -18,9 +18,15 @@ package it.pronetics.madstore.repository.index.impl;
 import org.apache.lucene.store.Directory;
 
 /**
+ * Factory for creating Lucene {@link org.apache.lucene.store.Directory} implementations.
+ *
  * @author Salvatore Incandela
  */
 public interface LuceneDirectoryFactory {
 
+    /**
+     * Make the Lucene directory.
+     * @return The directory instance.
+     */
     public Directory makeDirectory();
 }

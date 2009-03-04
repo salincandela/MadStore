@@ -39,6 +39,9 @@ import ch.qos.logback.core.util.StatusPrinter;
 
 /**
  * Servlet listener for initializing and logging the MadStore configuration.
+ * <br>
+ * Requires the <i>madstore-logback.xml</i> configuration file in the classpath.
+ *
  * @author Salvatore Incandela
  */
 public class MadStoreConfigurationServletListener implements ServletContextListener {

@@ -25,6 +25,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * {@link LuceneDirectoryFactory} implementation for creating a local filesystem based directory.
+ *
  * @author Salvatore Incandela
  */
 public class LuceneFSDirectoryFactory implements LuceneDirectoryFactory {

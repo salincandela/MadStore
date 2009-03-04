@@ -26,6 +26,12 @@ import org.quartz.JobDetail;
 import org.springframework.scheduling.quartz.SimpleTriggerBean;
 
 /**
+ * Spring-based <code>FactoryBean</code> for creating a list of <code>SimpleTriggerBean</code>s,
+ * used to configure the triggering of MadStore tasks.
+ * <br>
+ * Each trigger is bind to its task through the task name configured into the
+ * {@link it.pronetics.madstore.common.configuration.spring.MadStoreConfigurationBean}.
+ *
  * @author Sergio Bossa
  * @author Salvatore Incandela
  */

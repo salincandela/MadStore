@@ -18,6 +18,8 @@ package it.pronetics.madstore.crawler.impl.local;
 import java.util.Map;
 
 /**
+ * {@link ActorMessage} implementation reporting an error condition.
+ *
  * @author Sergio Bossa
  */
 public class ErrorMessage extends AbstractActorMessage {

@@ -27,6 +27,8 @@ import org.xml.sax.SAXException;
 /**
  * {@link org.xml.sax.ContentHandler} implementation for building Atom contents out of a stream of SAX events.
  * <br>
+ * Used by {@link JcrAtomContentHandlerFactory}.
+ * <br>
  * This implementation is not thread safe and must be used for a single transformation only.
  *
  * @author Salvatore Incandela
@@ -34,23 +36,23 @@ import org.xml.sax.SAXException;
  */
 public class JcrAtomExportContentHandler implements ContentHandler {
 
-    private Document atomDocument;
+    private Document outputDocument;
     private Node currentElement;
     private boolean skipped;
     private Map<String, String> allowedNamespaces;
 
-    public JcrAtomExportContentHandler(Document atomDocument, Map<String, String> allowedNamespaces) {
-        this.atomDocument = atomDocument;
+    public JcrAtomExportContentHandler(Document outputDocument, Map<String, String> allowedNamespaces) {
+        this.outputDocument = outputDocument;
         this.allowedNamespaces = allowedNamespaces;
     }
 
     public void startDocument() throws SAXException {
-        this.currentElement = atomDocument;
+        this.currentElement = outputDocument;
     }
 
     public void startElement(String namespaceURI, String localName, String qualifiedName, Attributes attributes) throws SAXException {
         if (allowedNamespaces.values().contains(namespaceURI)) {
-            Element newElement = atomDocument.createElementNS(namespaceURI, qualifiedName);
+            Element newElement = outputDocument.createElementNS(namespaceURI, qualifiedName);
             for (int i = 0; i < attributes.getLength(); i++) {
                 boolean output = false;
                 if (attributes.getURI(i).equals("") || allowedNamespaces.values().contains(attributes.getURI(i))) {

@@ -16,7 +16,7 @@
 package it.pronetics.madstore.repository.support;
 
 /**
- * Runtime exception thrown by Indexer methods.
+ * Runtime exception thrown by Atom indexing methods.
  * @author Salvatore Incandela
  */
 public class AtomIndexingException extends RuntimeException {

@@ -28,6 +28,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * {@link Actor} implementing the main crawling process.
+ *
  * @author Sergio Bossa
  */
 public class CrawlerActor implements Actor {

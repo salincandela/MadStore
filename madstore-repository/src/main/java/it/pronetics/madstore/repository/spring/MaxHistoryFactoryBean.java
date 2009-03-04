@@ -18,6 +18,12 @@ package it.pronetics.madstore.repository.spring;
 import it.pronetics.madstore.common.configuration.spring.AbstractMadStoreConfigurationFactoryBean;
 import it.pronetics.madstore.common.configuration.spring.MadStoreConfigurationBean;
 
+/**
+ * Spring-based <code>FactoryBean</code> for obtaining the max history configuration parameter out of the
+ * {@link it.pronetics.madstore.common.configuration.spring.MadStoreConfigurationBean} configuration.
+ *
+ * @author Salvatore Incandela
+ */
 public class MaxHistoryFactoryBean extends AbstractMadStoreConfigurationFactoryBean {
 
     public Object getObject() throws Exception {

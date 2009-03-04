@@ -35,7 +35,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Default {@link it.pronetics.madstore.crawler.MadStoreCrawler} implementation.
+ * Default {@link it.pronetics.madstore.crawler.MadStoreCrawler} implementation.<br>
  * The actual crawling process execution is defined by a {@link CrawlerTask} implementation,
  * created through the configured {@link CrawlerTaskFactory}.
  * <br>

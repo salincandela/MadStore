@@ -26,11 +26,28 @@ import it.pronetics.madstore.server.jaxrs.atom.ResourceHandler;
  */
 public interface CollectionResourceHandler<R> extends ResourceHandler {
 
+    /**
+     * Get the resource object representing the Atom collection feed.
+     *
+     * @return The Atom collection feed object.
+     */
     public R getCollectionResource();
 
+    /**
+     * Set the collection key of the Atom collection feed to retrieve.
+     * @param collectionKey
+     */
     public void setCollectionKey(String collectionKey);
 
+    /**
+     * Set the max number of Atom entries contained in the retrieved feed.
+     * @param maxNumberOfEntries
+     */
     public void setMaxNumberOfEntries(int maxNumberOfEntries);
 
+    /**
+     * Set the page number of the entries contained in the retrieved feed.
+     * @param pageNumberOfEntries
+     */
     public void setPageNumberOfEntries(int pageNumberOfEntries);
 }

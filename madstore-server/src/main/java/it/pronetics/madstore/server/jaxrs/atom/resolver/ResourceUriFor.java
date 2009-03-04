@@ -22,8 +22,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotate resource methods for defining the resource Uri of a logically named resource,
- * using {@link ResourceResolver}.
+ * Annotate resource methods for defining the resource URI of a logically named (see {@link ResourceName}) resource,
+ * and resolve it using {@link ResourceResolver}.
  *
  * @author Sergio Bossa
  */

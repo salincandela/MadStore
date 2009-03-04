@@ -28,19 +28,19 @@ import java.util.List;
 public interface MadStoreCrawler {
     
     /**
-     * Gets a list of crawler configuration objects.
+     * Get a list of crawler configuration objects.
      * @return A list of crawler configurations.
      */
     public List<CrawlerConfiguration> getCrawlerConfigurations();
 
     /**
-     * Sets the list of crawler configuration objects.
+     * Set the list of crawler configuration objects.
      * @param crawlerConfigurations A list of crawler configurations. 
      */
     public void setCrawlerConfigurations(List<CrawlerConfiguration> crawlerConfigurations);
 
     /**
-     * Starts the crawling process.<br>
+     * Start the crawling process.<br>
      * It may be blocking or non-blocking, depending on the concrete implementation.
      */
     public void start();

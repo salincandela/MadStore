@@ -19,12 +19,18 @@ import it.pronetics.madstore.crawler.model.Link;
 import it.pronetics.madstore.crawler.model.Page;
 
 /**
- * Downloads a {@link it.pronetics.madstore.crawler.model.Page} from a given {@link it.pronetics.madstore.crawler.model.Link}.
+ * interface for downloading {@link it.pronetics.madstore.crawler.model.Link}s.
  * 
  * @author Salvatore Incandela
  * @author Sergio Bossa
  */
 public interface Downloader {
-    
+
+    /**
+     * Download a {@link it.pronetics.madstore.crawler.model.Page} from a given {@link it.pronetics.madstore.crawler.model.Link}.
+     *
+     * @param link The link to download.
+     * @return The downloaded page.
+     */
     public Page download(Link link);
 }

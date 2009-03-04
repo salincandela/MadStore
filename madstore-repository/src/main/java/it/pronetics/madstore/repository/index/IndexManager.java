@@ -25,7 +25,7 @@ import org.w3c.dom.Element;
  * Interface providing methods for indexing, deleting and searching Atom entries.
  * <br>
  * Indexed Atom entries are identified by their (collection key, entry key) pair; indexed properties
- * are defined through a list of {@link ProperrtyPath}s.
+ * are defined through a list of {@link PropertyPath}s.
  * <br>
  * Please note that implementors must be thread safe.
  * 

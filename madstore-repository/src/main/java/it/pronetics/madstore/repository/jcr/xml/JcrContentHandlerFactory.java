@@ -15,8 +15,6 @@
  */
 package it.pronetics.madstore.repository.jcr.xml;
 
-import java.io.StringWriter;
-
 import org.w3c.dom.Document;
 import org.xml.sax.ContentHandler;
 
@@ -30,6 +28,9 @@ public interface JcrContentHandlerFactory {
 
     /**
      * Create a SAX {@link org.xml.sax.ContentHandler} writing to a DOM Document.
+     * 
+     * @param document The DOM document to use for outputting the XML.
+     * @return The ContentHandler instance.
      */
     public ContentHandler makeExportContentHandler(Document document);
 }

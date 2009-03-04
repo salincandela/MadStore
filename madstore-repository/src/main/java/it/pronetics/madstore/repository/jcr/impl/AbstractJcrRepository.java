@@ -23,7 +23,6 @@ import it.pronetics.madstore.repository.support.AtomRepositoryException;
 import it.pronetics.madstore.repository.util.PagingList;
 
 import java.io.InputStream;
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,8 +45,10 @@ import org.w3c.dom.Element;
 import org.xml.sax.ContentHandler;
 
 /**
- * Base abstract class for repositories implementations. <br/>
+ * Base abstract class for repositories implementations.
+ * <br/>
  * This class contains methods to read and write content from the repository, defining its inner structure.
+ * 
  * @author Salvatore Incandela
  * @author Sergio Bossa
  */

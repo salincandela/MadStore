@@ -19,6 +19,9 @@ import it.pronetics.madstore.server.jaxrs.atom.ResourceHandler;
 
 /**
  * Resource handler for the Atom feed representing an Open Search collection search result.
+ * <br>
+ * Search is executed over the entries of a given Atom collection, by using a list of case insensitive terms combined
+ * through the AND logical operator.
  *
  * @param <R> Type of the response object representing the Atom feed.
  *
@@ -26,15 +29,40 @@ import it.pronetics.madstore.server.jaxrs.atom.ResourceHandler;
  */
 public interface CollectionSearchResourceHandler<R> extends ResourceHandler {
 
+    /**
+     * Get the resource object representing the Atom feed resulted from the collection search.
+     *
+     * @return The Atom feed object.
+     */
     public R getCollectionSearchResource();
 
+    /**
+     * Set the key of the collection to search.
+     * @param collectionKey
+     */
     public void setCollectionKey(String collectionKey);
 
+    /**
+     * Set the max number of entries contained in the retrieved Atom feed.
+     * @param maxNumberOfEntries
+     */
     public void setMaxNumberOfEntries(int maxNumberOfEntries);
 
+    /**
+     * Set the page number of the entries contained in the retrieved Atom feed.
+     * @param pageNumberOfEntries
+     */
     public void setPageNumberOfEntries(int pageNumberOfEntries);
 
+    /**
+     * Set the search title.
+     * @param searchTitle
+     */
     public void setSearchTitle(String searchTitle);
 
+    /**
+     * Set the terms to search.
+     * @param searchTerms
+     */
     public void setSearchTerms(String searchTerms);
 }

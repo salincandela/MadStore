@@ -15,14 +15,13 @@
  */
 package it.pronetics.madstore.repository.jcr.xml;
 
-import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 import org.w3c.dom.Document;
 import org.xml.sax.ContentHandler;
 
 /**
- * {@link JcrContentHandlerFactory} implementation for exporting/importing Atom contents.
+ * {@link JcrContentHandlerFactory} implementation for exporting Atom contents.
  * 
  * @author Sergio Bossa
  */

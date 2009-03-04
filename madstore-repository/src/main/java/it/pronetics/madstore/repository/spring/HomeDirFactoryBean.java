@@ -19,6 +19,9 @@ import it.pronetics.madstore.common.configuration.spring.AbstractMadStoreConfigu
 import it.pronetics.madstore.common.configuration.spring.MadStoreConfigurationBean;
 
 /**
+ * Spring-based <code>FactoryBean</code> for obtaining the MadStore home directory out of the
+ * {@link it.pronetics.madstore.common.configuration.spring.MadStoreConfigurationBean} configuration.
+ *
  * @author Sergio Bossa
  * @author Salvatore Incandela
  */

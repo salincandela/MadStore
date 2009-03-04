@@ -30,6 +30,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * {@link Actor} implementation processing pages thorugh a {@link it.pronetics.madstore.crawler.Pipeline}.
+ *
  * @author Sergio Bossa
  */
 public class ProcessorActor implements Actor {

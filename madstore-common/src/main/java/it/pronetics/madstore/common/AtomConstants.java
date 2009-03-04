@@ -16,10 +16,12 @@
 package it.pronetics.madstore.common;
 
 /**
+ * Atom-related constants used throughout the whole code-base.
+ *
  * @author Sergio Bossa
  * @author Salvatore Incandela
  */
-public class AtomConstants {
+public interface AtomConstants {
 
     public static final String ATOM_MEDIA_TYPE = "application/atom+xml";
     public static final String ATOM_SERVICE_MEDIA_TYPE = "application/atomsvc+xml";
@@ -62,5 +64,4 @@ public class AtomConstants {
     public static final String ATOM_COLLECTION_TITLE = "title";
     public static final String ATOM_COLLECTION_NS_TITLE = "atom:title";
     public static final String ATOM_COLLECTION_ACCEPT = "accept";
-
 }

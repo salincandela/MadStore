@@ -23,6 +23,9 @@ import it.pronetics.madstore.crawler.impl.grid.GridCrawlerTaskFactory;
 import it.pronetics.madstore.crawler.impl.grid.support.MadStoreGrid;
 
 /**
+ * Spring-based <code>FactoryBean</code> for creating a proper {@link it.pronetics.madstore.crawler.impl.CrawlerTaskFactory}
+ * depending on the {@link it.pronetics.madstore.common.configuration.spring.MadStoreConfigurationBean} grid-enabled mode.
+ *
  * @author Salvatore Incandela
  */
 public class CrawlerTaskFactoryBean extends AbstractMadStoreConfigurationFactoryBean {

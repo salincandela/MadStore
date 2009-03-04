@@ -19,6 +19,9 @@ import it.pronetics.madstore.common.configuration.spring.AbstractMadStoreConfigu
 import it.pronetics.madstore.common.configuration.spring.MadStoreConfigurationBean;
 
 /**
+ * Spring-based <code>FactoryBean</code> for obtaining the index directory out of the
+ * {@link it.pronetics.madstore.common.configuration.spring.MadStoreConfigurationBean} configuration.
+ *
  * @author Salvatore Incandela
  */
 public class IndexFolderFactoryBean extends AbstractMadStoreConfigurationFactoryBean {

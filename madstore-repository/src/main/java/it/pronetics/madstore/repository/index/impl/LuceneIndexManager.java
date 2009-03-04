@@ -36,7 +36,9 @@ import org.w3c.dom.Element;
  */
 public class LuceneIndexManager implements IndexManager {
 
+    // TODO: Make configurable?
     public static final int DEFAULT_MAX_SEARCH_RESULTS = 10000;
+    //
     public static final String INDEX_PRIMARY_KEY = "primaryKey";
     public static final String INDEX_COLLECTION_KEY = "collectionKey";
     public static final String INDEX_ENTRY_KEY = "entryKey";

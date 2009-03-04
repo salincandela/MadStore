@@ -30,7 +30,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
- * Helper class for performing transformations from string content to {@link org.w3c.dom.Element} objects, and vice-versa.
+ * Helper class for performing transformations from String contents to {@link org.w3c.dom.Element} objects, and vice-versa.
+ * 
  * @author Sergio Bossa
  * @author Salvatore Incandela
  */

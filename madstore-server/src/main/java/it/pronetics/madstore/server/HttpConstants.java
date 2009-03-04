@@ -16,9 +16,11 @@
 package it.pronetics.madstore.server;
 
 /**
+ * Constants used in the server module for interacting through HTTP requests.
+ *
  * @author Sergio Bossa
  */
-public class HttpConstants {
+public interface HttpConstants {
 
     // Request parameters:
     public static final String TERMS_PARAMETER = "terms";

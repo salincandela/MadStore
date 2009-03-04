@@ -24,7 +24,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * @author Sergio Bossa
+ * Spring-based <code>FactoryBean</code> for creating a list of {@link it.pronetics.madstore.crawler.CrawlerConfiguration} objects
+ * out of the {@link it.pronetics.madstore.common.configuration.spring.MadStoreConfigurationBean}.
+ *
+ * @author Salvatore Incandela
  */
 public class CrawlerConfigurationsFactoryBean extends AbstractMadStoreConfigurationFactoryBean {
 

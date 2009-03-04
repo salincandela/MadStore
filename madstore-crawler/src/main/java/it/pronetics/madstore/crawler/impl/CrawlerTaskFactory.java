@@ -34,7 +34,8 @@ public interface CrawlerTaskFactory {
      * @param parser The {@link it.pronetics.madstore.crawler.parser.Parser} to use for parsing web pages.
      * @param publisher The {@link it.pronetics.madstore.crawler.publisher.AtomPublisher} to use for publishing Atom contents to repositories.
      * @param pipeline The {@link it.pronetics.madstore.crawler.Pipeline} to use for processing web pages.
-     * @param maxConcurrentDownloads The max number of concurrent page downloads on a single web site.
+     * @param maxConcurrentDownloads The max number of concurrent page downloads on a single target site.
+     * @param maxVisitedLinks The max number of visited links on a single target site.
      * @return The crawler task instance.
      */
     public CrawlerTask makeCrawlerTask(Downloader downloader, Parser parser, AtomPublisher publisher, Pipeline pipeline, int maxConcurrentDownloads, int maxVisitedLinks);

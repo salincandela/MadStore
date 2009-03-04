@@ -22,9 +22,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Filters links by accepting only those links belonging to a given server link.
+ * {@link it.pronetics.madstore.crawler.parser.filter.LinkFilter} implementation accepting only those links belonging to a given host link.
  * 
  * @author Salvatore Incandela
+ * @author Sergio Bossa
  */
 public class ServerFilter implements LinkFilter {
 

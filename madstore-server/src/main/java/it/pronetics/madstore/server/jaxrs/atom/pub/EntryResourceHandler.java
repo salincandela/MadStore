@@ -26,9 +26,22 @@ import it.pronetics.madstore.server.jaxrs.atom.ResourceHandler;
  */
 public interface EntryResourceHandler<R> extends ResourceHandler {
 
+    /**
+     * Get the resource object representing the Atom entry.
+     *
+     * @return The Atom entry object.
+     */
     public R getEntryResource();
 
+    /**
+     * Set the collection key of the Atom entry to retrieve.
+     * @param collectionKey
+     */
     public void setCollectionKey(String collectionKey);
 
+    /**
+     * Set the entry key of the Atom entry to retrieve.
+     * @param entryKey
+     */
     public void setEntryKey(String entryKey);
 }

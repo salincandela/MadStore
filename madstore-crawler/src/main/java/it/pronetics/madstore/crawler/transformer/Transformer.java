@@ -21,6 +21,7 @@ import it.pronetics.madstore.crawler.model.Page;
  * Transformer interface for transforming {@link it.pronetics.madstore.crawler.model.Page} data.
  * 
  * @author Salvatore Incandela
+ * @author Sergio Bossa
  */
 public interface Transformer {
 

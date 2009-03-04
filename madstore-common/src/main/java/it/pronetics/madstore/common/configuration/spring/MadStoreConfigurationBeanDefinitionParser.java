@@ -39,8 +39,8 @@ import org.w3c.dom.DOMException;
 import org.w3c.dom.Element;
 
 /**
- * This class parse the configuration file and creates the configuration bean
- * {@link it.pronetics.madstore.common.configuration.spring.MadStoreConfigurationBean}.
+ * Spring-based configuration parser for creating the {@link it.pronetics.madstore.common.configuration.spring.MadStoreConfigurationBean}.
+ *
  * @author Salvatore Incandela
  */
 public class MadStoreConfigurationBeanDefinitionParser extends AbstractSingleBeanDefinitionParser {

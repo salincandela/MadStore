@@ -16,7 +16,7 @@
 package it.pronetics.madstore.server.jaxrs.atom.resolver;
 
 /**
- * Logical resource names for the Atom Server.
+ * Logical resource names for the Atom Server, used by the {@link ResourceResolver}.
  *
  * @author Sergio Bossa
  */

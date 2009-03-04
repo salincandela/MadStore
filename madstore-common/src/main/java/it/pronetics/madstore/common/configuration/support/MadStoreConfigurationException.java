@@ -17,6 +17,7 @@ package it.pronetics.madstore.common.configuration.support;
 
 /**
  * Runtime exception thrown while configuring MadStore.
+ * 
  * @author Sergio Bossa
  */
 public class MadStoreConfigurationException extends RuntimeException {

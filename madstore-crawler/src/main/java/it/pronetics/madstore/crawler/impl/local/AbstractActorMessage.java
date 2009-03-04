@@ -19,6 +19,8 @@ import java.util.Collections;
 import java.util.Map;
 
 /**
+ * Abstract {@link ActorMessage} implementation.
+ *
  * @author Sergio Bossa
  */
 public abstract class AbstractActorMessage implements ActorMessage {

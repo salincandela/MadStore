@@ -18,6 +18,8 @@ package it.pronetics.madstore.common.configuration.spring;
 import org.springframework.beans.factory.xml.NamespaceHandlerSupport;
 
 /**
+ * Spring-based configuration namespace handler.
+ *
  * @author Salvatore Incandela
  */
 public class MadStoreConfigurationNamespaceHandler extends NamespaceHandlerSupport {
