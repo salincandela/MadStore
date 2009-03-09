@@ -29,6 +29,7 @@ import java.util.Map;
 public class MadStoreConfigurationBean {
 
     private String madStoreHome;
+    private int httpCacheEnabled;
     private List<CrawlerConfiguration> crawlerConfigurations;
     private GridConfiguration gridConfiguration;
     private JcrConfiguration jcrConfiguration;
@@ -43,6 +44,14 @@ public class MadStoreConfigurationBean {
 
     public void setMadStoreHome(String madStoreHome) {
         this.madStoreHome = madStoreHome;
+    }
+
+    public Integer getHttpCacheEnabled() {
+        return httpCacheEnabled;
+    }
+
+    public void setHttpCacheEnabled(Integer httpCacheEnabled) {
+        this.httpCacheEnabled = httpCacheEnabled;
     }
 
     public List<CrawlerConfiguration> getCrawlerConfigurations() {
@@ -144,11 +153,11 @@ public class MadStoreConfigurationBean {
         public void setMaxConcurrentDownloads(int maxConcurrentDownloads) {
             this.maxConcurrentDownloads = maxConcurrentDownloads;
         }
-        
+
         public int getMaxVisitedLinks() {
             return maxVisitedLinks;
         }
-        
+
         public void setMaxVisitedLinks(int maxVisitedLinks) {
             this.maxVisitedLinks = maxVisitedLinks;
         }

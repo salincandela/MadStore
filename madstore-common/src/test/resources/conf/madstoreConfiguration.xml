@@ -40,6 +40,7 @@ http://www.pronetics.com/schema/madstore/madstore.xsd">
         </mds:repository>
         <!--Server configuration -->
         <mds:server>
+            <mds:httpcache-enabled max-age="10"/>
             <mds:openSearch>
                 <mds:shortName>sampleName</mds:shortName>
                 <mds:description>sample description</mds:description>

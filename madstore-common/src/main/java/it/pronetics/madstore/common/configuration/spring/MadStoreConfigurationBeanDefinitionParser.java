@@ -80,6 +80,9 @@ public class MadStoreConfigurationBeanDefinitionParser extends AbstractSingleBea
     private static final String JCR_CONFIGURATION_BEAN_PROPERTY = "jcrConfiguration";
     private static final String INDEX_CONFIGURATION_TAG = "index";
     private static final String INDEX_CONFIGURATION_BEAN_PROPERTY = "indexConfiguration";
+    private static final String HTTP_CACHE_ENABLED_BEAN_PROPERTY = "httpCacheEnabled";
+    private static final String MAX_AGE_ATTRIBUTE = "max-age";
+    private static final String HTTPCACHE_ENABLED_TAG = "httpcache-enabled";
     private static final String OS_CONFIGURATION_TAG = "openSearch";
     private static final String OS_CONFIGURATION_BEAN_PROPERTY = "openSearchConfiguration";
     private static final String APP_CONFIGURATION_TAG = "atomPub";
@@ -114,6 +117,8 @@ public class MadStoreConfigurationBeanDefinitionParser extends AbstractSingleBea
         parseJcrConfiguration(repositoryElement, beanDefinitionBuilder);
         parseIndexConfiguration(repositoryElement, beanDefinitionBuilder);
         if (serverElement != null) {
+            Integer maxAge = new Integer(DomUtils.getChildElementByTagName(serverElement, HTTPCACHE_ENABLED_TAG).getAttribute(MAX_AGE_ATTRIBUTE));
+            beanDefinitionBuilder.addPropertyValue(HTTP_CACHE_ENABLED_BEAN_PROPERTY, maxAge);
             parseAppConfiguration(serverElement, beanDefinitionBuilder);
             parseOsConfiguration(serverElement, beanDefinitionBuilder);
         } else {

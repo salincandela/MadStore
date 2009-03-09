@@ -9,6 +9,7 @@
        http://www.springframework.org/schema/util/spring-util-2.5.xsd">
     
     <!-- Configurations -->
+    <bean id="httpCacheMaxAgeFactoryBean" class="it.pronetics.madstore.server.spring.HttpCacheEnabledMaxAgeFactoryBean"/>
     <bean id="workspaceName" class="it.pronetics.madstore.server.spring.WorkspaceFactoryBean"/>
     <bean id="osShortName" class="it.pronetics.madstore.server.spring.OSShortNameFactoryBean"/>
     <bean id="osDescription" class="it.pronetics.madstore.server.spring.OSDescriptionFactoryBean"/>

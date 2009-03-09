@@ -71,6 +71,12 @@
         </xsd:complexType>
     </xsd:element>
 
+    <xsd:element name="httpcache-enabled">
+        <xsd:complexType>
+            <xsd:attribute name="max-age" type="xsd:int" use="required" />
+        </xsd:complexType>
+    </xsd:element>
+
     <xsd:element name="openSearch">
         <xsd:complexType>
             <xsd:sequence>
@@ -91,6 +97,7 @@
     <xsd:element name="server">
         <xsd:complexType>
             <xsd:sequence>
+                <xsd:element ref="httpcache-enabled" minOccurs="0" maxOccurs="1" />
                 <xsd:element ref="openSearch" minOccurs="1" maxOccurs="1" />
                 <xsd:element ref="atomPub" minOccurs="1" maxOccurs="1" />
             </xsd:sequence>

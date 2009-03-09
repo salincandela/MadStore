@@ -60,13 +60,14 @@ public class MadStoreConfigurationBeanTest extends TestCase {
         // indexed properties
         assertEquals("title", madStoreConfiguration.getIndexConfiguration().getIndexedProperties().get(0).getName());
         assertEquals("//atom:entry/atom:title", madStoreConfiguration.getIndexConfiguration().getIndexedProperties().get(0).getXPath());
-        assertEquals("1", String.valueOf(madStoreConfiguration.getIndexConfiguration().getIndexedProperties().get(0).getBoost()));
+        assertEquals(1, madStoreConfiguration.getIndexConfiguration().getIndexedProperties().get(0).getBoost());
         assertEquals("summary", madStoreConfiguration.getIndexConfiguration().getIndexedProperties().get(1).getName());
         assertEquals("//atom:entry/atom:summary", madStoreConfiguration.getIndexConfiguration().getIndexedProperties().get(1).getXPath());
-        assertEquals("1", String.valueOf(madStoreConfiguration.getIndexConfiguration().getIndexedProperties().get(1).getBoost()));
+        assertEquals(1, madStoreConfiguration.getIndexConfiguration().getIndexedProperties().get(1).getBoost());
         assertEquals("author", madStoreConfiguration.getIndexConfiguration().getIndexedProperties().get(2).getName());
         assertEquals("//atom:entry/atom:author/atom:name", madStoreConfiguration.getIndexConfiguration().getIndexedProperties().get(2).getXPath());
-        assertEquals("1", String.valueOf(madStoreConfiguration.getIndexConfiguration().getIndexedProperties().get(2).getBoost()));
+        assertEquals(1, madStoreConfiguration.getIndexConfiguration().getIndexedProperties().get(2).getBoost());
+        assertEquals(10, madStoreConfiguration.getHttpCacheEnabled().intValue());
         // server open search
         assertEquals("sampleName", madStoreConfiguration.getOpenSearchConfiguration().getShortName());
         assertEquals("sample description", madStoreConfiguration.getOpenSearchConfiguration().getDescription());
