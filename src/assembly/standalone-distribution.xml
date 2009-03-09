@@ -2,7 +2,6 @@
 <assembly>
     <id>standalone-dist</id>
     <formats>
-        <format>tar.gz</format>
         <format>zip</format>
     </formats>
     <baseDirectory>madstore-standalone-dist-${project.version}</baseDirectory>
@@ -26,6 +25,18 @@
             <includes>
                 <include>*standalone.jar</include>
             </includes>
+        </fileSet>
+        <fileSet>
+            <outputDirectory>sources</outputDirectory>
+            <excludes>
+                <exclude>**/target/**</exclude>
+                <exclude>target/**</exclude>
+                <exclude>gridgain/**</exclude>
+                <exclude>conf/**</exclude>
+                <exclude>src/site/**</exclude>
+                <exclude>delete-test-data.xml</exclude>
+                <exclude>header.txt</exclude>
+            </excludes>
         </fileSet>
     </fileSets>
 </assembly>
