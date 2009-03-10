@@ -27,7 +27,7 @@ public class HttpCacheMaxAgeFactoryBean extends AbstractMadStoreConfigurationFac
 
     public Object getObject() throws Exception {
         MadStoreConfigurationBean madstoreConfiguration = getMadStoreConfiguration();
-        return madstoreConfiguration.getHttpCacheEnabled();
+        return madstoreConfiguration.getHttpCacheConfiguration().getMaxAge();
     }
 
     public Class getObjectType() {

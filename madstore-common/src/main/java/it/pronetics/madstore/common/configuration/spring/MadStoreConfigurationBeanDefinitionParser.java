@@ -18,6 +18,7 @@ package it.pronetics.madstore.common.configuration.spring;
 import it.pronetics.madstore.common.configuration.spring.MadStoreConfigurationBean.AtomPublishingProtocolConfiguration;
 import it.pronetics.madstore.common.configuration.spring.MadStoreConfigurationBean.CrawlerConfiguration;
 import it.pronetics.madstore.common.configuration.spring.MadStoreConfigurationBean.GridConfiguration;
+import it.pronetics.madstore.common.configuration.spring.MadStoreConfigurationBean.HttpCacheConfiguration;
 import it.pronetics.madstore.common.configuration.spring.MadStoreConfigurationBean.IndexConfiguration;
 import it.pronetics.madstore.common.configuration.spring.MadStoreConfigurationBean.JcrConfiguration;
 import it.pronetics.madstore.common.configuration.spring.MadStoreConfigurationBean.OpenSearchConfiguration;
@@ -39,8 +40,8 @@ import org.w3c.dom.DOMException;
 import org.w3c.dom.Element;
 
 /**
- * Spring-based configuration parser for creating the {@link it.pronetics.madstore.common.configuration.spring.MadStoreConfigurationBean}.
- *
+ * Spring-based configuration parser for creating the
+ * {@link it.pronetics.madstore.common.configuration.spring.MadStoreConfigurationBean}.
  * @author Salvatore Incandela
  */
 public class MadStoreConfigurationBeanDefinitionParser extends AbstractSingleBeanDefinitionParser {
@@ -80,7 +81,7 @@ public class MadStoreConfigurationBeanDefinitionParser extends AbstractSingleBea
     private static final String JCR_CONFIGURATION_BEAN_PROPERTY = "jcrConfiguration";
     private static final String INDEX_CONFIGURATION_TAG = "index";
     private static final String INDEX_CONFIGURATION_BEAN_PROPERTY = "indexConfiguration";
-    private static final String HTTP_CACHE_ENABLED_BEAN_PROPERTY = "httpCacheEnabled";
+    private static final String HTTP_CACHE_CONFIGURATION_BEAN_PROPERTY = "httpCacheConfiguration";
     private static final String MAX_AGE_ATTRIBUTE = "max-age";
     private static final String HTTPCACHE_ENABLED_TAG = "httpCache-enabled";
     private static final String OS_CONFIGURATION_TAG = "openSearch";
@@ -117,8 +118,14 @@ public class MadStoreConfigurationBeanDefinitionParser extends AbstractSingleBea
         parseJcrConfiguration(repositoryElement, beanDefinitionBuilder);
         parseIndexConfiguration(repositoryElement, beanDefinitionBuilder);
         if (serverElement != null) {
-            Integer maxAge = new Integer(DomUtils.getChildElementByTagName(serverElement, HTTPCACHE_ENABLED_TAG).getAttribute(MAX_AGE_ATTRIBUTE));
-            beanDefinitionBuilder.addPropertyValue(HTTP_CACHE_ENABLED_BEAN_PROPERTY, maxAge);
+            Element httpCacheEnabled = DomUtils.getChildElementByTagName(serverElement, HTTPCACHE_ENABLED_TAG);
+            HttpCacheConfiguration httpCacheConfiguration = new HttpCacheConfiguration();
+            Integer maxAge = new Integer(0);
+            if (httpCacheEnabled != null) {
+                maxAge = new Integer(httpCacheEnabled.getAttribute(MAX_AGE_ATTRIBUTE));
+            }
+            httpCacheConfiguration.setMaxAge(maxAge);
+            beanDefinitionBuilder.addPropertyValue(HTTP_CACHE_CONFIGURATION_BEAN_PROPERTY, httpCacheConfiguration);
             parseAppConfiguration(serverElement, beanDefinitionBuilder);
             parseOsConfiguration(serverElement, beanDefinitionBuilder);
         } else {

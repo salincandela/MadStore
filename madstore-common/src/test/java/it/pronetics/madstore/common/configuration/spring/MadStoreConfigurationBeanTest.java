@@ -67,7 +67,7 @@ public class MadStoreConfigurationBeanTest extends TestCase {
         assertEquals("author", madStoreConfiguration.getIndexConfiguration().getIndexedProperties().get(2).getName());
         assertEquals("//atom:entry/atom:author/atom:name", madStoreConfiguration.getIndexConfiguration().getIndexedProperties().get(2).getXPath());
         assertEquals(1, madStoreConfiguration.getIndexConfiguration().getIndexedProperties().get(2).getBoost());
-        assertEquals(10, madStoreConfiguration.getHttpCacheEnabled().intValue());
+        assertEquals(10, madStoreConfiguration.getHttpCacheConfiguration().getMaxAge());
         // server open search
         assertEquals("sampleName", madStoreConfiguration.getOpenSearchConfiguration().getShortName());
         assertEquals("sample description", madStoreConfiguration.getOpenSearchConfiguration().getDescription());

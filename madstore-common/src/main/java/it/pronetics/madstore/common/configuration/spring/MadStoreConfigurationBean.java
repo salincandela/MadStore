@@ -22,20 +22,19 @@ import java.util.Map;
 
 /**
  * Plain old java bean used as a Spring bean for setting and getting configuration values.
- * 
  * @author Salvatore Incandela
  * @author Sergio Bossa
  */
 public class MadStoreConfigurationBean {
 
     private String madStoreHome;
-    private int httpCacheEnabled;
     private List<CrawlerConfiguration> crawlerConfigurations;
     private GridConfiguration gridConfiguration;
     private JcrConfiguration jcrConfiguration;
     private IndexConfiguration indexConfiguration;
     private AtomPublishingProtocolConfiguration atomPublishingProtocolConfiguration;
     private OpenSearchConfiguration openSearchConfiguration;
+    private HttpCacheConfiguration httpCacheConfiguration;
     private Map<String, SimpleTriggerConfiguration> tasks = new HashMap<String, SimpleTriggerConfiguration>();
 
     public String getMadStoreHome() {
@@ -44,14 +43,6 @@ public class MadStoreConfigurationBean {
 
     public void setMadStoreHome(String madStoreHome) {
         this.madStoreHome = madStoreHome;
-    }
-
-    public Integer getHttpCacheEnabled() {
-        return httpCacheEnabled;
-    }
-
-    public void setHttpCacheEnabled(Integer httpCacheEnabled) {
-        this.httpCacheEnabled = httpCacheEnabled;
     }
 
     public List<CrawlerConfiguration> getCrawlerConfigurations() {
@@ -84,6 +75,14 @@ public class MadStoreConfigurationBean {
 
     public void setIndexConfiguration(IndexConfiguration indexConfiguration) {
         this.indexConfiguration = indexConfiguration;
+    }
+
+    public HttpCacheConfiguration getHttpCacheConfiguration() {
+        return httpCacheConfiguration;
+    }
+
+    public void setHttpCacheConfiguration(HttpCacheConfiguration httpCacheConfiguration) {
+        this.httpCacheConfiguration = httpCacheConfiguration;
     }
 
     public AtomPublishingProtocolConfiguration getAtomPublishingProtocolConfiguration() {
@@ -335,6 +334,19 @@ public class MadStoreConfigurationBean {
 
         public String getDescription() {
             return description;
+        }
+    }
+
+    public static class HttpCacheConfiguration {
+        
+        private int maxAge;
+
+        public int getMaxAge() {
+            return maxAge;
+        }
+
+        public void setMaxAge(int maxAge) {
+            this.maxAge = maxAge;
         }
     }
 
