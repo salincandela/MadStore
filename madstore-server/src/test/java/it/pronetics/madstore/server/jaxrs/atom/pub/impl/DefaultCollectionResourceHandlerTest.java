@@ -65,7 +65,7 @@ public class DefaultCollectionResourceHandlerTest extends XMLTestCase {
         handler.setCollectionKey(collectionKey);
         handler.setPageNumberOfEntries(1);
         handler.setMaxNumberOfEntries(10);
-        Feed feed = handler.getCollectionResource();
+        Feed feed = (Feed) handler.getCollectionResource().getEntity();
         StringWriter writer = new StringWriter();
         feed.writeTo(writer);
         String content = writer.toString();
@@ -94,7 +94,7 @@ public class DefaultCollectionResourceHandlerTest extends XMLTestCase {
         handler.setCollectionKey(collectionKey);
         handler.setPageNumberOfEntries(1);
         handler.setMaxNumberOfEntries(1);
-        Feed feed = handler.getCollectionResource();
+        Feed feed = (Feed) handler.getCollectionResource().getEntity();
         StringWriter writer = new StringWriter();
         feed.writeTo(writer);
         String content = writer.toString();
@@ -123,7 +123,7 @@ public class DefaultCollectionResourceHandlerTest extends XMLTestCase {
         handler.setCollectionKey(collectionKey);
         handler.setPageNumberOfEntries(2);
         handler.setMaxNumberOfEntries(1);
-        Feed feed = handler.getCollectionResource();
+        Feed feed = (Feed) handler.getCollectionResource().getEntity();
         StringWriter writer = new StringWriter();
         feed.writeTo(writer);
         String content = writer.toString();
@@ -152,7 +152,7 @@ public class DefaultCollectionResourceHandlerTest extends XMLTestCase {
         handler.setCollectionKey(collectionKey);
         handler.setPageNumberOfEntries(2);
         handler.setMaxNumberOfEntries(1);
-        Feed feed = handler.getCollectionResource();
+        Feed feed = (Feed) handler.getCollectionResource().getEntity();
         StringWriter writer = new StringWriter();
         feed.writeTo(writer);
         String content = writer.toString();

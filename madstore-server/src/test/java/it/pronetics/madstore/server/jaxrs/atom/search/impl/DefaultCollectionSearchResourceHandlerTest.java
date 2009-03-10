@@ -71,7 +71,7 @@ public class DefaultCollectionSearchResourceHandlerTest extends XMLTestCase {
         handler.setSearchTerms(terms);
         handler.setPageNumberOfEntries(1);
         handler.setMaxNumberOfEntries(10);
-        Feed feed = handler.getCollectionSearchResource();
+        Feed feed = (Feed) handler.getCollectionSearchResource().getEntity();
         StringWriter writer = new StringWriter();
         feed.writeTo(writer);
         String content = writer.toString();
@@ -107,7 +107,7 @@ public class DefaultCollectionSearchResourceHandlerTest extends XMLTestCase {
         handler.setSearchTerms(terms);
         handler.setPageNumberOfEntries(1);
         handler.setMaxNumberOfEntries(1);
-        Feed feed = handler.getCollectionSearchResource();
+        Feed feed = (Feed) handler.getCollectionSearchResource().getEntity();
         StringWriter writer = new StringWriter();
         feed.writeTo(writer);
         String content = writer.toString();
@@ -143,7 +143,7 @@ public class DefaultCollectionSearchResourceHandlerTest extends XMLTestCase {
         handler.setSearchTerms(terms);
         handler.setPageNumberOfEntries(2);
         handler.setMaxNumberOfEntries(1);
-        Feed feed = handler.getCollectionSearchResource();
+        Feed feed = (Feed) handler.getCollectionSearchResource().getEntity();
         StringWriter writer = new StringWriter();
         feed.writeTo(writer);
         String content = writer.toString();
@@ -179,7 +179,7 @@ public class DefaultCollectionSearchResourceHandlerTest extends XMLTestCase {
         handler.setSearchTerms(terms);
         handler.setPageNumberOfEntries(2);
         handler.setMaxNumberOfEntries(1);
-        Feed feed = handler.getCollectionSearchResource();
+        Feed feed = (Feed) handler.getCollectionSearchResource().getEntity();
         StringWriter writer = new StringWriter();
         feed.writeTo(writer);
         String content = writer.toString();

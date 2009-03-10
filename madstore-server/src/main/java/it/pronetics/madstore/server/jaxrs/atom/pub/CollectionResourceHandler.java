@@ -16,22 +16,21 @@
 package it.pronetics.madstore.server.jaxrs.atom.pub;
 
 import it.pronetics.madstore.server.jaxrs.atom.ResourceHandler;
+import javax.ws.rs.core.Response;
 
 /**
  * Resource handler for the Atom collection feed.
  *
- * @param <R> Type of the response object representing the Atom collection feed.
- *
  * @author Sergio Bossa
  */
-public interface CollectionResourceHandler<R> extends ResourceHandler {
+public interface CollectionResourceHandler extends ResourceHandler {
 
     /**
      * Get the resource object representing the Atom collection feed.
      *
-     * @return The Atom collection feed object.
+     * @return The web response containing the Atom collection feed object.
      */
-    public R getCollectionResource();
+    public Response getCollectionResource();
 
     /**
      * Set the collection key of the Atom collection feed to retrieve.

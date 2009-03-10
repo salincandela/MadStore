@@ -16,6 +16,7 @@
 package it.pronetics.madstore.server.jaxrs.atom.search;
 
 import it.pronetics.madstore.server.jaxrs.atom.ResourceHandler;
+import javax.ws.rs.core.Response;
 
 /**
  * Resource handler for the Atom feed representing an Open Search collection search result.
@@ -32,9 +33,9 @@ public interface CollectionSearchResourceHandler<R> extends ResourceHandler {
     /**
      * Get the resource object representing the Atom feed resulted from the collection search.
      *
-     * @return The Atom feed object.
+     * @return The web response containing the Atom feed object.
      */
-    public R getCollectionSearchResource();
+    public Response getCollectionSearchResource();
 
     /**
      * Set the key of the collection to search.

@@ -16,7 +16,7 @@
 package it.pronetics.madstore.server.jaxrs.atom.pub.impl;
 
 import it.pronetics.madstore.common.AtomConstants;
-import it.pronetics.madstore.server.jaxrs.atom.AbstractResourceHandler;
+import it.pronetics.madstore.server.jaxrs.atom.impl.AbstractResourceHandler;
 import it.pronetics.madstore.server.jaxrs.atom.pub.EntryResourceHandler;
 import it.pronetics.madstore.server.jaxrs.atom.resolver.ResourceName;
 import it.pronetics.madstore.server.jaxrs.atom.resolver.ResourceUriFor;
@@ -50,10 +50,11 @@ public class DefaultEntryResourceHandler extends AbstractResourceHandler impleme
     @GET
     @Path("/{collectionKey}/{entryKey}")
     @Produces(AtomConstants.ATOM_MEDIA_TYPE)
-    public Entry getEntryResource() {
+    public Response getEntryResource() {
         try {
             Entry entry = readEntryFromRepository(collectionKey, entryKey);
-            return entry;
+            Response response = buildOkResponse(entry);
+            return response;
         } catch (Exception ex) {
             LOG.error(ex.getMessage(), ex);
             throw new WebApplicationException(Response.serverError().build());

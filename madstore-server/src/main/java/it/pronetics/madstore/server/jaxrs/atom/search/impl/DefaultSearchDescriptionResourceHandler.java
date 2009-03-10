@@ -17,7 +17,7 @@ package it.pronetics.madstore.server.jaxrs.atom.search.impl;
 
 import it.pronetics.madstore.common.AtomConstants;
 import it.pronetics.madstore.server.HttpConstants;
-import it.pronetics.madstore.server.jaxrs.atom.AbstractResourceHandler;
+import it.pronetics.madstore.server.jaxrs.atom.impl.AbstractResourceHandler;
 import it.pronetics.madstore.server.jaxrs.atom.pub.impl.DefaultServiceResourceHandler;
 import it.pronetics.madstore.server.jaxrs.atom.resolver.ResourceName;
 import it.pronetics.madstore.server.jaxrs.atom.search.SearchDescriptionResourceHandler;
@@ -59,14 +59,15 @@ public class DefaultSearchDescriptionResourceHandler extends AbstractResourceHan
     @GET
     @Path("/search")
     @Produces(AtomConstants.OPENSEARCH_DESCRIPTION_MEDIA_TYPE)
-    public OpenSearchDescription getSearchDescription() {
+    public Response getSearchDescription() {
         try {
             Factory abderaFactory = Abdera.getInstance().getFactory();
             OpenSearchDescription openSearchDescription = abderaFactory.<OpenSearchDescription>newExtensionElement(OpenSearchConstants.OPENSEARCH_DESCRIPTION);
             openSearchDescription.setShortName(shortName);
             openSearchDescription.setDescription(description);
             configureOpenSearchUrls(openSearchDescription);
-            return openSearchDescription;
+            Response response = buildOkResponse(openSearchDescription);
+            return response;
         } catch (Exception ex) {
             LOG.error(ex.getMessage(), ex);
             throw new WebApplicationException(Response.serverError().build());

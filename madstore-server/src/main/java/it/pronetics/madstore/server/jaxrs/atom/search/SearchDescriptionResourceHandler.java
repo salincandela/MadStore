@@ -16,6 +16,7 @@
 package it.pronetics.madstore.server.jaxrs.atom.search;
 
 import it.pronetics.madstore.server.jaxrs.atom.ResourceHandler;
+import javax.ws.rs.core.Response;
 
 /**
  * Resource handler for the Open Search description document.
@@ -29,9 +30,9 @@ public interface SearchDescriptionResourceHandler<R> extends ResourceHandler {
     /**
      * Get the resource object representing the Open Search description document.
      *
-     * @return The Open Search description document.
+     * @return The web response containing the Open Search description document.
      */
-    public R getSearchDescription();
+    public Response getSearchDescription();
 
     /**
      * Set the Open Search description document short name.

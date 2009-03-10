@@ -16,7 +16,7 @@
 package it.pronetics.madstore.server.jaxrs.atom.pub.impl;
 
 import it.pronetics.madstore.common.AtomConstants;
-import it.pronetics.madstore.server.jaxrs.atom.AbstractResourceHandler;
+import it.pronetics.madstore.server.jaxrs.atom.impl.AbstractResourceHandler;
 import it.pronetics.madstore.server.jaxrs.atom.pub.ServiceResourceHandler;
 import it.pronetics.madstore.server.jaxrs.atom.resolver.ResourceName;
 import it.pronetics.madstore.server.jaxrs.atom.resolver.ResourceUriFor;
@@ -53,7 +53,7 @@ public class DefaultServiceResourceHandler extends AbstractResourceHandler imple
     @GET
     @Path("/service")
     @Produces(AtomConstants.ATOM_SERVICE_MEDIA_TYPE)
-    public Service getServiceResource() {
+    public Response getServiceResource() {
         try {
             Factory abderaFactory = Abdera.getInstance().getFactory();
             Service service = abderaFactory.newService();
@@ -64,7 +64,8 @@ public class DefaultServiceResourceHandler extends AbstractResourceHandler imple
             }
             workspace.setTitle(workspaceTitle);
             service.addWorkspace(workspace);
-            return service;
+            Response response = buildOkResponse(service);
+            return response;
         } catch (Exception ex) {
             LOG.error(ex.getMessage(), ex);
             throw new WebApplicationException(Response.serverError().build());

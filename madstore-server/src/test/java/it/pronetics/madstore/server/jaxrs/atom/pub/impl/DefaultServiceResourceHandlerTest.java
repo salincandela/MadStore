@@ -62,7 +62,7 @@ public class DefaultServiceResourceHandlerTest extends XMLTestCase {
         handler.setUriInfo(uriInfo);
         handler.setResourceResolver(resolver);
         handler.setWorkspaceTitle(workspace);
-        Service service = handler.getServiceResource();
+        Service service = (Service) handler.getServiceResource().getEntity();
         StringWriter writer = new StringWriter();
         service.writeTo(writer);
         String content = writer.toString();

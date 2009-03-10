@@ -9,7 +9,7 @@
        http://www.springframework.org/schema/util/spring-util-2.5.xsd">
     
     <!-- Configurations -->
-    <bean id="httpCacheMaxAgeFactoryBean" class="it.pronetics.madstore.server.spring.HttpCacheEnabledMaxAgeFactoryBean"/>
+    <bean id="httpCacheMaxAge" class="it.pronetics.madstore.server.spring.HttpCacheMaxAgeFactoryBean"/>
     <bean id="workspaceName" class="it.pronetics.madstore.server.spring.WorkspaceFactoryBean"/>
     <bean id="osShortName" class="it.pronetics.madstore.server.spring.OSShortNameFactoryBean"/>
     <bean id="osDescription" class="it.pronetics.madstore.server.spring.OSDescriptionFactoryBean"/>
@@ -44,32 +44,27 @@
             </map>
         </constructor-arg>
     </bean>
-    <bean id="serviceResourceHandler" class="it.pronetics.madstore.server.jaxrs.atom.pub.impl.DefaultServiceResourceHandler" scope="prototype">
+    <bean abstract="true" id="abstractResourceHandler" class="it.pronetics.madstore.server.jaxrs.atom.impl.AbstractResourceHandler">
         <property name="collectionRepository" ref="collectionRepository"/>
         <property name="entryRepository" ref="entryRepository"/>
         <property name="resourceResolver" ref="resourceResolver"/>
+    </bean>
+    <bean id="serviceResourceHandler" class="it.pronetics.madstore.server.jaxrs.atom.pub.impl.DefaultServiceResourceHandler" parent="abstractResourceHandler" scope="prototype">
+        <property name="httpCacheMaxAge" value="0"/>
         <property name="workspaceTitle" ref="workspaceName"/>
     </bean>
-    <bean id="collectionResourceHandler" class="it.pronetics.madstore.server.jaxrs.atom.pub.impl.DefaultCollectionResourceHandler" scope="prototype">
-        <property name="collectionRepository" ref="collectionRepository"/>
-        <property name="entryRepository" ref="entryRepository"/>
-        <property name="resourceResolver" ref="resourceResolver"/>
+    <bean id="collectionResourceHandler" class="it.pronetics.madstore.server.jaxrs.atom.pub.impl.DefaultCollectionResourceHandler" parent="abstractResourceHandler" scope="prototype">
+        <property name="httpCacheMaxAge" ref="httpCacheMaxAge"/>
     </bean>
-    <bean id="entryResourceHandler" class="it.pronetics.madstore.server.jaxrs.atom.pub.impl.DefaultEntryResourceHandler" scope="prototype">
-        <property name="collectionRepository" ref="collectionRepository"/>
-        <property name="entryRepository" ref="entryRepository"/>
-        <property name="resourceResolver" ref="resourceResolver"/>
+    <bean id="entryResourceHandler" class="it.pronetics.madstore.server.jaxrs.atom.pub.impl.DefaultEntryResourceHandler" parent="abstractResourceHandler" scope="prototype">
+        <property name="httpCacheMaxAge" ref="httpCacheMaxAge"/>
     </bean>
-    <bean id="searchDescriptionResourceHandler" class="it.pronetics.madstore.server.jaxrs.atom.search.impl.DefaultSearchDescriptionResourceHandler" scope="prototype">
-        <property name="collectionRepository" ref="collectionRepository"/>
-        <property name="entryRepository" ref="entryRepository"/>
-        <property name="resourceResolver" ref="resourceResolver"/>
+    <bean id="searchDescriptionResourceHandler" class="it.pronetics.madstore.server.jaxrs.atom.search.impl.DefaultSearchDescriptionResourceHandler" parent="abstractResourceHandler" scope="prototype">
+        <property name="httpCacheMaxAge" value="0"/>
         <property name="shortName" ref="osShortName"/>
         <property name="description" ref="osDescription"/>
     </bean>
-    <bean id="collectionSearchResourceHandler" class="it.pronetics.madstore.server.jaxrs.atom.search.impl.DefaultCollectionSearchResourceHandler" scope="prototype">
-        <property name="collectionRepository" ref="collectionRepository"/>
-        <property name="entryRepository" ref="entryRepository"/>
-        <property name="resourceResolver" ref="resourceResolver"/>
+    <bean id="collectionSearchResourceHandler" class="it.pronetics.madstore.server.jaxrs.atom.search.impl.DefaultCollectionSearchResourceHandler" parent="abstractResourceHandler" scope="prototype">
+        <property name="httpCacheMaxAge" ref="httpCacheMaxAge"/>
     </bean>
 </beans>

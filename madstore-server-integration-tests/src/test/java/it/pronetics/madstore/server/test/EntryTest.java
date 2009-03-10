@@ -42,6 +42,12 @@ public class EntryTest extends XMLTestCase {
         wc = new WebConversation();
     }
 
+    public void testCacheControlResponseHeaderContainsProperMaxAge() throws Exception {
+        WebResponse response = wc.getResponse(HttpConstants.SERVER_URL + HttpConstants.ENTRY_1_URL);
+        assertEquals(200, response.getResponseCode());
+        assertTrue("Wrong header: " + response.getHeaderField("Cache-Control"), response.getHeaderField("Cache-Control").contains("max-age=5"));
+    }
+
     public void testEntry() throws Exception {
         WebResponse response = wc.getResponse(HttpConstants.SERVER_URL + HttpConstants.ENTRY_1_URL);
         assertEquals(200, response.getResponseCode());

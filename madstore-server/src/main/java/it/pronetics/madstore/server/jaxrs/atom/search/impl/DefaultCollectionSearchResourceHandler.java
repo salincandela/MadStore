@@ -18,7 +18,7 @@ package it.pronetics.madstore.server.jaxrs.atom.search.impl;
 import it.pronetics.madstore.common.AtomConstants;
 import it.pronetics.madstore.repository.util.PagingList;
 import it.pronetics.madstore.server.HttpConstants;
-import it.pronetics.madstore.server.jaxrs.atom.AbstractResourceHandler;
+import it.pronetics.madstore.server.jaxrs.atom.impl.AbstractResourceHandler;
 import it.pronetics.madstore.server.jaxrs.atom.resolver.ResourceName;
 import it.pronetics.madstore.server.jaxrs.atom.search.CollectionSearchResourceHandler;
 import it.pronetics.madstore.server.jaxrs.atom.resolver.ResourceUriFor;
@@ -65,7 +65,7 @@ public class DefaultCollectionSearchResourceHandler extends AbstractResourceHand
     @GET
     @Path("/search/{collectionKey}")
     @Produces(AtomConstants.ATOM_MEDIA_TYPE)
-    public Feed getCollectionSearchResource() {
+    public Response getCollectionSearchResource() {
         try {
             String[] termsArray = searchTerms.split(" ");
             int max = maxNumberOfEntries;
@@ -75,7 +75,8 @@ public class DefaultCollectionSearchResourceHandler extends AbstractResourceHand
             Feed feed = abderaFactory.newFeed();
             PagingList<Entry> entries = findEntriesFromRepository(collectionKey, Arrays.asList(termsArray), offset, max);
             configureFeed(feed, entries);
-            return feed;
+            Response response = buildOkResponse(feed);
+            return response;
         } catch (Exception ex) {
             LOG.error(ex.getMessage(), ex);
             throw new WebApplicationException(Response.serverError().build());

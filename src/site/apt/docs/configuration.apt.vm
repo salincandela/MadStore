@@ -116,6 +116,17 @@ Configuring MadStore
 
         []
 
+        * <<beans>>/<<config>>/<<server>>/<<httpCache-enabled>>\
+            Enable the HTTP client-side caching by the configuration of proper HTTP headers;
+            see see {{{http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9}here}} for more information about HTTP caching.
+            If not enabled, no explicit HTTP caching will take place. If enabled, the MadStore server will enable HTTP caching
+            for all Atom feeds and entries.\
+            It provides the following configuration parameters:
+
+                * <max-age>: the value of the Cache-Control max-age HTTP header.
+
+        []
+
         * <<beans>>/<<config>>/<<server>>/<<atomPub>>\
             The configuration of the Atom Publishing Protocol service.
 
@@ -221,6 +232,7 @@ http://www.pronetics.com/schema/madstore/madstore.xsd">
             </mds:index>
         </mds:repository>
         <mds:server>
+            <httpCache-enabled max-age="10"/>
             <mds:atomPub>
                 <mds:workspace>MadStore</mds:workspace>
             </mds:atomPub>
@@ -293,6 +305,7 @@ http://www.pronetics.com/schema/madstore/madstore.xsd">
 
 ---
 <mds:server>
+    <httpCache-enabled max-age="10"/>
     <mds:os>
         <mds:shortName>MadStore Search</mds:shortName>
         <mds:description>My MadStore Search</mds:description>
@@ -304,7 +317,9 @@ http://www.pronetics.com/schema/madstore/madstore.xsd">
 ---
 
     The snippet above is dead simple: just a bunch of configuration strings for the Atom Publishing Protocol service
-    document and Open Search description document.
+    document and Open Search description document.\
+    The most important thing there is the (optional) <httpCache-enabled> element, enabling explicit client-side HTTP caching
+    (see {{{http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9}here}}).
 
 ---
 <mds:tasks>

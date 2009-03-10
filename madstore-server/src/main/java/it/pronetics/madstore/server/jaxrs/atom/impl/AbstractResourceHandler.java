@@ -13,8 +13,9 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package it.pronetics.madstore.server.jaxrs.atom;
+package it.pronetics.madstore.server.jaxrs.atom.impl;
 
+import it.pronetics.madstore.server.jaxrs.atom.*;
 import it.pronetics.madstore.common.AtomConstants;
 import it.pronetics.madstore.repository.CollectionRepository;
 import it.pronetics.madstore.repository.EntryRepository;
@@ -26,6 +27,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.CacheControl;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
@@ -43,10 +45,19 @@ import org.w3c.dom.Element;
 public abstract class AbstractResourceHandler implements ResourceHandler {
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractResourceHandler.class);
+    protected int httpCacheMaxAge = 0;
     protected CollectionRepository collectionRepository;
     protected EntryRepository entryRepository;
     protected ResourceResolver resourceResolver;
     protected UriInfo uriInfo;
+
+    public int getHttpCacheMaxAge() {
+        return httpCacheMaxAge;
+    }
+
+    public void setHttpCacheMaxAge(int httpCacheMaxAge) {
+        this.httpCacheMaxAge = httpCacheMaxAge;
+    }
 
     public CollectionRepository getCollectionRepository() {
         return collectionRepository;
@@ -156,6 +167,14 @@ public abstract class AbstractResourceHandler implements ResourceHandler {
             entryModels.add(entry);
         }
         return entryModels;
+    }
+
+    protected final Response buildOkResponse(Object entity) {
+        CacheControl cacheControl = new CacheControl();
+        cacheControl.setPrivate(false);
+        cacheControl.setMaxAge(httpCacheMaxAge);
+        Response response = Response.ok(entity).cacheControl(cacheControl).build();
+        return response;
     }
 
     private void configureEntry(Entry entry, String collectionKey, String entryKey) {

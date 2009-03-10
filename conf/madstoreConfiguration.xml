@@ -37,6 +37,7 @@ http://www.pronetics.com/schema/madstore/madstore.xsd">
             </mds:index>
         </mds:repository>
         <mds:server>
+            <!-- <mds:httpCache-enabled max-age=""/> -->
             <mds:openSearch>
                 <mds:shortName></mds:shortName>
                 <mds:description></mds:description>

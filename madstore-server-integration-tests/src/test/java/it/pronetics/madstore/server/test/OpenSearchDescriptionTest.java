@@ -44,6 +44,12 @@ public class OpenSearchDescriptionTest extends XMLTestCase {
         wc = new WebConversation();
     }
 
+    public void testCacheControlResponseHeaderContainsZeroMaxAge() throws Exception {
+        WebResponse response = wc.getResponse(HttpConstants.SERVER_URL + HttpConstants.OPENSEARCH_DESCRIPTION_URL);
+        assertEquals(200, response.getResponseCode());
+        assertTrue("Wrong header: " + response.getHeaderField("Cache-Control"), response.getHeaderField("Cache-Control").contains("max-age=0"));
+    }
+
     public void testOpenSearchDescription() throws Exception {
         WebResponse response = wc.getResponse(HttpConstants.SERVER_URL + HttpConstants.OPENSEARCH_DESCRIPTION_URL);
         assertEquals(200, response.getResponseCode());

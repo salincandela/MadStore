@@ -64,7 +64,7 @@ public class DefaultSearchDescriptionResourceHandlerTest extends XMLTestCase {
         handler.setResourceResolver(resolver);
         handler.setDescription(osDescription);
         handler.setShortName(osShortName);
-        OpenSearchDescription description = handler.getSearchDescription();
+        OpenSearchDescription description = (OpenSearchDescription) handler.getSearchDescription().getEntity();
         StringWriter writer = new StringWriter();
         description.writeTo(writer);
         String content = writer.toString();

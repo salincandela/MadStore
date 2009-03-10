@@ -62,7 +62,7 @@ public class DefaultEntryResourceHandlerTest extends XMLTestCase {
         handler.setResourceResolver(resolver);
         handler.setCollectionKey(collectionKey);
         handler.setEntryKey(entryKey);
-        Entry entry = handler.getEntryResource();
+        Entry entry = (Entry) handler.getEntryResource().getEntity();
         StringWriter writer = new StringWriter();
         entry.writeTo(writer);
         String content = writer.toString();

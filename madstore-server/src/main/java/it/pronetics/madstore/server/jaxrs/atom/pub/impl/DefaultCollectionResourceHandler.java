@@ -18,7 +18,7 @@ package it.pronetics.madstore.server.jaxrs.atom.pub.impl;
 import it.pronetics.madstore.common.AtomConstants;
 import it.pronetics.madstore.repository.util.PagingList;
 import it.pronetics.madstore.server.HttpConstants;
-import it.pronetics.madstore.server.jaxrs.atom.AbstractResourceHandler;
+import it.pronetics.madstore.server.jaxrs.atom.impl.AbstractResourceHandler;
 import it.pronetics.madstore.server.jaxrs.atom.pub.CollectionResourceHandler;
 import it.pronetics.madstore.server.jaxrs.atom.resolver.ResourceName;
 import it.pronetics.madstore.server.jaxrs.atom.resolver.ResourceUriFor;
@@ -49,7 +49,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Sergio Bossa
  */
 @Path("/")
-public class DefaultCollectionResourceHandler extends AbstractResourceHandler implements CollectionResourceHandler<Feed> {
+public class DefaultCollectionResourceHandler extends AbstractResourceHandler implements CollectionResourceHandler {
 
     private static final Logger LOG = LoggerFactory.getLogger(DefaultCollectionResourceHandler.class);
     private String collectionKey;
@@ -61,7 +61,7 @@ public class DefaultCollectionResourceHandler extends AbstractResourceHandler im
     @GET
     @Path("/{collectionKey}")
     @Produces(AtomConstants.ATOM_MEDIA_TYPE)
-    public Feed getCollectionResource() {
+    public Response getCollectionResource() {
         try {
             int max = maxNumberOfEntries;
             int offset = (pageNumberOfEntries - 1) * max;
@@ -71,7 +71,8 @@ public class DefaultCollectionResourceHandler extends AbstractResourceHandler im
             Feed feed = abderaFactory.newFeed();
             PagingList<Entry> entries = readEntriesFromRepository(collectionKey, offset, max);
             configureFeed(feed, entries, collectionModel);
-            return feed;
+            Response response = buildOkResponse(feed);
+            return response;
         } catch (Exception ex) {
             LOG.error(ex.getMessage(), ex);
             throw new WebApplicationException(Response.serverError().build());

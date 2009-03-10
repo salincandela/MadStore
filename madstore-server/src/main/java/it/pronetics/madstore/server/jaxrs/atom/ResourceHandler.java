@@ -22,10 +22,20 @@ import javax.ws.rs.core.UriInfo;
 
 /**
  * Common interface for all JAX-RS classes handling resource access.
+ * <br>
+ * The ResourceHandler provides a way to configure http cache handling capabilities, that
+ * implementors may use to actually provide http caching implementations.
  *
  * @author Sergio Bossa
  */
 public interface ResourceHandler {
+
+    /**
+     * Get the cache-control max-age http header value, to use for configuring client-side http caching.
+     *
+     * @return The max-age value; if 0, it means that the resource cannot be cached and must be always refreshed.
+     */
+    public int getHttpCacheMaxAge();
 
     /**
      * Get the {@link it.pronetics.madstore.repository.CollectionRepository}.
