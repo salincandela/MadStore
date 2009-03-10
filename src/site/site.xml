@@ -24,8 +24,7 @@
                 <item name="Building MadStore" href="/docs/build.html"/>
             </item>
             <item name="Development" href="/index.html">
-                <item name="Javadocs" href="/apidocs/index.html"/>
-                <item name="Sources" href="/xref/index.html"/>
+                <item name="Sources" href="https://apps.sourceforge.net/trac/madstore/browser/trunk"/>
                 <item name="Issues" href="https://apps.sourceforge.net/trac/madstore/report"/>
             </item>
             <item name="Community" href="/index.html">
