@@ -118,7 +118,7 @@ Configuring MadStore
 
         * <<beans>>/<<config>>/<<server>>/<<httpCache-enabled>>\
             Enable the HTTP client-side caching by the configuration of proper HTTP headers;
-            see see {{{http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9}here}} for more information about HTTP caching.
+            see {{{http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9}here}} for more information about HTTP caching.
             If not enabled, no explicit HTTP caching will take place. If enabled, the MadStore server will enable HTTP caching
             for all Atom feeds and entries.\
             It provides the following configuration parameters:
@@ -232,7 +232,7 @@ http://www.pronetics.com/schema/madstore/madstore.xsd">
             </mds:index>
         </mds:repository>
         <mds:server>
-            <httpCache-enabled max-age="10"/>
+            <mds:httpCache-enabled max-age="10"/>
             <mds:atomPub>
                 <mds:workspace>MadStore</mds:workspace>
             </mds:atomPub>
@@ -305,7 +305,7 @@ http://www.pronetics.com/schema/madstore/madstore.xsd">
 
 ---
 <mds:server>
-    <httpCache-enabled max-age="10"/>
+    <mds:httpCache-enabled max-age="10"/>
     <mds:os>
         <mds:shortName>MadStore Search</mds:shortName>
         <mds:description>My MadStore Search</mds:description>
