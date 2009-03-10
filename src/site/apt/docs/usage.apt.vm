@@ -13,13 +13,17 @@ Using MadStore
 
         * <gridgain> : contains the {{{http://www.gridgain.com}GridGain}} distribution, needed for running MadStore crawler in grid mode.
 
+        * <sources> : contains all MadStore sources.
+
     Unarchive the <<war>> distribution if you want to run MadStore within your Servlet 2.4 container of choice; here is its directory structure:
 
         * <conf> : contains the <madstoreConfguration.xml> file to edit for configuring MadStore.
 
-        * <standalone> : contains the MadStore standalone war files for the main and grid node applications.
+        * <war> : contains the MadStore standalone war files for the main and grid node applications.
 
         * <gridgain> : contains the {{{http://www.gridgain.com}GridGain}} distribution, needed for running MadStore crawler in grid mode.
+
+        * <sources> : contains all MadStore sources.
 
     Then set the <MADSTORE_HOME> environment variable to point to the MadStore distribution directory: <<don't miss this step>>.
 
