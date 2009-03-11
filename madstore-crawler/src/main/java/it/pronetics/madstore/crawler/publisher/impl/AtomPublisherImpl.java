@@ -35,15 +35,20 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /**
- * {@link it.pronetics.madstore.crawler.AtomPublisher} implementation publishing an Atom feed as an AtomPub collection
+ * {@link it.pronetics.madstore.crawler.publisher.AtomPublisher} implementation publishing an Atom feed as an AtomPub collection
  * into the {@link it.pronetics.madstore.repository.CollectionRepository}, and all related entries
  * into the {@link it.pronetics.madstore.repository.EntryRepository}.
- * <br>
+ * <br><br>
  * Atom feeds are published only if not already existent into the repository, while entries are updated if their
  * publishing date is newer than the one of the already stored entry.
- * <br>
+ * <br><br>
  * Atom feeds and entries should have a proper feed and entry key, in order to properly manage updating of entries: if no
- * key is provided, surrogated keys will be automatically generated.
+ * key is provided, surrogated keys will be automatically generated based on page and URL heuristics, more specifically:
+ * <ul>
+ * <li>The host name of the crawled site will be used for generating the feed key.</li>
+ * <li>An hash of the entry title will be used for generating each entry key.</li>
+ * <li>All entries will be inserted under the same collection.</li>
+ * </ul>
  * <br>
  * Atom entries should have a proper updated date, too: if no such a date is found, the current one will be used.
  *
@@ -138,7 +143,7 @@ public class AtomPublisherImpl implements AtomPublisher {
         if (key == null || key.equals("")) {
             LOG.warn("No feed key found, generating surrogate key ...");
             URL url = new URL(page.getLink().getLink());
-            String path = url.getHost() + url.getPath();
+            String path = url.getHost();
             if (path.startsWith("/")) {
                 path = path.substring(1);
             }

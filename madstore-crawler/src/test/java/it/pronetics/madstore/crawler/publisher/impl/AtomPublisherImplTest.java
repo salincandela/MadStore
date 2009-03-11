@@ -85,8 +85,8 @@ public class AtomPublisherImplTest extends TestCase {
 
         Capture<Element> collectionCapture = new Capture<Element>();
         Capture<Element> entryCapture = new Capture<Element>();
-        expect(collectionRepository.putIfAbsent(capture(collectionCapture))).andReturn("www_acme_org-test-link_html").once();
-        expect(entryRepository.putIfAbsent(eq("www_acme_org-test-link_html"), capture(entryCapture))).andReturn("").once();
+        expect(collectionRepository.putIfAbsent(capture(collectionCapture))).andReturn("www_acme_org").once();
+        expect(entryRepository.putIfAbsent(eq("www_acme_org"), capture(entryCapture))).andReturn("").once();
 
         AtomPublisherImpl publisherImpl = new AtomPublisherImpl();
         publisherImpl.setCollectionRepository(collectionRepository);
@@ -96,7 +96,7 @@ public class AtomPublisherImplTest extends TestCase {
         publisherImpl.publish(inputPage);
         verify(collectionRepository, entryRepository);
 
-        assertEquals("www_acme_org-test-link_html", collectionCapture.getValue().getAttribute(AtomConstants.ATOM_KEY));
+        assertEquals("www_acme_org", collectionCapture.getValue().getAttribute(AtomConstants.ATOM_KEY));
         assertFalse(entryCapture.getValue().getAttribute(AtomConstants.ATOM_KEY).equals(""));
     }
 
