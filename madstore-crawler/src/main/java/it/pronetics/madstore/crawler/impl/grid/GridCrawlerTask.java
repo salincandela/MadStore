@@ -30,6 +30,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 
+import org.gridgain.grid.GridException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -72,19 +73,24 @@ public class GridCrawlerTask implements CrawlerTask {
      * </ol>
      */
     public void execute(Link startLink) {
-        toParseLinks.put(startLink.getLink(), startLink);
-        Collection<Page> extractedPages = doParsing();
-        Collection<Page> processedPages = doProcessing(extractedPages);
-        doPublishing(processedPages);
+        try {
+            toParseLinks.put(startLink.getLink(), startLink);
+            Collection<Page> extractedPages = doParsing();
+            Collection<Page> processedPages = doProcessing(extractedPages);
+            doPublishing(processedPages);
+        } catch (Exception ex) {
+            LOG.error(ex.getMessage(), ex);
+        }
     }
 
-    private Collection<Page> doParsing() {
+    private Collection<Page> doParsing() throws GridException {
         do {
-            LOG.info("Start link downloading and parsing ...");
             Collection<Link> linksToVisit = getLinksToVisit();
-            ParserTask task = new ParserTask(parser, downloader);
-            try {
-                Collection<ParserTaskResult> results = madStoreGrid.<Collection<Link>, Collection<ParserTaskResult>> executeInGrid(task, linksToVisit);
+            LOG.info("Downloading and parsing links ...", linksToVisit.size());
+            if (linksToVisit.size() > 0) {
+                LOG.info("Downloading and parsing {} links.", linksToVisit.size());
+                ParserTask task = new ParserTask(parser, downloader);
+                Collection<ParserTaskResult> results = madStoreGrid.<Collection<Link>, Collection<ParserTaskResult>>executeInGrid(task, linksToVisit);
                 for (ParserTaskResult result : results) {
                     if (result != null) {
                         pushVisitedPage(result.getPage());
@@ -95,8 +101,6 @@ public class GridCrawlerTask implements CrawlerTask {
                     LOG.debug("To parse links : {}", toParseLinks.keySet());
                     LOG.debug("Visited links : {}", visitedLinks.keySet());
                 }
-            } catch (Exception ex) {
-                LOG.error(ex.getMessage(), ex);
             }
         } while (!toParseLinks.isEmpty());
         return Collections.unmodifiableCollection(visitedLinks.values());
@@ -135,7 +139,7 @@ public class GridCrawlerTask implements CrawlerTask {
         LOG.info("Start page processing ...");
         ProcessorTask task = new ProcessorTask(pipeline);
         try {
-            Collection<ProcessorTaskResult> results = madStoreGrid.<Collection<Page>, Collection<ProcessorTaskResult>> executeInGrid(task, extractedPages);
+            Collection<ProcessorTaskResult> results = madStoreGrid.<Collection<Page>, Collection<ProcessorTaskResult>>executeInGrid(task, extractedPages);
             Collection<Page> processedPages = new LinkedList<Page>();
             for (ProcessorTaskResult result : results) {
                 if (result != null) {

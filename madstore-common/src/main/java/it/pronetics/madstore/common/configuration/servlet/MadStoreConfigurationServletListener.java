@@ -61,7 +61,8 @@ public class MadStoreConfigurationServletListener implements ServletContextListe
             LOG.info("         ---Crawler module is active----");
             if (madStoreConfigurationBean.isGridModeEnabled()) {
                 LOG.info("         MadStore crawler starting in distributed grid mode.");
-                LOG.info("         Grid Gain home directory {}", madStoreConfigurationBean.getGridConfiguration().getHomeDir());
+                LOG.info("         Grid Gain home directory: {}", madStoreConfigurationBean.getGridConfiguration().getHomeDir());
+                LOG.info("         Local address: {}", madStoreConfigurationBean.getGridConfiguration().getLocalAddress());
             } else {
                 LOG.info("         MadStore crawler starting in local mode.");
             }
@@ -85,6 +86,9 @@ public class MadStoreConfigurationServletListener implements ServletContextListe
         }
         if (madStoreConfigurationBean.getOpenSearchConfiguration() != null && madStoreConfigurationBean.getAtomPublishingProtocolConfiguration() != null) {
             LOG.info("         ----Server module is active----");
+            if (madStoreConfigurationBean.getHttpCacheConfiguration().getMaxAge() > 0) {
+                LOG.info("         Enabled HTTP cache with max-age value: {}", madStoreConfigurationBean.getHttpCacheConfiguration().getMaxAge());
+            }
             LOG.info("         Atom Publishing Protocol workspace: {}", madStoreConfigurationBean.getAtomPublishingProtocolConfiguration().getWorkspace());
             LOG.info("         Open search description: {}", madStoreConfigurationBean.getOpenSearchConfiguration().getDescription());
             LOG.info("         Open search short name: {}", madStoreConfigurationBean.getOpenSearchConfiguration().getShortName());

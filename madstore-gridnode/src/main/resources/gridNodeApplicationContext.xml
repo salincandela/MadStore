@@ -3,6 +3,7 @@
 
     <!-- Configurations -->
     <bean id="gridGainHome" class="it.pronetics.madstore.crawler.spring.GridGainHomeFactoryBean"/>
+    <bean id="gridGainLocalAddress" class="it.pronetics.madstore.crawler.spring.GridGainLocalAddressFactoryBean"/>
 
     <!-- Crawler -->
     <bean name="downloader" class="it.pronetics.madstore.crawler.downloader.impl.DownloaderImpl" />
@@ -41,6 +42,9 @@
         <property name="discoverySpi">
             <bean class="org.gridgain.grid.spi.discovery.multicast.GridMulticastDiscoverySpi">
                 <property name="multicastGroup" value="228.10.10.159" />
+                <property name="maxMissedHeartbeats" value="5" />
+                <property name="leaveAttempts" value="5" />
+                <property name="localAddress" ref="gridGainLocalAddress" />
             </bean>
         </property>
         <property name="deploymentMode" value="SHARED" />

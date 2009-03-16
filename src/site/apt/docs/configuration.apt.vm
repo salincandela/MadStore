@@ -23,7 +23,11 @@ Configuring MadStore
         []
 
         * <<beans>>/<<config>>/<<crawler>>/<<grid-enabled>>\
-            Configure the crawler to run in grid mode.
+            Configure the crawler to run in grid mode.\
+            It provides the following attributes:
+
+                * <localAddress>: the address of the local host to use for binding the grid process to a network interface; if not provided
+                MadStore will try to guess the correct address.
 
         []
 
@@ -202,6 +206,7 @@ http://www.pronetics.com/schema/madstore
 http://www.pronetics.com/schema/madstore/madstore.xsd">
     <mds:config>
         <mds:crawler>
+            <mds:grid-enabled localAddress="192.168.1.1"/>
             <mds:targetSite>
                 <mds:hostName>http://127.0.0.1:8080</mds:hostName>
                 <mds:startLink>/index.html</mds:startLink>
@@ -263,6 +268,7 @@ http://www.pronetics.com/schema/madstore/madstore.xsd">
 
 ---
 <mds:crawler>
+    <mds:grid-enabled localAddress="192.168.1.1"/>
     <mds:targetSite>
         <mds:hostName>http://127.0.0.1:8080</mds:hostName>
         <mds:startLink>/index.html</mds:startLink>
@@ -273,7 +279,8 @@ http://www.pronetics.com/schema/madstore/madstore.xsd">
 ---
 
     Here, we are telling the MadStore crawler to crawl the <http://127.0.0.1:8080> host, starting from the <index.html> page,
-    with a maximum number of 3 requests per second, and a maximum number of 100 visited links (pages).
+    with a maximum number of 3 requests per second, and a maximum number of 100 visited links (pages).\
+    We're using the distributed grid crawler, bound to the 192.168.1.1 local address.
 
 ---
 <mds:repository>

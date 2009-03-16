@@ -6,7 +6,7 @@ http://www.pronetics.com/schema/madstore
 http://www.pronetics.com/schema/madstore/madstore.xsd">
     <mds:config>
         <mds:crawler>
-            <!-- <mds:grid-enabled/> -->
+            <!-- <mds:grid-enabled localAddress=""/> -->
             <mds:targetSite>
                 <mds:hostName></mds:hostName>
                 <mds:startLink></mds:startLink>

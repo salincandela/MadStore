@@ -50,6 +50,7 @@ public class MadStoreConfigurationBeanTest extends TestCase {
 
         // crawler grid
         assertEquals(madStoreHome + "/gridgain", madStoreConfiguration.getGridConfiguration().getHomeDir());
+        assertEquals("192.168.1.1", madStoreConfiguration.getGridConfiguration().getLocalAddress());
         // repository jcr
         assertEquals(new Integer(2000), madStoreConfiguration.getJcrConfiguration().getMaxHistory());
         assertEquals(madStoreHome + "/jcr", madStoreConfiguration.getJcrConfiguration().getHomeDir());

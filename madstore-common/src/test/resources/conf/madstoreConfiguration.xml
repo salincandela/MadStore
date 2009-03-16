@@ -6,7 +6,7 @@ http://www.pronetics.com/schema/madstore/madstore.xsd">
     <mds:config>
         <!--Crawler configuration -->
         <mds:crawler>
-            <mds:grid-enabled />
+            <mds:grid-enabled localAddress="192.168.1.1"/>
             <!--target site configuration -->
             <mds:targetSite>
                 <mds:hostName>http://localhost:8080</mds:hostName>

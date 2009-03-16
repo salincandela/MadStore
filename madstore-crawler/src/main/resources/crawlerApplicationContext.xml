@@ -3,8 +3,9 @@
 
     <!-- Configurations -->
     <bean id="crawlerConfigurations" class="it.pronetics.madstore.crawler.spring.CrawlerConfigurationsFactoryBean" />
-    <bean name="crawlerTaskFactory" class="it.pronetics.madstore.crawler.spring.CrawlerTaskFactoryBean"/>
+    <bean id="crawlerTaskFactory" class="it.pronetics.madstore.crawler.spring.CrawlerTaskFactoryBean"/>
     <bean id="gridGainHome" class="it.pronetics.madstore.crawler.spring.GridGainHomeFactoryBean"/>
+    <bean id="gridGainLocalAddress" class="it.pronetics.madstore.crawler.spring.GridGainLocalAddressFactoryBean"/>
 
     <!-- Crawler -->
     <bean name="madStoreCrawler" class="it.pronetics.madstore.crawler.impl.MadStoreCrawlerImpl">
@@ -61,6 +62,9 @@
         <property name="discoverySpi">
             <bean class="org.gridgain.grid.spi.discovery.multicast.GridMulticastDiscoverySpi">
                 <property name="multicastGroup" value="228.10.10.159" />
+                <property name="maxMissedHeartbeats" value="5" />
+                <property name="leaveAttempts" value="5" />
+                <property name="localAddress" ref="gridGainLocalAddress" />
             </bean>
         </property>
         <property name="deploymentMode" value="SHARED" />

@@ -26,6 +26,8 @@ import it.pronetics.madstore.common.configuration.spring.MadStoreConfigurationBe
 import it.pronetics.madstore.common.configuration.spring.MadStoreConfigurationBean.IndexConfiguration.Property;
 import it.pronetics.madstore.common.configuration.support.MadStoreConfigurationException;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -75,6 +77,7 @@ public class MadStoreConfigurationBeanDefinitionParser extends AbstractSingleBea
     private static final String CRAWLER_CONFIGURATIONS_BEAN_PROPERTY = "crawlerConfigurations";
     private static final String SIMPLE_TRIGGER_CONFIGURATION_TAG = "simpleTrigger";
     private static final String TASKS_CONFIGURATION_BEAN_PROPERTY = "tasks";
+    private static final String LOCAL_ADDRESS_ATTRIBUTE = "localAddress";
     private static final String GRID_ENABLED_TAG = "grid-enabled";
     private static final String GRID_CONFIGURATION_BEAN_PROPERTY = "gridConfiguration";
     private static final String GRID_FOLDER = "gridgain";
@@ -99,6 +102,7 @@ public class MadStoreConfigurationBeanDefinitionParser extends AbstractSingleBea
     }
 
     protected void doParse(Element element, ParserContext parserContext, BeanDefinitionBuilder beanDefinitionBuilder) {
+        try {
         String madStoreDir = MadStoreConfigurationManager.getInstance().getMadStoreHome();
         beanDefinitionBuilder.addPropertyValue(MADSTORE_HOME_BEAN_PROPERTY, madStoreDir);
 
@@ -133,6 +137,9 @@ public class MadStoreConfigurationBeanDefinitionParser extends AbstractSingleBea
             dummyOsConfiguration(beanDefinitionBuilder);
         }
         parseTasksConfiguration(tasksElement, beanDefinitionBuilder);
+        } catch(Exception ex) {
+            throw new MadStoreConfigurationException(ex.getMessage(), ex);
+        }
     }
 
     @Override
@@ -192,13 +199,18 @@ public class MadStoreConfigurationBeanDefinitionParser extends AbstractSingleBea
         }
     }
 
-    private void parseGridConfiguration(Element crawlerElement, BeanDefinitionBuilder beanDefinitionBuilder) {
+    private void parseGridConfiguration(Element crawlerElement, BeanDefinitionBuilder beanDefinitionBuilder) throws UnknownHostException {
         Element gridEnabled = DomUtils.getChildElementByTagName(crawlerElement, GRID_ENABLED_TAG);
         if (gridEnabled != null) {
             String madStoreDir = MadStoreConfigurationManager.getInstance().getMadStoreHome();
             String gridDir = new StringBuilder(madStoreDir).append("/").append(GRID_FOLDER).toString();
+            String localAddress = gridEnabled.getAttribute(LOCAL_ADDRESS_ATTRIBUTE);
+            if (localAddress == null || localAddress.equals("")) {
+                localAddress = InetAddress.getLocalHost().getHostAddress();
+            }
             GridConfiguration gridConfiguration = new GridConfiguration();
             gridConfiguration.setHomeDir(gridDir);
+            gridConfiguration.setLocalAddress(localAddress);
             beanDefinitionBuilder.addPropertyValue(GRID_CONFIGURATION_BEAN_PROPERTY, gridConfiguration);
         }
     }

@@ -196,6 +196,7 @@ public class MadStoreConfigurationBean {
     public static class GridConfiguration {
 
         private String homeDir;
+        private String localAddress;
 
         public String getHomeDir() {
             return homeDir;
@@ -203,6 +204,14 @@ public class MadStoreConfigurationBean {
 
         public void setHomeDir(String homeDir) {
             this.homeDir = homeDir;
+        }
+
+        public String getLocalAddress() {
+            return localAddress;
+        }
+
+        public void setLocalAddress(String localAddress) {
+            this.localAddress = localAddress;
         }
     }
 
