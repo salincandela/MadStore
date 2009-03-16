@@ -77,7 +77,7 @@ public class AtomPublisherImpl implements AtomPublisher {
             }
             Element feed = DomHelper.getDomFeedFromString(page.getData());
             String collectionKey = getOrGenerateCollectionKey(page, feed);
-            String collectionTitle = feed.getElementsByTagName(AtomConstants.ATOM_COLLECTION_TITLE).item(0).getTextContent();
+            String collectionTitle = getOrGenerateCollectionTitle(page, feed);
             String collectionHref = collectionKey;
             Element collectionElement = createCollectionElement(collectionKey, collectionHref, collectionTitle);
             if (LOG.isDebugEnabled()) {
@@ -151,10 +151,19 @@ public class AtomPublisherImpl implements AtomPublisher {
                 path = path.substring(0, path.length() - 1);
             }
             key = path.replaceAll("\\.", "_").replaceAll("/", "-").replaceAll("\\:", "-").replaceAll("\\,", "-");
-            feed.setAttribute(AtomConstants.ATOM_KEY, key);
             LOG.warn("Surrogated feed key: {}", key);
         }
         return key;
+    }
+
+    private String getOrGenerateCollectionTitle(Page page, Element feed) throws Exception {
+        String key = feed.getAttribute(AtomConstants.ATOM_KEY);
+        if (key == null || key.equals("")) {
+            URL url = new URL(page.getLink().getLink());
+            return url.getHost();
+        } else {
+            return feed.getElementsByTagName(AtomConstants.ATOM_COLLECTION_TITLE).item(0).getTextContent();
+        }
     }
 
     private String getOrGenerateEntryKey(Element entry) throws Exception {
