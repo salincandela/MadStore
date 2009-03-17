@@ -27,7 +27,6 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 /**
  * Singleton class for accessing the current {@link MadStoreConfigurationBean} and the MadStore home location.
- *
  * @author Sergio Bossa
  */
 public class MadStoreConfigurationManager {
@@ -36,6 +35,7 @@ public class MadStoreConfigurationManager {
     private static final String MADSTORE_HOME = "MADSTORE_HOME";
     private static final String MADSTORE_CONFIGURATION_NAME = "madstoreConfiguration.xml";
     private static final MadStoreConfigurationManager instance = new MadStoreConfigurationManager();
+    private static final String SEPARATOR = System.getProperty("file.separator");
     //
     private String madStoreHome;
     private MadStoreConfigurationBean madStoreConfiguration;
@@ -88,7 +88,7 @@ public class MadStoreConfigurationManager {
     }
 
     private void loadMadStoreConfigurationFromFilesystem() {
-        String contextPath = "file:" + madStoreHome + "/conf/" + MADSTORE_CONFIGURATION_NAME;
+        String contextPath = "file:" + madStoreHome + SEPARATOR + "conf" + SEPARATOR + MADSTORE_CONFIGURATION_NAME;
         try {
             ApplicationContext context = new FileSystemXmlApplicationContext(contextPath);
             Map configurations = context.getBeansOfType(MadStoreConfigurationBean.class);

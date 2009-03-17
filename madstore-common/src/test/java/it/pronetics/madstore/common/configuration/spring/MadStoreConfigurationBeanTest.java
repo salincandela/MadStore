@@ -27,6 +27,7 @@ public class MadStoreConfigurationBeanTest extends TestCase {
 
     private static final String CRAWLER_TASK = "crawlerTask";
     private static final String CLEAN_REPOSITORY_HISTORY_TASK = "cleanRepositoryHistoryTask";
+    private static final String SEPARATOR = System.getProperty("file.separator");
 
     public void testMadStoreConfiguration() {
         this.madStoreConfiguration = MadStoreConfigurationManager.getInstance().getMadStoreConfiguration();
@@ -49,15 +50,15 @@ public class MadStoreConfigurationBeanTest extends TestCase {
         assertEquals(6, cleanHistorySimpleTriggerConfiguration.getRepeatInterval());
 
         // crawler grid
-        assertEquals(madStoreHome + "/gridgain", madStoreConfiguration.getGridConfiguration().getHomeDir());
+        assertEquals(madStoreHome + SEPARATOR + "gridgain", madStoreConfiguration.getGridConfiguration().getHomeDir());
         assertEquals("192.168.1.1", madStoreConfiguration.getGridConfiguration().getLocalAddress());
         // repository jcr
         assertEquals(new Integer(2000), madStoreConfiguration.getJcrConfiguration().getMaxHistory());
-        assertEquals(madStoreHome + "/jcr", madStoreConfiguration.getJcrConfiguration().getHomeDir());
+        assertEquals(madStoreHome + SEPARATOR + "jcr", madStoreConfiguration.getJcrConfiguration().getHomeDir());
         assertEquals("", madStoreConfiguration.getJcrConfiguration().getUsername());
         assertEquals("", new String(madStoreConfiguration.getJcrConfiguration().getPassword()));
         // repository index
-        assertEquals(madStoreHome + "/index", madStoreConfiguration.getIndexConfiguration().getIndexDir());
+        assertEquals(madStoreHome + SEPARATOR + "index", madStoreConfiguration.getIndexConfiguration().getIndexDir());
         // indexed properties
         assertEquals("title", madStoreConfiguration.getIndexConfiguration().getIndexedProperties().get(0).getName());
         assertEquals("//atom:entry/atom:title", madStoreConfiguration.getIndexConfiguration().getIndexedProperties().get(0).getXPath());

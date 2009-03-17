@@ -48,6 +48,7 @@ import org.w3c.dom.Element;
  */
 public class MadStoreConfigurationBeanDefinitionParser extends AbstractSingleBeanDefinitionParser {
 
+    private static final String SEPARATOR = System.getProperty("file.separator");
     private static final String TASK_NAME = "name";
     private static final String MADSTORE_HOME_BEAN_PROPERTY = "madStoreHome";
     private static final String CRAWLER = "crawler";
@@ -203,7 +204,7 @@ public class MadStoreConfigurationBeanDefinitionParser extends AbstractSingleBea
         Element gridEnabled = DomUtils.getChildElementByTagName(crawlerElement, GRID_ENABLED_TAG);
         if (gridEnabled != null) {
             String madStoreDir = MadStoreConfigurationManager.getInstance().getMadStoreHome();
-            String gridDir = new StringBuilder(madStoreDir).append("/").append(GRID_FOLDER).toString();
+            String gridDir = new StringBuilder(madStoreDir).append(SEPARATOR).append(GRID_FOLDER).toString();
             String localAddress = gridEnabled.getAttribute(LOCAL_ADDRESS_ATTRIBUTE);
             if (localAddress == null || localAddress.equals("")) {
                 localAddress = InetAddress.getLocalHost().getHostAddress();
@@ -218,7 +219,7 @@ public class MadStoreConfigurationBeanDefinitionParser extends AbstractSingleBea
     private void parseJcrConfiguration(Element repositoryElement, BeanDefinitionBuilder beanDefinitionBuilder) throws DOMException {
         JcrConfiguration jcrConfiguration = new JcrConfiguration();
         String madStoreDir = MadStoreConfigurationManager.getInstance().getMadStoreHome();
-        String jcrDir = new StringBuilder(madStoreDir).append("/").append(DEFAULT_JCR_FOLDER).toString();
+        String jcrDir = new StringBuilder(madStoreDir).append(SEPARATOR).append(DEFAULT_JCR_FOLDER).toString();
         jcrConfiguration.setHomeDir(jcrDir);
         jcrConfiguration.setUsername("");
         jcrConfiguration.setPassword("".toCharArray());
@@ -233,7 +234,7 @@ public class MadStoreConfigurationBeanDefinitionParser extends AbstractSingleBea
 
         Element indexConfigurationElement = DomUtils.getChildElementByTagName(repositoryElement, INDEX_CONFIGURATION_TAG);
         String madStoreDir = MadStoreConfigurationManager.getInstance().getMadStoreHome();
-        String indexDir = new StringBuilder(madStoreDir).append("/").append(DEFAULT_INDEX_FOLDER).toString();
+        String indexDir = new StringBuilder(madStoreDir).append(SEPARATOR).append(DEFAULT_INDEX_FOLDER).toString();
         indexConfiguration.setIndexDir(indexDir);
 
         List<Element> indexedPropertiesNamespacesElementList = DomUtils.getChildElementsByTagName(DomUtils.getChildElementByTagName(indexConfigurationElement, INDEXED_PROPERTIES_NAMESPACES),
