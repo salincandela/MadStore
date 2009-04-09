@@ -68,8 +68,8 @@ public class MadStoreConfigurationServletListener implements ServletContextListe
             }
             LOG.info("         ----------Target sites---------");
             for (MadStoreConfigurationBean.CrawlerConfiguration crawlerConfiguration : madStoreConfigurationBean.getCrawlerConfigurations()) {
-                LOG.info("         Target hostname: {}, start link: {}, max concurrent downloads: {}, max number of links: {}", new Object[] { crawlerConfiguration.getHostName(),
-                        crawlerConfiguration.getStartLink(), crawlerConfiguration.getMaxConcurrentDownloads(), crawlerConfiguration.getMaxVisitedLinks() });
+                LOG.info("         Target hostname: {}, start link: {}, max concurrent downloads: {}, max number of links: {}", new Object[]{crawlerConfiguration.getHostName(),
+                            crawlerConfiguration.getStartLink(), crawlerConfiguration.getMaxConcurrentDownloads(), crawlerConfiguration.getMaxVisitedLinks()});
             }
             LOG.info("");
         }
@@ -82,7 +82,7 @@ public class MadStoreConfigurationServletListener implements ServletContextListe
         LOG.info("         --------Indexed properties-------");
         List<Property> properties = madStoreConfigurationBean.getIndexConfiguration().getIndexedProperties();
         for (Property property : properties) {
-            LOG.info("         Name: {} xpath: {} boost: {}", new Object[] { property.getName(), property.getXPath(), property.getBoost() });
+            LOG.info("         Name: {} xpath: {} boost: {}", new Object[]{property.getName(), property.getXPath(), property.getBoost()});
         }
         if (madStoreConfigurationBean.getOpenSearchConfiguration() != null && madStoreConfigurationBean.getAtomPublishingProtocolConfiguration() != null) {
             LOG.info("         ----Server module is active----");
@@ -116,17 +116,21 @@ public class MadStoreConfigurationServletListener implements ServletContextListe
         if (inputStream == null) {
             throw new MadStoreConfigurationException("Logging configuration file " + MADSTORE_LOGGER_CONFIGURATION + " cannot be found");
         } else {
-            LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
-            try {
-                JoranConfigurator configurator = new JoranConfigurator();
-                configurator.setContext(loggerContext);
-                loggerContext.reset();
-                configurator.doConfigure(inputStream);
-            } catch (JoranException ex) {
-                loggerContext.reset();
-                LOG.error(ex.getMessage(), ex);
+            if (LoggerFactory.getILoggerFactory() instanceof LoggerContext) {
+                LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
+                try {
+                    JoranConfigurator configurator = new JoranConfigurator();
+                    configurator.setContext(loggerContext);
+                    loggerContext.reset();
+                    configurator.doConfigure(inputStream);
+                } catch (JoranException ex) {
+                    loggerContext.reset();
+                    LOG.error(ex.getMessage(), ex);
+                }
+                StatusPrinter.printInCaseOfErrorsOrWarnings(loggerContext);
+            } else {
+                throw new MadStoreConfigurationException("Wrong logger factory of type: " + LoggerFactory.getILoggerFactory().getClass());
             }
-            StatusPrinter.printInCaseOfErrorsOrWarnings(loggerContext);
         }
     }
 
