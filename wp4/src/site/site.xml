@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project>
+    <bannerLeft>
+        <src>images/madstore-logo.png</src>
+        <href>http://madstore.sf.net/</href>
+    </bannerLeft>
+    <version position="left"/>
+    <poweredBy>
+        <logo name="Sourceforge" href="http://sourceforge.net/projects/madstore" img="http://sflogo.sourceforge.net/sflogo.php?group_id=253763&amp;type=12"/>
+        <logo name="Pro-Netics" href="http://www.pronetics.it" img="/images/pn-logo.jpg"/>
+    </poweredBy>
+    <body>
+        <menu name="MadStore">
+            <item name="Overview" href="/index.html">
+                <item name="About" href="/index.html"/>
+                <item name="License" href="/license.html"/>
+                <item name="Download" href="/download.html"/>
+            </item>
+            <item name="Documentation" href="/index.html">
+                <item name="Understanding MadStore" href="/docs/understanding.html"/>
+                <item name="Applying Microformats" href="/docs/microformats.html"/>
+                <item name="Configuring MadStore" href="/docs/configuration.html"/>
+                <item name="Using MadStore" href="/docs/usage.html"/>
+                <item name="Building MadStore" href="/docs/build.html"/>
+            </item>
+            <item name="Development" href="/index.html">
+                <item name="Sources" href="https://apps.sourceforge.net/trac/madstore/browser/trunk"/>
+                <item name="Issues" href="https://apps.sourceforge.net/trac/madstore/report"/>
+            </item>
+            <item name="Community" href="/index.html">
+                <item name="General Forum" href="https://sourceforge.net/forum/forum.php?forum_id=919842"/>
+                <item name="Help Forum" href="https://sourceforge.net/forum/forum.php?forum_id=919843"/>
+                <item name="Developers-only forum" href="https://sourceforge.net/forum/forum.php?forum_id=919844"/>
+            </item>
+        </menu>
+        <menu name="Reports" ref="reports"/>
+    </body>
+</project>

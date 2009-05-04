@@ -1,0 +1,1 @@
+//mds:$collection$//atom:entry order by @jcr:lastModified descending

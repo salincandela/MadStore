@@ -1,0 +1,25 @@
+Building MadStore
+
+    MadStore doesn't currently come with a ready-to-use binary distribution.\
+    However, building it from sources is as easy as:
+
+        * Checking out the latest and greatest MadStore sources from {{{https://madstore.svn.sourceforge.net/svnroot/madstore/trunk}here}}
+        (you will need an {{{http://www.google.com/search?q=svn+client}SVN client}}):
+
+---
+$> svn co https://madstore.svn.sourceforge.net/svnroot/madstore/trunk madstore
+---
+
+        * Running <mvn package> from the main source directory, waiting for the glorious <BUILD SUCCESSFUL> message
+        (you will need {{{http://maven.apache.org}Apache Maven 2}}):
+
+---
+$> cd madstore
+$> mvn install assembly:assembly -Dmaven.test.skip=true
+---
+
+    This will build the following MadStore binaries:
+
+        * <target/madstore-VERSION-standalone-dist.zip>, containing the standalone distributions for the MadStore main application, and the MadStore grid node application.
+
+        * <target/madstore-VERSION-war-dist.zip>, containing the deployable WAR distributions for the MadStore main application, and the MadStore grid node application.

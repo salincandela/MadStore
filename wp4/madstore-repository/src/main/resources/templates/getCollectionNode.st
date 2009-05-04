@@ -1,0 +1,1 @@
+mds:$collection$/app:collection

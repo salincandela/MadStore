@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" key="feedkeytest" xml:lang="en" xml:base="http://localhost/dummyLink.html">
+    <updated>2008-12-13T18:30:02Z</updated>
+    <link type="&#10;text/html&#10;" href="http://localhost/dummyLink.html" rel="alternate"/>
+    <id/>
+    <title>test feed title</title>
+    <entry key="entrykeytest1" xml:lang="en">
+        <title>test entry title 1</title>
+        <id/>
+        <published>2008-12-13T18:30:02Z</published>
+        <updated>2008-12-13T18:30:02Z</updated>
+        <summary type="xhtml">
+            <div xmlns="http://www.w3.org/1999/xhtml">test summary 1
+            </div>
+        </summary>
+        <content type="xhtml">
+            <div xmlns="http://www.w3.org/1999/xhtml">test content 1</div>
+        </content>
+        <author>
+            <name>test author 1</name>
+            <uri>http://testauthorlink1.com</uri>
+        </author>
+    </entry>
+    <entry key="entrykeytest2" xml:lang="en">
+        <title>test entry title 2</title>
+        <id/>
+        <published>2008-12-13T18:30:02Z</published>
+        <updated>2008-12-13T18:30:02Z</updated>
+        <summary type="xhtml">
+            <div xmlns="http://www.w3.org/1999/xhtml">test summary 2
+            </div>
+        </summary>
+        <content type="xhtml">
+            <div xmlns="http://www.w3.org/1999/xhtml">ç</div>
+        </content>
+        <author>
+            <name>test author 2</name>
+            <uri>http://testauthorlink2.com</uri>
+        </author>
+    </entry>
+    <entry key="entrykeytest3" xml:lang="en">
+        <title>test entry title 3</title>
+        <id/>
+        <published>2008-12-13T18:30:02Z</published>
+        <updated>2008-12-13T18:30:02Z</updated>
+        <summary type="xhtml">
+            <div xmlns="http://www.w3.org/1999/xhtml">test summary 3
+            </div>
+        </summary>
+        <content type="xhtml">
+            <div xmlns="http://www.w3.org/1999/xhtml">test content 3</div>
+        </content>
+        <author>
+            <name>test author 3</name>
+            <uri>http://testauthorlink3.com</uri>
+        </author>
+    </entry>
+</feed>

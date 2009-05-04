@@ -1,0 +1,67 @@
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mds="http://www.pronetics.com/schema/madstore" xsi:schemaLocation="
+http://www.springframework.org/schema/beans 
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
+http://www.pronetics.com/schema/madstore 
+http://www.pronetics.com/schema/madstore/madstore.xsd">
+    <mds:config>
+        <!--Crawler configuration -->
+        <mds:crawler>
+            <mds:grid-enabled localAddress="192.168.1.1"/>
+            <!--target site configuration -->
+            <mds:targetSite>
+                <mds:hostName>http://localhost:8080</mds:hostName>
+                <mds:startLink>/hatom1.html</mds:startLink>
+                <mds:maxConcurrentDownloads>2</mds:maxConcurrentDownloads>
+                <mds:maxVisitedLinks>100</mds:maxVisitedLinks>
+            </mds:targetSite>
+        </mds:crawler>
+        <!--Repository configuration -->
+        <mds:repository>
+            <mds:maxHistory>2000</mds:maxHistory>
+            <mds:index>
+                <mds:indexedPropertiesNamespaces>
+                    <mds:namespace prefix="atom" url="http://www.w3.org/2005/Atom" />
+                </mds:indexedPropertiesNamespaces>
+                <mds:indexedProperties>
+                    <mds:property name="title">
+                        <mds:xpath>//atom:entry/atom:title</mds:xpath>
+                        <mds:boost>1</mds:boost>
+                    </mds:property>
+                    <mds:property name="summary">
+                        <mds:xpath>//atom:entry/atom:summary</mds:xpath>
+                        <mds:boost>1</mds:boost>
+                    </mds:property>
+                    <mds:property name="author">
+                        <mds:xpath>//atom:entry/atom:author/atom:name</mds:xpath>
+                        <mds:boost>1</mds:boost>
+                    </mds:property>
+                </mds:indexedProperties>
+            </mds:index>
+        </mds:repository>
+        <!--Server configuration -->
+        <mds:server>
+            <mds:httpCache-enabled max-age="10"/>
+            <mds:openSearch>
+                <mds:shortName>sampleName</mds:shortName>
+                <mds:description>sample description</mds:description>
+            </mds:openSearch>
+            <mds:atomPub>
+                <mds:workspace>MadStore</mds:workspace>
+            </mds:atomPub>
+        </mds:server>
+        <mds:tasks>
+            <mds:task name="crawlerTask">
+                <mds:simpleTrigger>
+                    <mds:startDelay>1</mds:startDelay>
+                    <mds:repeatInterval>5</mds:repeatInterval>
+                </mds:simpleTrigger>
+            </mds:task>
+            <mds:task name="cleanRepositoryHistoryTask">
+                <mds:simpleTrigger>
+                    <mds:startDelay>2</mds:startDelay>
+                    <mds:repeatInterval>6</mds:repeatInterval>
+                </mds:simpleTrigger>
+            </mds:task>
+        </mds:tasks>
+    </mds:config>
+</beans>

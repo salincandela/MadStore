@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+    <!-- Configurations -->
+    <bean id="gridGainHome" class="it.pronetics.madstore.crawler.spring.GridGainHomeFactoryBean"/>
+    <bean id="gridGainLocalAddress" class="it.pronetics.madstore.crawler.spring.GridGainLocalAddressFactoryBean"/>
+
+    <!-- Crawler -->
+    <bean name="downloader" class="it.pronetics.madstore.crawler.downloader.impl.DownloaderImpl" />
+    <bean name="parser" class="it.pronetics.madstore.crawler.parser.impl.ParserImpl" />
+    <bean name="pipeline" class="it.pronetics.madstore.crawler.impl.PipelineImpl">
+        <property name="stages">
+            <list>
+                <bean class="it.pronetics.madstore.crawler.impl.PreprocessingStage" />
+                <bean class="it.pronetics.madstore.crawler.impl.TransformerStage">
+                    <property name="transformer">
+                        <bean class="it.pronetics.madstore.crawler.transformer.impl.HAtomToAtomTransformer"/>
+                    </property>
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+    <!-- Grid -->
+    <bean id="madStoreGrid" class="it.pronetics.madstore.crawler.impl.grid.support.MadStoreGrid">
+        <constructor-arg index="0" ref="madStoreGridConfiguration" />
+    </bean>
+    <bean id="madStoreGridConfiguration" class="org.gridgain.grid.GridConfigurationAdapter">
+        <property name="gridName" value="MadStore-Grid" />
+        <property name="gridGainHome" ref="gridGainHome" />
+        <property name="MBeanServer">
+            <bean class="org.springframework.jmx.support.MBeanServerFactoryBean"/>
+        </property>
+        <property name="gridLogger">
+            <bean class="org.gridgain.grid.logger.java.GridJavaLogger"/>
+        </property>
+        <property name="collisionSpi">
+            <bean class="org.gridgain.grid.spi.collision.fifoqueue.GridFifoQueueCollisionSpi">
+                <property name="parallelJobsNumber" value="1" />
+            </bean>
+        </property>
+        <property name="discoverySpi">
+            <bean class="org.gridgain.grid.spi.discovery.multicast.GridMulticastDiscoverySpi">
+                <property name="multicastGroup" value="228.10.10.159" />
+                <property name="maxMissedHeartbeats" value="5" />
+                <property name="leaveAttempts" value="5" />
+                <property name="localAddress" ref="gridGainLocalAddress" />
+            </bean>
+        </property>
+        <property name="deploymentMode" value="SHARED" />
+    </bean>
+    
+</beans>

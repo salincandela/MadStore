@@ -1,0 +1,42 @@
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mds="http://www.pronetics.com/schema/madstore" xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+http://www.pronetics.com/schema/madstore
+http://www.pronetics.com/schema/madstore/madstore.xsd">
+    <mds:config>
+        <mds:repository>
+            <mds:maxHistory>3</mds:maxHistory>
+            <mds:index>
+                <mds:indexedPropertiesNamespaces>
+                    <mds:namespace prefix="atom" url="http://www.w3.org/2005/Atom" />
+                </mds:indexedPropertiesNamespaces>
+                <mds:indexedProperties>
+                    <mds:property name="title">
+                        <mds:xpath>//atom:entry/atom:title</mds:xpath>
+                        <mds:boost>8</mds:boost>
+                    </mds:property>
+                    <mds:property name="summary">
+                        <mds:xpath>//atom:entry/atom:summary</mds:xpath>
+                        <mds:boost>1</mds:boost>
+                    </mds:property>
+                    <mds:property name="content">
+                        <mds:xpath>//atom:entry/atom:content</mds:xpath>
+                        <mds:boost>1</mds:boost>
+                    </mds:property>
+                    <mds:property name="category">
+                        <mds:xpath>//atom:entry/atom:category/@term</mds:xpath>
+                        <mds:boost>1</mds:boost>
+                    </mds:property>
+                </mds:indexedProperties>
+            </mds:index>
+        </mds:repository>
+        <mds:tasks>
+            <mds:task name="cleanRepositoryHistoryTask">
+                <mds:simpleTrigger>
+                    <mds:startDelay>1</mds:startDelay>
+                    <mds:repeatInterval>60</mds:repeatInterval>
+                </mds:simpleTrigger>
+            </mds:task>
+        </mds:tasks>
+    </mds:config>
+</beans>

@@ -1,0 +1,351 @@
+Configuring MadStore
+
+    MadStore configuration is based on a simple XML file.\
+    Here is a detailed description of its structure, defined with an x-path like notation:
+
+        * <<beans>>\
+            The root element of the configuration file: it is based on the Spring Framework, so
+            you may want to add your own Spring beans for advanced customizations, even if there are
+            currently no extension points working this way.
+
+        []
+
+        * <<beans>>/<<config>>\
+            The root element of the MadStore configuration.
+
+        []
+
+        * <<beans>>/<<config>>/<<crawler>>\
+            The container element for the MadStore crawler configuration.\
+            Please note that in order to automatically run the crawling process, the
+            <crawlerTask> needs to be active (see below).
+
+        []
+
+        * <<beans>>/<<config>>/<<crawler>>/<<grid-enabled>>\
+            Configure the crawler to run in grid mode.\
+            It provides the following attributes:
+
+                * <localAddress>: the address of the local host to use for binding the grid process to a network interface; if not provided
+                MadStore will try to guess the correct address.
+
+        []
+
+        * <<beans>>/<<config>>/<<crawler>>/<<targetSite>>\
+            The configuration of the site to crawl.\
+            There can be one or more <targetSite> elements, each one for a different site to crawl.
+
+        []
+
+        * <<beans>>/<<config>>/<<crawler>>/<<targetSite>>/<<hostName>>\
+            The host name of the site to crawl.
+
+        []
+
+        * <<beans>>/<<config>>/<<crawler>>/<<targetSite>>/<<startLink>>\
+            The link of the first page to crawl, relative to the host name defined above.
+
+        []
+
+        * <<beans>>/<<config>>/<<crawler>>/<<targetSite>>/<<maxConcurrentDownloads>>\
+            The max number of concurrent page downloads executed by the crawler on this configured site.
+
+        []
+
+        * <<beans>>/<<config>>/<<crawler>>/<<targetSite>>/<<maxVisitedLinks>>\
+            The max number of links to visit and crawl, used to limit the crawling depth.
+
+        []
+
+        * <<beans>>/<<config>>/<<repository>>\
+            The container element for the MadStore repository configuration.
+
+        []
+
+        * <<beans>>/<<config>>/<<repository>>/<<maxHistory>>\
+            The maximum number of entries to keep in each collection.\
+            This value has effect only if the <cleanHistoryTask> is active (see below).
+
+        []
+
+        * <<beans>>/<<config>>/<<repository>>/<<index>>\
+            The MadStore built-in index configuration.
+
+        []
+
+        * <<beans>>/<<config>>/<<repository>>/<<index>>/<<indexedPropertiesNamespaces>>\
+            Container element defining all namespaces used in the xpath expressions below.
+
+        []
+
+        * <<beans>>/<<config>>/<<repository>>/<<index>>/<<indexedPropertiesNamespaces>>/<<namespace>>\
+            Single namespace definition.\
+            It provides the following attributes:
+
+                * <prefix>: one of the prefixes used in the xpath expressions below.
+
+                * <url>: the namespace URL.
+
+            There can be more than one <namespace> element definitions.
+
+        []
+
+        * <<beans>>/<<config>>/<<repository>>/<<index>>/<<indexedProperties>>\
+            Container element defining properties indexed on Atom entries.
+
+        []
+
+        * <<beans>>/<<config>>/<<repository>>/<<index>>/<<indexedProperties>>/<<property>>\
+            Single indexed property definition.\
+            It provides the following attributes:
+
+                * <name>: the property name unique among indexed properties.
+
+        []
+
+        * <<beans>>/<<config>>/<<repository>>/<<index>>/<<indexedProperties>>/<<property>>/<<xpath>>\
+            The xpath expression of the Atom entry property to index. The xpath is used
+            to actually go through the Atom entry XML document and access the value to index.
+
+        []
+
+        * <<beans>>/<<config>>/<<repository>>/<<index>>/<<indexedProperties>>/<<property>>/<<boost>>\
+            An integer value defining the relevance of the indexed property: the higher it is, the more
+            relevant is the related indexed property.
+
+        []
+
+        * <<beans>>/<<config>>/<<server>>\
+            The container element for the MadStore Atom Publishing Protocol server configuration.
+
+        []
+
+        * <<beans>>/<<config>>/<<server>>/<<httpCache-enabled>>\
+            Enable the HTTP client-side caching by the configuration of proper HTTP headers;
+            see {{{http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9}here}} for more information about HTTP caching.
+            If not enabled, no explicit HTTP caching will take place. If enabled, the MadStore server will enable HTTP caching
+            for all Atom feeds and entries.\
+            It provides the following configuration parameters:
+
+                * <max-age>: the value of the Cache-Control max-age HTTP header.
+
+        []
+
+        * <<beans>>/<<config>>/<<server>>/<<atomPub>>\
+            The configuration of the Atom Publishing Protocol service.
+
+        []
+
+        * <<beans>>/<<config>>/<<server>>/<<atomPub>>/<<workspace>>\
+            The name of the Atom Publishing Protocol workspace document.
+
+        []
+
+        * <<beans>>/<<config>>/<<server>>/<<openSearch>>\
+            The configuration of the Open Search service.
+
+        []
+
+        * <<beans>>/<<config>>/<<server>>/<<openSearch>>/<<shortName>>\
+            The short name of the Open Search short name.
+
+        []
+
+        * <<beans>>/<<config>>/<<server>>/<<openSearch>>/<<description>>\
+            The short name of the Open Search description document.
+
+        []
+
+        * <<beans>>/<<config>>/<<tasks>>\
+            The container element for configuring MadStore tasks.
+
+        []
+
+        * <<beans>>/<<config>>/<<tasks>>/<<task>>\
+            The configuration of the task to execute.\
+            It provides the following attributes:
+
+                * <name>: the name of the task itself.
+
+            There can be one or more <task> elements, each one for a different task to execute.\
+            Right now, MadStore provides the following two tasks:
+
+                * <crawlerTask>: the task triggering the crawler process.
+
+                * <cleanHistoryTask>: the task triggering the clean up of older stored Atom entries.
+
+        []
+
+        * <<beans>>/<<config>>/<<tasks>>/<<task>>/<<simpleTrigger>>\
+            The configuration for triggering the task execution.
+
+        []
+
+        * <<beans>>/<<config>>/<<tasks>>/<<task>>/<<simpleTrigger>>/<<startDelay>>\
+            The number of minutes the crawler process is started for the first time
+            after application startup (0 for immediate).
+
+        []
+
+        * <<beans>>/<<config>>/<<tasks>>/<<task>>/<<simpleTrigger>>/<<repeatInterval>>\
+            The interval in minutes between crawler executions.
+
+        []
+
+    Here is a simple example:
+
+---
+<beans
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns="http://www.springframework.org/schema/beans"
+xmlns:mds="http://www.pronetics.com/schema/madstore"
+xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+http://www.pronetics.com/schema/madstore
+http://www.pronetics.com/schema/madstore/madstore.xsd">
+    <mds:config>
+        <mds:crawler>
+            <mds:grid-enabled localAddress="192.168.1.1"/>
+            <mds:targetSite>
+                <mds:hostName>http://127.0.0.1:8080</mds:hostName>
+                <mds:startLink>/index.html</mds:startLink>
+                <mds:maxConcurrentDownloads>3</mds:maxConcurrentDownloads>
+                <mds:maxVisitedLinks>100</mds:maxVisitedLinks>
+            </mds:targetSite>
+        </mds:crawler>
+        <mds:repository>
+            <mds:maxHistory>100</mds:maxHistory>
+            <mds:index>
+                <mds:indexedPropertiesNamespaces>
+                    <mds:namespace prefix="atom" url="http://www.w3.org/2005/Atom" />
+                </mds:indexedPropertiesNamespaces>
+                <mds:indexedProperties>
+                    <mds:property name="title">
+                        <mds:xpath>//atom:entry/atom:title</mds:xpath>
+                        <mds:boost>1</mds:boost>
+                    </mds:property>
+                    <mds:property name="summary">
+                        <mds:xpath>//atom:entry/atom:summary</mds:xpath>
+                        <mds:boost>1</mds:boost>
+                    </mds:property>
+                    <mds:property name="category">
+                        <mds:xpath>//atom:entry/atom:category/@term</mds:xpath>
+                        <mds:boost>1</mds:boost>
+                    </mds:property>
+                </mds:indexedProperties>
+            </mds:index>
+        </mds:repository>
+        <mds:server>
+            <mds:httpCache-enabled max-age="10"/>
+            <mds:atomPub>
+                <mds:workspace>MadStore</mds:workspace>
+            </mds:atomPub>
+            <mds:openSearch>
+                <mds:shortName>MadStore Search</mds:shortName>
+                <mds:description>My MadStore Search</mds:description>
+            </mds:openSearch>
+        </mds:server>
+        <mds:tasks>
+            <mds:task name="crawlerTask">
+                <mds:simpleTrigger>
+                    <mds:startDelay>0</mds:startDelay>
+                    <mds:repeatInterval>30</mds:repeatInterval>
+                </mds:simpleTrigger>
+            </mds:task>
+            <mds:task name="cleanRepositoryHistoryTask">
+                <mds:simpleTrigger>
+                    <mds:startDelay>60</mds:startDelay>
+                    <mds:repeatInterval>60</mds:repeatInterval>
+                </mds:simpleTrigger>
+            </mds:task>
+        </mds:tasks>
+    </mds:config>
+</beans>
+---
+
+    Let's take a look in more details at the sample configuration.
+
+---
+<mds:crawler>
+    <mds:grid-enabled localAddress="192.168.1.1"/>
+    <mds:targetSite>
+        <mds:hostName>http://127.0.0.1:8080</mds:hostName>
+        <mds:startLink>/index.html</mds:startLink>
+        <mds:maxConcurrentDownloads>3</mds:maxConcurrentDownloads>
+        <mds:maxVisitedLinks>100</mds:maxVisitedLinks>
+    </mds:targetSite>
+</mds:crawler>
+---
+
+    Here, we are telling the MadStore crawler to crawl the <http://127.0.0.1:8080> host, starting from the <index.html> page,
+    with a maximum number of 3 requests per second, and a maximum number of 100 visited links (pages).\
+    We're using the distributed grid crawler, bound to the 192.168.1.1 local address.
+
+---
+<mds:repository>
+    <mds:maxHistory>100</mds:maxHistory>
+    <mds:index>
+        <mds:indexedPropertiesNamespaces>
+            <mds:namespace prefix="atom" url="http://www.w3.org/2005/Atom" />
+        </mds:indexedPropertiesNamespaces>
+        <mds:indexedProperties>
+            <mds:property name="title">
+                <mds:xpath>//atom:entry/atom:title</mds:xpath>
+                <mds:boost>1</mds:boost>
+            </mds:property>
+            <mds:property name="summary">
+                <mds:xpath>//atom:entry/atom:summary</mds:xpath>
+                <mds:boost>1</mds:boost>
+            </mds:property>
+            <mds:property name="category">
+                <mds:xpath>//atom:entry/atom:category/@term</mds:xpath>
+                <mds:boost>1</mds:boost>
+            </mds:property>
+        </mds:indexedProperties>
+    </mds:index>
+</mds:repository>
+---
+
+    The snippet above refers instead to the MadStore repository index. Please note, in particular, the indexed properties configuration:
+    here, we are indexing each Atom entry title, summary and category term, all referred through simple xpath expressions.
+
+---
+<mds:server>
+    <mds:httpCache-enabled max-age="10"/>
+    <mds:os>
+        <mds:shortName>MadStore Search</mds:shortName>
+        <mds:description>My MadStore Search</mds:description>
+    </mds:os>
+    <mds:app>
+        <mds:workspace>MadStore</mds:workspace>
+    </mds:app>
+</mds:server>
+---
+
+    The snippet above is dead simple: just a bunch of configuration strings for the Atom Publishing Protocol service
+    document and Open Search description document.\
+    The most important thing there is the (optional) <httpCache-enabled> element, enabling explicit client-side HTTP caching
+    (see {{{http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9}here}}).
+
+---
+<mds:tasks>
+    <mds:task name="crawlerTask">
+        <mds:simpleTrigger>
+            <mds:startDelay>0</mds:startDelay>
+            <mds:repeatInterval>30</mds:repeatInterval>
+        </mds:simpleTrigger>
+    </mds:task>
+    <mds:task name="cleanRepositoryHistoryTask">
+        <mds:simpleTrigger>
+            <mds:startDelay>60</mds:startDelay>
+            <mds:repeatInterval>60</mds:repeatInterval>
+        </mds:simpleTrigger>
+    </mds:task>
+</mds:tasks>
+---
+
+    Finally, the snippet above configures the triggering of two MadStore tasks: the <crawlerTask>, immediately starting and repeating
+    every 60 minutes, and the <cleanHistoryTask>, starting after 60 minutes and repeating every 60 minutes as well.
+
+    That's all!

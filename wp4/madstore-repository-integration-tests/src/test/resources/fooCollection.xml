@@ -1,0 +1,3 @@
+<app:collection xmlns:app="http://www.w3.org/2007/app" xmlns:atom="http://www.w3.org/2005/Atom" key="foocollection" href="http://www.example.org/blog/entries">
+    <atom:title type="text">fooCollection</atom:title>
+</app:collection>

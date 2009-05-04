@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:util="http://www.springframework.org/schema/util"
+    xsi:schemaLocation="
+http://www.springframework.org/schema/beans 
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+http://www.springframework.org/schema/tx 
+http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+http://www.springframework.org/schema/aop 
+http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+http://www.springframework.org/schema/util 
+http://www.springframework.org/schema/util/spring-util-2.0.xsd">
+
+    <!-- Configurations -->
+    <bean id="homeDir" class="it.pronetics.madstore.repository.spring.HomeDirFactoryBean" />
+    <bean id="username" class="it.pronetics.madstore.repository.spring.UsernameFactoryBean" />
+    <bean id="password" class="it.pronetics.madstore.repository.spring.PasswordFactoryBean" />
+    <bean id="indexFolder" class="it.pronetics.madstore.repository.spring.IndexFolderFactoryBean" />
+    <bean id="indexedProperties" class="it.pronetics.madstore.repository.spring.IndexedPropertiesFactoryBean" />
+    <bean id="maxHistory" class="it.pronetics.madstore.repository.spring.MaxHistoryFactoryBean" />
+
+    <!-- Namespaces -->
+    <util:map id="allowedNamespaces" map-class="java.util.Hashtable">
+        <entry key="mds" value="http://www.pronetics.it/madstore/ns" />
+        <entry key="atom" value="http://www.w3.org/2005/Atom" />
+        <entry key="app" value="http://www.w3.org/2007/app" />
+        <entry key="xhtml" value="http://www.w3.org/1999/xhtml" />
+    </util:map>
+
+    <!-- Indexing -->
+    <bean id="directoryFactory" class="it.pronetics.madstore.repository.index.impl.LuceneFSDirectoryFactory">
+        <constructor-arg ref="indexFolder" />
+    </bean>
+    <bean id="indexManager" class="it.pronetics.madstore.repository.index.impl.LuceneIndexManager">
+        <constructor-arg index="0" ref="directoryFactory" />
+        <constructor-arg index="1" ref="indexedProperties" />
+    </bean>
+
+    <!-- Repositories -->
+    <bean id="collectionRepository" class="it.pronetics.madstore.repository.jcr.impl.JcrCollectionRepository">
+        <property name="jcrTemplate" ref="jcrTemplate" />
+        <property name="jcrContentHandlerFactory" ref="jcrContentHandlerFactory" />
+        <property name="indexManager" ref="indexManager" />
+    </bean>
+    <bean id="entryRepository" class="it.pronetics.madstore.repository.jcr.impl.JcrEntryRepository">
+        <property name="jcrTemplate" ref="jcrTemplate" />
+        <property name="jcrContentHandlerFactory" ref="jcrContentHandlerFactory" />
+        <property name="indexManager" ref="indexManager" />
+    </bean>
+
+    <bean name="cleanRepositoryHistory" class="it.pronetics.madstore.repository.tasks.CleanRepositoryHistoryTask">
+        <constructor-arg ref="maxHistory" />
+        <property name="entryRepository" ref="entryRepository" />
+        <property name="collectionRepository" ref="collectionRepository" />
+    </bean>
+
+    <bean name="cleanRepositoryHistoryTask" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="cleanRepositoryHistory" />
+        <property name="targetMethod" value="clean" />
+        <property name="concurrent" value="false" />
+    </bean>
+
+    <!-- JCR storage -->
+    <bean id="jcrContentHandlerFactory" class="it.pronetics.madstore.repository.jcr.xml.JcrAtomContentHandlerFactory">
+        <property name="allowedNamespaces" ref="allowedNamespaces" />
+    </bean>
+    <bean id="jcrTemplate" class="org.springmodules.jcr.JcrTemplate">
+        <property name="sessionFactory" ref="jcrSessionFactory" />
+        <property name="allowCreate" value="true" />
+    </bean>
+    <bean id="jcrSessionFactory" class="org.springmodules.jcr.JcrSessionFactory">
+        <property name="repository" ref="jcrRepository" />
+        <property name="credentials">
+            <bean class="javax.jcr.SimpleCredentials">
+                <constructor-arg index="0" ref="username" />
+                <constructor-arg index="1" ref="password" />
+            </bean>
+        </property>
+        <property name="namespaces" ref="allowedNamespaces" />
+    </bean>
+    <bean id="jcrRepository" class="org.springmodules.jcr.jackrabbit.RepositoryFactoryBean">
+        <property name="configuration" value="classpath:jackrabbit/defaultRepository.xml" />
+        <property name="homeDir" ref="homeDir" />
+    </bean>
+
+    <!-- JCR transactions -->
+    <bean id="jcrTransactionManager" class="org.springmodules.jcr.jackrabbit.LocalTransactionManager">
+        <property name="sessionFactory" ref="jcrSessionFactory" />
+    </bean>
+    <tx:annotation-driven transaction-manager="jcrTransactionManager" />
+</beans>

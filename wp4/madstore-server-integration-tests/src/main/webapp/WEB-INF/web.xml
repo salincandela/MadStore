@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="   http://java.sun.com/xml/ns/j2ee   http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:commonApplicationContext.xml,
+        classpath:serverApplicationContext.xml,
+        classpath:repositoryApplicationContext.xml
+        </param-value>
+    </context-param>
+    <listener>
+        <listener-class>org.jboss.resteasy.plugins.server.servlet.ResteasyBootstrap</listener-class>
+    </listener>
+    <listener>
+        <listener-class>org.jboss.resteasy.plugins.spring.SpringContextLoaderListener</listener-class>
+    </listener>
+    <servlet id="DataLoader">
+        <servlet-name>DataLoader</servlet-name>
+        <servlet-class>it.pronetics.madstore.server.test.servlet.DataServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet id="MadStore">
+        <servlet-name>MadStore</servlet-name>
+        <servlet-class>org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher</servlet-class>
+    </servlet>
+    <servlet-mapping id="MadStore-mapping">
+        <servlet-name>MadStore</servlet-name>
+        <url-pattern>/*</url-pattern>
+    </servlet-mapping>
+</web-app>

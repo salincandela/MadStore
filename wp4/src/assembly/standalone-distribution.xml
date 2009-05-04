@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assembly>
+    <id>standalone-dist</id>
+    <formats>
+        <format>zip</format>
+    </formats>
+    <baseDirectory>madstore-standalone-dist-${project.version}</baseDirectory>
+    <fileSets>
+        <fileSet>
+            <includes>
+                <include>gridgain/*</include>
+                <include>conf/*</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>madstore-app/target</directory>
+            <outputDirectory>standalone</outputDirectory>
+            <includes>
+                <include>*standalone.jar</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>madstore-gridnode/target</directory>
+            <outputDirectory>standalone</outputDirectory>
+            <includes>
+                <include>*standalone.jar</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <outputDirectory>sources</outputDirectory>
+            <excludes>
+                <exclude>**/target/**</exclude>
+                <exclude>target/**</exclude>
+                <exclude>gridgain/**</exclude>
+                <exclude>conf/**</exclude>
+                <exclude>src/site/**</exclude>
+                <exclude>delete-test-data.xml</exclude>
+                <exclude>header.txt</exclude>
+            </excludes>
+        </fileSet>
+    </fileSets>
+</assembly>

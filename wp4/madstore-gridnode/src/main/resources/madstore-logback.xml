@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="StandardAppender" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>%date [%thread] %-5level %logger{35} - %msg%n</Pattern>
+        </layout>
+    </appender>
+    <appender name="StandardFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>./logs/madstore.log</File>
+         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+         <FileNamePattern>./logs/madstore.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <!-- keep 30 days worth of history -->
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>
+        <Append>true</Append>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</Pattern>
+         </layout>
+    </appender>
+
+
+    <appender name="MadStoreConfigurationAppender"  class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>%msg%n</Pattern>
+        </layout>
+    </appender>
+    <appender name="MadStoreConfigurationFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>./logs/madstore.log</File>
+         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+         <FileNamePattern>./logs/madstore.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <!-- keep 30 days worth of history -->
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>
+        <Append>true</Append>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>%msg%n</Pattern>
+         </layout>
+      </appender>
+
+    <root>
+        <level value="WARN" />
+    </root>
+
+    <logger name="it.pronetics.madstore.crawler">
+        <level value="INFO" />
+        <appender-ref ref="StandardAppender" />
+        <appender-ref ref="StandardFileAppender" />
+    </logger>
+
+    <logger name="it.pronetics.madstore.repository">
+        <level value="INFO" />
+        <appender-ref ref="StandardAppender" />
+        <appender-ref ref="StandardFileAppender" />
+    </logger>
+
+    <logger name="it.pronetics.madstore.server">
+        <level value="INFO" />
+        <appender-ref ref="StandardAppender" />
+        <appender-ref ref="StandardFileAppender" />
+    </logger>
+
+    <logger name="it.pronetics.madstore.common.configuration.servlet.MadStoreConfigurationServletListener">
+        <level value="INFO" />
+        <appender-ref ref="MadStoreConfigurationAppender" />
+        <appender-ref ref="MadStoreConfigurationFileAppender" />
+    </logger>
+</configuration>
