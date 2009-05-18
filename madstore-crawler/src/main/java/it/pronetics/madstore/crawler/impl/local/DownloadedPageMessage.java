@@ -16,27 +16,21 @@
 package it.pronetics.madstore.crawler.impl.local;
 
 import it.pronetics.madstore.crawler.model.Page;
-import java.util.Map;
 
 /**
- * {@link ActorMessage} implementation notifying the download of a page.
+ * Message implementation notifying the download of a page.
  *
  * @author Sergio Bossa
  */
-public class DownloadedPageMessage extends AbstractActorMessage {
+public class DownloadedPageMessage {
 
     private final Page page;
 
-    public DownloadedPageMessage(Map<Class, Actor> actorsTopology, Page page) {
-        super(actorsTopology);
+    public DownloadedPageMessage(Page page) {
         this.page = page;
     }
 
     public Page getPage() {
         return page;
-    }
-
-    public void executeOn(ParserActor actor) {
-        actor.parsePage(this);
     }
 }

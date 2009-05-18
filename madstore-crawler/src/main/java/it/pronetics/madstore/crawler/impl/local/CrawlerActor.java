@@ -15,15 +15,17 @@
  */
 package it.pronetics.madstore.crawler.impl.local;
 
+import com.googlecode.actorom.Actor;
+import com.googlecode.actorom.Address;
+import com.googlecode.actorom.KillActorException;
+import com.googlecode.actorom.Topology;
+import com.googlecode.actorom.annotation.OnMessage;
+import com.googlecode.actorom.annotation.TopologyInstance;
 import it.pronetics.madstore.crawler.model.Link;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import org.jetlang.channels.Channel;
-import org.jetlang.channels.MemoryChannel;
-import org.jetlang.core.Callback;
-import org.jetlang.fibers.Fiber;
-import org.jetlang.fibers.ThreadFiber;
+import java.util.concurrent.CountDownLatch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,14 +34,15 @@ import org.slf4j.LoggerFactory;
  *
  * @author Sergio Bossa
  */
-public class CrawlerActor implements Actor {
+public class CrawlerActor {
 
     private static final transient Logger LOG = LoggerFactory.getLogger(CrawlerActor.class);
     //
-    private final Channel<ActorMessage> crawlerChannel = new MemoryChannel<ActorMessage>();
-    private final Fiber crawlerFiber = new ThreadFiber();
-    private final Object finishMonitor = new Object();
-    private volatile boolean finished = false;
+    @TopologyInstance
+    private Topology actorsTopology;
+    private Address downloaderAddress;
+    //
+    private CountDownLatch finishLatch;
     //
     private final Map<String, Link> visitedLinks = new HashMap<String, Link>();
     private final Map<String, Link> toParseLinks = new HashMap<String, Link>();
@@ -50,50 +53,23 @@ public class CrawlerActor implements Actor {
         this.maxVisitedLinks = maxVisitedLinks;
     }
 
-    public void start() {
-        crawlerChannel.subscribe(crawlerFiber, new Callback<ActorMessage>() {
-
-            public void onMessage(ActorMessage message) {
-                try {
-                    message.executeOn(CrawlerActor.this);
-                } catch (Exception ex) {
-                    LOG.error(ex.getMessage(), ex);
-                    finish();
-                }
-            }
-        });
-        crawlerFiber.start();
-    }
-
-    public void send(ActorMessage message) {
-        crawlerChannel.publish(message);
-    }
-
-    public void join() throws InterruptedException {
-        synchronized (finishMonitor) {
-            while (!finished) {
-                finishMonitor.wait();
-            }
-        }
-    }
-
-    public void stop() {
-        finish();
-        crawlerFiber.dispose();
-    }
-
-    void startCrawling(DownloadLinkMessage message) {
+    @OnMessage(type=StartCrawlingMessage.class)
+    public void startCrawling(StartCrawlingMessage message) {
+        downloaderAddress = message.getDownloaderAddress();
+        finishLatch = message.getFinishLatch();
         visitedLinks.clear();
         toParseLinks.clear();
-        sendDownloadLinkMessage(message.getActorsTopology(), message.getLink());
+        sendDownloadLinkMessage(message.getLink());
+        
     }
 
-    void crawlLinks(OutgoingLinksMessage message) {
+    @OnMessage(type=OutgoingLinksMessage.class)
+    public void crawlLinks(OutgoingLinksMessage message) {
         Collection<Link> outgoingLinks = message.getOutgoingLinks();
         for (Link outgoingLink : outgoingLinks) {
             if (((visitedLinksCounter < maxVisitedLinks)) && (!visitedLinks.containsKey(outgoingLink.getLink()))) {
                 LOG.info("Crawling link-{}: {}", visitedLinksCounter, outgoingLink);
-                sendDownloadLinkMessage(message.getActorsTopology(), outgoingLink);
+                sendDownloadLinkMessage(outgoingLink);
                 ++visitedLinksCounter;
             }
         }
@@ -101,28 +77,21 @@ public class CrawlerActor implements Actor {
         if (toParseLinks.isEmpty()) {
             visitedLinks.clear();
             toParseLinks.clear();
-            finish();
+            finishCrawling();
         }
     }
 
-    void stopOnError(Throwable error) {
-        LOG.error(error.getMessage(), error);
-        finish();
-    }
-
-    private void sendDownloadLinkMessage(Map<Class, Actor> actorsTopology, Link link) {
-        Actor actor = actorsTopology.get(DownloaderActor.class);
-        ActorMessage message = new DownloadLinkMessage(actorsTopology, link);
+    private void sendDownloadLinkMessage(Link link) {
+        Actor downloader = actorsTopology.getActor(downloaderAddress);
+        DownloadLinkMessage message = new DownloadLinkMessage(link);
         visitedLinks.put(link.getLink(), link);
         toParseLinks.put(link.getLink(), link);
-        actor.send(message);
+        downloader.send(message);
 
     }
 
-    private void finish() {
-        synchronized (finishMonitor) {
-            finished = true;
-            finishMonitor.notifyAll();
-        }
+    private void finishCrawling() {
+        finishLatch.countDown();
+        throw new KillActorException();
     }
 }

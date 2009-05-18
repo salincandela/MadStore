@@ -15,17 +15,16 @@
  */
 package it.pronetics.madstore.crawler.impl.local;
 
+import com.googlecode.actorom.Actor;
+import com.googlecode.actorom.Address;
+import com.googlecode.actorom.Topology;
+import com.googlecode.actorom.annotation.OnMessage;
+import com.googlecode.actorom.annotation.TopologyInstance;
 import it.pronetics.madstore.crawler.model.Link;
 import it.pronetics.madstore.crawler.model.Page;
 import it.pronetics.madstore.crawler.parser.Parser;
 import it.pronetics.madstore.crawler.parser.filter.impl.ServerFilter;
 import java.util.Collection;
-import java.util.concurrent.Executors;
-import org.jetlang.channels.Channel;
-import org.jetlang.channels.MemoryChannel;
-import org.jetlang.core.Callback;
-import org.jetlang.fibers.Fiber;
-import org.jetlang.fibers.PoolFiberFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,56 +33,31 @@ import org.slf4j.LoggerFactory;
  *
  * @author Sergio Bossa
  */
-public class ParserActor implements Actor {
+public class ParserActor {
 
     private static final transient Logger LOG = LoggerFactory.getLogger(ParserActor.class);
     //
-    private final Channel<ActorMessage> parserChannel = new MemoryChannel<ActorMessage>();
-    private final Fiber parserFiber;
+    @TopologyInstance
+    private Topology actorsTopology;
+    //
+    private final Address processorAddress;
     //
     private final Parser parser;
 
-    public ParserActor(Parser parser) {
+    public ParserActor(Parser parser, Address processorAddress) {
         this.parser = parser;
-        this.parserFiber = new PoolFiberFactory(Executors.newCachedThreadPool()).create();
+        this.processorAddress = processorAddress;
     }
 
-    public void start() {
-        parserChannel.subscribe(parserFiber, new Callback<ActorMessage>() {
-
-            public void onMessage(ActorMessage message) {
-                try {
-                    message.executeOn(ParserActor.this);
-                } catch (Exception ex) {
-                    LOG.error(ex.getMessage(), ex);
-                    Actor crawlerActor = message.getActorsTopology().get(CrawlerActor.class);
-                    crawlerActor.send(new ErrorMessage(message.getActorsTopology(), ex));
-                }
-            }
-        });
-        parserFiber.start();
-    }
-
-    public void stop() {
-        parserFiber.dispose();
-    }
-
-    public void join() {
-        return;
-    }
-
-    public void send(ActorMessage message) {
-        parserChannel.publish(message);
-    }
-
-    void parsePage(DownloadedPageMessage downloadedPageMessage) {
+    @OnMessage(type = DownloadedPageMessage.class)
+    public void parsePage(DownloadedPageMessage downloadedPageMessage) {
         Page page = downloadedPageMessage.getPage();
         Link sourceLink = page.getLink();
         Collection<Link> outgoingLinks = parser.parse(page, new ServerFilter(page.getLink()));
         LOG.info("Parsed page at: {}", sourceLink);
         LOG.info("Outgoing links: {}", outgoingLinks);
-        ParsedPageMessage parsedPageMessage = new ParsedPageMessage(downloadedPageMessage.getActorsTopology(), page, outgoingLinks);
-        Actor processorActor = downloadedPageMessage.getActorsTopology().get(ProcessorActor.class);
+        ParsedPageMessage parsedPageMessage = new ParsedPageMessage(page, outgoingLinks);
+        Actor processorActor = actorsTopology.getActor(processorAddress);
         processorActor.send(parsedPageMessage);
     }
 }

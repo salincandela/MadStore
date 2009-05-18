@@ -15,17 +15,16 @@
  */
 package it.pronetics.madstore.crawler.impl.local;
 
+import com.googlecode.actorom.Actor;
+import com.googlecode.actorom.Address;
+import com.googlecode.actorom.Topology;
+import com.googlecode.actorom.annotation.OnMessage;
+import com.googlecode.actorom.annotation.TopologyInstance;
 import it.pronetics.madstore.crawler.Pipeline;
 import it.pronetics.madstore.crawler.model.Link;
 import it.pronetics.madstore.crawler.model.Page;
 import it.pronetics.madstore.crawler.publisher.AtomPublisher;
 import java.util.Collection;
-import java.util.concurrent.Executors;
-import org.jetlang.channels.Channel;
-import org.jetlang.channels.MemoryChannel;
-import org.jetlang.core.Callback;
-import org.jetlang.fibers.Fiber;
-import org.jetlang.fibers.PoolFiberFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,51 +33,26 @@ import org.slf4j.LoggerFactory;
  *
  * @author Sergio Bossa
  */
-public class ProcessorActor implements Actor {
+public class ProcessorActor {
 
     private static final transient Logger LOG = LoggerFactory.getLogger(ProcessorActor.class);
     //
-    private final Channel<ActorMessage> processorChannel = new MemoryChannel<ActorMessage>();
-    private final Fiber processorFiber;
+    @TopologyInstance
+    private Topology actorsTopology;
+    //
+    private final Address crawlerAddress;
     //
     private final AtomPublisher publisher;
     private final Pipeline pipeline;
 
-    public ProcessorActor(AtomPublisher publisher, Pipeline pipeline) {
+    public ProcessorActor(AtomPublisher publisher, Pipeline pipeline, Address crawlerAddress) {
         this.publisher = publisher;
         this.pipeline = pipeline;
-        this.processorFiber = new PoolFiberFactory(Executors.newCachedThreadPool()).create();
+        this.crawlerAddress = crawlerAddress;
     }
 
-    public void start() {
-        processorChannel.subscribe(processorFiber, new Callback<ActorMessage>() {
-
-            public void onMessage(ActorMessage message) {
-                try {
-                    message.executeOn(ProcessorActor.this);
-                } catch (Exception ex) {
-                    LOG.error(ex.getMessage(), ex);
-                    Actor crawlerActor = message.getActorsTopology().get(CrawlerActor.class);
-                    crawlerActor.send(new ErrorMessage(message.getActorsTopology(), ex));
-                }
-            }
-        });
-        processorFiber.start();
-    }
-
-    public void stop() {
-        processorFiber.dispose();
-    }
-
-    public void join() {
-        return;
-    }
-
-    public void send(ActorMessage message) {
-        processorChannel.publish(message);
-    }
-
-    void processPage(ParsedPageMessage parsedPageMessage) {
+    @OnMessage(type=ParsedPageMessage.class)
+    public void processPage(ParsedPageMessage parsedPageMessage) {
         Page page = parsedPageMessage.getPage();
         Link sourceLink = page.getLink();
         Collection<Link> outgoingLinks = parsedPageMessage.getOutgoingLinks();
@@ -89,8 +63,8 @@ public class ProcessorActor implements Actor {
         } else {
             LOG.info("Page at {} will not be published!", sourceLink);
         }
-        OutgoingLinksMessage outgoingLinksMessage = new OutgoingLinksMessage(parsedPageMessage.getActorsTopology(), sourceLink, outgoingLinks);
-        Actor crawlerActor = parsedPageMessage.getActorsTopology().get(CrawlerActor.class);
+        OutgoingLinksMessage outgoingLinksMessage = new OutgoingLinksMessage(sourceLink, outgoingLinks);
+        Actor crawlerActor = actorsTopology.getActor(crawlerAddress);
         crawlerActor.send(outgoingLinksMessage);
     }
 }

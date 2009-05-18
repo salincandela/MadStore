@@ -15,6 +15,11 @@
  */
 package it.pronetics.madstore.crawler.impl.local;
 
+import com.googlecode.actorom.Actor;
+import com.googlecode.actorom.Address;
+import com.googlecode.actorom.Topology;
+import com.googlecode.actorom.local.LocalTopology;
+import com.googlecode.actorom.support.ThreadingPolicies;
 import it.pronetics.madstore.crawler.Pipeline;
 import it.pronetics.madstore.crawler.downloader.Downloader;
 import it.pronetics.madstore.crawler.impl.CrawlerTask;
@@ -23,8 +28,7 @@ import it.pronetics.madstore.crawler.model.Link;
 import it.pronetics.madstore.crawler.parser.Parser;
 
 import it.pronetics.madstore.crawler.publisher.AtomPublisher;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.concurrent.CountDownLatch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,6 +47,7 @@ import org.slf4j.LoggerFactory;
 public class LocalCrawlerTask implements CrawlerTask {
 
     private static final transient Logger LOG = LoggerFactory.getLogger(LocalCrawlerTask.class);
+    //
     private final Downloader downloader;
     private final Parser parser;
     private final AtomPublisher publisher;
@@ -60,57 +65,33 @@ public class LocalCrawlerTask implements CrawlerTask {
     }
 
     public void execute(Link startLink) {
+        Topology actorsTopology = new LocalTopology(ThreadingPolicies.newOSThreadingPolicy(4));
         try {
-            CrawlerActor crawlerActor = startCrawlerActor();
-            DownloaderActor downloaderActor = startDownloaderActor();
-            ParserActor parserActor = startParserActor();
-            ProcessorActor processorActor = startProcessorActor();
-            //
             LOG.info("Crawling process started from {}", startLink);
-            Map<Class, Actor> actorsTopology = new HashMap<Class, Actor>();
-            actorsTopology.put(CrawlerActor.class, crawlerActor);
-            actorsTopology.put(DownloaderActor.class, downloaderActor);
-            actorsTopology.put(ParserActor.class, parserActor);
-            actorsTopology.put(ProcessorActor.class, processorActor);
-            DownloadLinkMessage startLinkMessage = new DownloadLinkMessage(actorsTopology, startLink);
-            crawlerActor.send(startLinkMessage);
-            crawlerActor.join();
+
+            Address crawlerAddress = actorsTopology.spawnActor(CrawlerActor.class.toString(), new CrawlerActor(maxVisitedLinks));
+            Address processorAddress = actorsTopology.spawnActor(ProcessorActor.class.toString(), new ProcessorActor(publisher, pipeline, crawlerAddress));
+            Address parserAddress = actorsTopology.spawnActor(ParserActor.class.toString(), new ParserActor(parser, processorAddress));
+            Address downloaderAddress = actorsTopology.spawnActor(DownloaderActor.class.toString(), new DownloaderActor(maxConcurrentDownloads, downloader, crawlerAddress, parserAddress));
+
+            Actor crawlerActor = actorsTopology.getActor(crawlerAddress);
+            Actor downloaderActor = actorsTopology.getActor(downloaderAddress);
+            Actor parserActor = actorsTopology.getActor(parserAddress);
+            Actor processorActor = actorsTopology.getActor(processorAddress);
+
+            crawlerActor.link(downloaderActor);
+            crawlerActor.link(parserActor);
+            crawlerActor.link(processorActor);
+
+            CountDownLatch finishLatch = new CountDownLatch(1);
+            crawlerActor.send(new StartCrawlingMessage(startLink, downloaderAddress, finishLatch));
+            finishLatch.await();
+
             LOG.info("Crawling process stopped!");
-            //
-            stopActor(crawlerActor);
-            stopActor(downloaderActor);
-            stopActor(parserActor);
-            stopActor(processorActor);
-        } catch (InterruptedException ex) {
+        } catch (Exception ex) {
             LOG.error(ex.getMessage(), ex);
+        } finally {
+            actorsTopology.shutdown();
         }
-    }
-
-    private CrawlerActor startCrawlerActor() {
-        CrawlerActor actor = new CrawlerActor(maxVisitedLinks);
-        actor.start();
-        return actor;
-    }
-
-    private DownloaderActor startDownloaderActor() {
-        DownloaderActor actor = new DownloaderActor(downloader, maxConcurrentDownloads);
-        actor.start();
-        return actor;
-    }
-
-    private ParserActor startParserActor() {
-        ParserActor actor = new ParserActor(parser);
-        actor.start();
-        return actor;
-    }
-
-    private ProcessorActor startProcessorActor() {
-        ProcessorActor actor = new ProcessorActor(publisher, pipeline);
-        actor.start();
-        return actor;
-    }
-
-    private void stopActor(Actor actor) {
-        actor.stop();
     }
 }

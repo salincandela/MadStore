@@ -16,31 +16,21 @@
 package it.pronetics.madstore.crawler.impl.local;
 
 import it.pronetics.madstore.crawler.model.Link;
-import java.util.Map;
 
 /**
- * {@link ActorMessage} implementation asking to download a link.
+ * Message implementation asking to download a link.
  *
  * @author Sergio Bossa
  */
-public class DownloadLinkMessage extends AbstractActorMessage {
+public class DownloadLinkMessage {
 
     private final Link link;
 
-    public DownloadLinkMessage(Map<Class, Actor> actorsTopology, Link link) {
-        super(actorsTopology);
+    public DownloadLinkMessage(Link link) {
         this.link = link;
     }
 
     public Link getLink() {
         return link;
-    }
-
-    public void executeOn(CrawlerActor actor) {
-        actor.startCrawling(this);
-    }
-
-    public void executeOn(DownloaderActor actor) {
-        actor.downloadLink(this);
     }
 }

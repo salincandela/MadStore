@@ -19,20 +19,18 @@ import it.pronetics.madstore.crawler.model.Link;
 import it.pronetics.madstore.crawler.model.Page;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Map;
 
 /**
- * {@link ActorMessage} implementation notifying the parsing of a page, and carrying on its outgoing links.
+ * Message implementation notifying the parsing of a page, and carrying on its outgoing links.
  *
  * @author Sergio Bossa
  */
-public class ParsedPageMessage extends AbstractActorMessage {
+public class ParsedPageMessage {
 
     private final Page page;
     private final Collection<Link> outgoingLinks;
 
-    public ParsedPageMessage(Map<Class, Actor> actorsTopology, Page page, Collection<Link> outgoingLinks) {
-        super(actorsTopology);
+    public ParsedPageMessage(Page page, Collection<Link> outgoingLinks) {
         this.page = page;
         this.outgoingLinks = outgoingLinks;
     }
@@ -43,9 +41,5 @@ public class ParsedPageMessage extends AbstractActorMessage {
 
     public Collection<Link> getOutgoingLinks() {
         return Collections.unmodifiableCollection(outgoingLinks);
-    }
-
-    public void executeOn(ProcessorActor actor) {
-        actor.processPage(this);
     }
 }

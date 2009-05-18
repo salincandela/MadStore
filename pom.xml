@@ -194,9 +194,9 @@
                 <version>1.0.2.GA</version>
             </dependency>
             <dependency>
-                <groupId>org.jetlang</groupId>
-                <artifactId>jetlang</artifactId>
-                <version>0.1.7</version>
+                <groupId>com.googlecode.actorom</groupId>
+                <artifactId>actorom</artifactId>
+                <version>0.2</version>
             </dependency>
             <dependency>
                 <groupId>org.gridgain</groupId>
@@ -357,9 +357,9 @@
             <url>http://repository.jboss.org/maven2</url>
         </repository>
         <repository>
-            <id>jetlang.googlecode.com</id>
-            <name>Jetlang Repository for Maven</name>
-            <url>http://jetlang.googlecode.com/svn/repo/</url>
+            <id>actorom-repo</id>
+            <name>Actorom Maven2 Repository</name>
+            <url>http://actorom.googlecode.com/svn/repo</url>
         </repository>
         <repository>
             <id>gridgain.grigainsystem.com</id>

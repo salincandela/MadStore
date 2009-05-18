@@ -15,30 +15,36 @@
  */
 package it.pronetics.madstore.crawler.impl.local;
 
+import com.googlecode.actorom.Address;
 import it.pronetics.madstore.crawler.model.Link;
-import java.util.Collection;
-import java.util.Collections;
+import java.util.concurrent.CountDownLatch;
 
 /**
- * Message implementation carrying on links outgoing from a given source link.
+ * Message implementation for starting the crawling process.
  *
  * @author Sergio Bossa
  */
-public class OutgoingLinksMessage {
+public class StartCrawlingMessage {
 
-    private final Link sourceLink;
-    private final Collection<Link> outgoingLinks;
+    private final Link link;
+    private final Address downloaderAddress;
+    private final CountDownLatch finishLatch;
 
-    public OutgoingLinksMessage(Link sourceLink, Collection<Link> outgoingLinks) {
-        this.sourceLink = sourceLink;
-        this.outgoingLinks = outgoingLinks;
+    public StartCrawlingMessage(Link link, Address downloaderAddress, CountDownLatch finishLatch) {
+        this.link = link;
+        this.downloaderAddress = downloaderAddress;
+        this.finishLatch = finishLatch;
     }
 
-    public Link getSourceLink() {
-        return sourceLink;
+    public Link getLink() {
+        return link;
     }
 
-    public Collection<Link> getOutgoingLinks() {
-        return Collections.unmodifiableCollection(outgoingLinks);
+    public Address getDownloaderAddress() {
+        return downloaderAddress;
+    }
+
+    public CountDownLatch getFinishLatch() {
+        return finishLatch;
     }
 }

@@ -15,23 +15,20 @@
  */
 package it.pronetics.madstore.crawler.impl.local;
 
-import java.util.Map;
-
 /**
- * {@link ActorMessage} implementation reporting an error condition.
+ * Message implementation reporting an error condition.
  *
  * @author Sergio Bossa
  */
-public class ErrorMessage extends AbstractActorMessage {
+public class ErrorMessage {
 
     private final Throwable error;
 
-    public ErrorMessage(Map<Class, Actor> actorsTopology, Throwable error) {
-        super(actorsTopology);
+    public ErrorMessage(Throwable error) {
         this.error = error;
     }
 
-    public void executeOn(CrawlerActor actor) {
-        actor.stopOnError(error);
+    public Throwable getError() {
+        return error;
     }
 }
