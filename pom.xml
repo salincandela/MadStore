@@ -39,7 +39,15 @@
     <scm>
         <connection>scm:svn:https://madstore.svn.sourceforge.net/svnroot/madstore/trunk</connection>
         <developerConnection>scm:svn:https://madstore.svn.sourceforge.net/svnroot/madstore/trunk</developerConnection>
+        <url>https://madstore.svn.sourceforge.net/svnroot/madstore</url>
     </scm>
+    <distributionManagement>
+        <repository>
+            <id>madstore-m2-repo</id>
+            <name>MadStore Maven2 repository</name>
+            <url>svn:http://madstore.sf.net/m2-repo</url>
+        </repository>
+    </distributionManagement>
     <issueManagement>
         <system>Trac</system>
         <url>https://apps.sourceforge.net/trac</url>
@@ -276,6 +284,12 @@
         </dependencies>
     </dependencyManagement>
     <build>
+        <extensions>
+            <extension>
+                <groupId>org.jvnet.wagon-svn</groupId>
+                <artifactId>wagon-svn</artifactId>
+            </extension>
+        </extensions>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -317,6 +331,14 @@
                         <descriptor>src/assembly/standalone-distribution.xml</descriptor>
                         <descriptor>src/assembly/war-distribution.xml</descriptor>
                     </descriptors>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.0-beta-9</version>
+                <configuration>
+                    <tagBase>https://madstore.svn.sourceforge.net/svnroot/madstore/tags/releases</tagBase>
+                    <scmCommentPrefix>[maven-release-plugin] </scmCommentPrefix>
                 </configuration>
             </plugin>
         </plugins>
@@ -374,6 +396,11 @@
             <id>se-jcr-repo</id>
             <name>se-jcr-repo</name>
             <url>https://src.springframework.org/svn/se-jcr/repo/</url>
+        </repository>
+        <repository>
+            <id>java.net-repo</id>
+            <name>java.net-repo</name>
+            <url>http://download.java.net/maven/2/</url>
         </repository>
     </repositories>
     <modules>
