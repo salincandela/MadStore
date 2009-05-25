@@ -34,7 +34,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springmodules.jcr.JcrCallback;
+import org.springframework.extensions.jcr.JcrCallback;
 import org.w3c.dom.Element;
 
 /**

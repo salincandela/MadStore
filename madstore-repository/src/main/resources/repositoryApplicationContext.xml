@@ -63,11 +63,11 @@ http://www.springframework.org/schema/util/spring-util-2.0.xsd">
     <bean id="jcrContentHandlerFactory" class="it.pronetics.madstore.repository.jcr.xml.JcrAtomContentHandlerFactory">
         <property name="allowedNamespaces" ref="allowedNamespaces" />
     </bean>
-    <bean id="jcrTemplate" class="org.springmodules.jcr.JcrTemplate">
+    <bean id="jcrTemplate" class="org.springframework.extensions.jcr.JcrTemplate">
         <property name="sessionFactory" ref="jcrSessionFactory" />
         <property name="allowCreate" value="true" />
     </bean>
-    <bean id="jcrSessionFactory" class="org.springmodules.jcr.JcrSessionFactory">
+    <bean id="jcrSessionFactory" class="org.springframework.extensions.jcr.JcrSessionFactory">
         <property name="repository" ref="jcrRepository" />
         <property name="credentials">
             <bean class="javax.jcr.SimpleCredentials">
@@ -77,13 +77,13 @@ http://www.springframework.org/schema/util/spring-util-2.0.xsd">
         </property>
         <property name="namespaces" ref="allowedNamespaces" />
     </bean>
-    <bean id="jcrRepository" class="org.springmodules.jcr.jackrabbit.RepositoryFactoryBean">
+    <bean id="jcrRepository" class="org.springframework.extensions.jcr.jackrabbit.RepositoryFactoryBean">
         <property name="configuration" value="classpath:jackrabbit/defaultRepository.xml" />
         <property name="homeDir" ref="homeDir" />
     </bean>
 
     <!-- JCR transactions -->
-    <bean id="jcrTransactionManager" class="org.springmodules.jcr.jackrabbit.LocalTransactionManager">
+    <bean id="jcrTransactionManager" class="org.springframework.extensions.jcr.jackrabbit.LocalTransactionManager">
         <property name="sessionFactory" ref="jcrSessionFactory" />
     </bean>
     <tx:annotation-driven transaction-manager="jcrTransactionManager" />

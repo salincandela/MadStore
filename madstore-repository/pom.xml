@@ -25,8 +25,8 @@
             <artifactId>spring</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springmodules</groupId>
-            <artifactId>spring-modules-jcr</artifactId>
+            <groupId>org.springframework</groupId>
+            <artifactId>se-jcr</artifactId>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
